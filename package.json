@@ -1,0 +1,9 @@
+{
+  "name": "rimxsd",
+  "scripts": {
+    "dev": "bun run index.html"
+  },
+  "dependencies": {
+    "@types/bun": "^1.2.18"
+  }
+}

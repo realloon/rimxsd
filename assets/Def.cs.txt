@@ -1,0 +1,144 @@
+// Decompiled with JetBrains decompiler
+// Type: Verse.Def
+// Assembly: Assembly-CSharp, Version=1.5.9214.33606, Culture=neutral, PublicKeyToken=null
+// MVID: 630E2863-BC9A-4A34-93F2-EFF01E3A9556
+// Assembly location: C:\Program Files (x86)\Steam\steamapps\common\RimWorld\RimWorldWin64_Data\Managed\Assembly-CSharp.dll
+
+using RimWorld;
+using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
+
+#nullable disable
+namespace Verse;
+
+public class Def : Editable
+{
+  [Description("The name of this Def. It is used as an identifier by the game code.")]
+  [NoTranslate]
+  public string defName = "UnnamedDef";
+  [Description("A human-readable label used to identify this in game.")]
+  [DefaultValue(null)]
+  [MustTranslate]
+  public string label;
+  [Description("A human-readable description given when the Def is inspected by players.")]
+  [DefaultValue(null)]
+  [MustTranslate]
+  public string description;
+  [XmlInheritanceAllowDuplicateNodes]
+  public List<DefHyperlink> descriptionHyperlinks;
+  [Description("Disables config error checking. Intended for mod use. (Be careful!)")]
+  [DefaultValue(false)]
+  [MustTranslate]
+  public bool ignoreConfigErrors;
+  public bool ignoreIllegalLabelCharacterConfigError;
+  [Description("Mod-specific data. Not used by core game code.")]
+  [DefaultValue(null)]
+  public List<DefModExtension> modExtensions;
+  [Unsaved(false)]
+  public ushort shortHash;
+  [Unsaved(false)]
+  public ushort index = ushort.MaxValue;
+  [Unsaved(false)]
+  public ModContentPack modContentPack;
+  [Unsaved(false)]
+  public string fileName;
+  [Unsaved(false)]
+  protected TaggedString cachedLabelCap = (TaggedString) (string) null;
+  [Unsaved(false)]
+  public bool generated;
+  [Unsaved(false)]
+  public ushort debugRandomId = (ushort) Rand.RangeInclusive(0, (int) ushort.MaxValue);
+  public const string DefaultDefName = "UnnamedDef";
+  private static readonly Regex AllowedDefNamesRegex = new Regex("^[a-zA-Z0-9\\-_]*$");
+  private static readonly Regex DisallowedLabelCharsRegex = new Regex("\\[|\\]|\\{|\\}");
+
+  public virtual TaggedString LabelCap
+  {
+    get
+    {
+      if (this.label.NullOrEmpty())
+        return (TaggedString) (string) null;
+      if (this.cachedLabelCap.NullOrEmpty())
+        this.cachedLabelCap = (TaggedString) this.label.CapitalizeFirst();
+      return this.cachedLabelCap;
+    }
+  }
+
+  public virtual IEnumerable<StatDrawEntry> SpecialDisplayStats(StatRequest req)
+  {
+    if (this.modContentPack != null && !this.modContentPack.IsCoreMod)
+    {
+      TaggedString taggedString = this.modContentPack.IsOfficialMod ? "Stat_Source_OfficialExpansionReport".Translate() : "Stat_Source_ModReport".Translate();
+      yield return new StatDrawEntry(StatCategoryDefOf.Source, (string) "Stat_Source_Label".Translate(), this.modContentPack.Name, (string) (taggedString + ": " + this.modContentPack.Name), 90000, overridesHideStats: true);
+    }
+  }
+
+  public override IEnumerable<string> ConfigErrors()
+  {
+    Def def1 = this;
+    if (def1.defName == "UnnamedDef")
+      yield return $"{(object) def1.GetType()} lacks defName. Label={def1.label}";
+    if (def1.defName == "null")
+      yield return "defName cannot be the string 'null'.";
+    if (!Def.AllowedDefNamesRegex.IsMatch(def1.defName))
+      yield return $"defName {def1.defName} should only contain letters, numbers, underscores, or dashes.";
+    if (def1.modExtensions != null)
+    {
+      for (int i = 0; i < def1.modExtensions.Count; ++i)
+      {
+        foreach (string configError in def1.modExtensions[i].ConfigErrors())
+          yield return configError;
+      }
+    }
+    if (def1.description != null)
+    {
+      if (def1.description == "")
+        yield return "empty description";
+      if (char.IsWhiteSpace(def1.description[0]))
+        yield return "description has leading whitespace";
+      if (char.IsWhiteSpace(def1.description[def1.description.Length - 1]))
+        yield return "description has trailing whitespace";
+    }
+    if (def1.descriptionHyperlinks != null && def1.descriptionHyperlinks.Count > 0)
+    {
+      if (def1.descriptionHyperlinks.RemoveAll((Predicate<DefHyperlink>) (x => x.def == null)) != 0)
+        Log.Warning($"Some descriptionHyperlinks in {def1.defName} had null def.");
+      Def def = def1;
+      for (int i = def1.descriptionHyperlinks.Count - 1; i > 0; --i)
+      {
+        if (def1.descriptionHyperlinks.FirstIndexOf<DefHyperlink>((Func<DefHyperlink, bool>) (h => h.def == def.descriptionHyperlinks[i].def)) < i)
+          yield return $"Hyperlink to {def1.descriptionHyperlinks[i].def.defName} more than once on {def1.defName} description";
+      }
+    }
+    if (def1.label != null && !def1.ignoreIllegalLabelCharacterConfigError && Def.DisallowedLabelCharsRegex.IsMatch(def1.label))
+      yield return "label contains illegal character(s): \"[]{}\". This can cause issues during grammar resolution. If this was intended, you can use the \"ignoreIllegalLabelCharacterConfigError\" flag.";
+  }
+
+  public virtual void PostSetIndices()
+  {
+  }
+
+  public virtual void ClearCachedData() => this.cachedLabelCap = (TaggedString) (string) null;
+
+  public override string ToString() => this.defName;
+
+  public override int GetHashCode() => this.defName.GetHashCode();
+
+  public T GetModExtension<T>() where T : DefModExtension
+  {
+    if (this.modExtensions == null)
+      return default (T);
+    for (int index = 0; index < this.modExtensions.Count; ++index)
+    {
+      if (this.modExtensions[index] is T)
+        return this.modExtensions[index] as T;
+    }
+    return default (T);
+  }
+
+  public bool HasModExtension<T>() where T : DefModExtension
+  {
+    return (object) this.GetModExtension<T>() != null;
+  }
+}

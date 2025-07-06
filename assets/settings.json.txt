@@ -1,0 +1,8 @@
+{
+  "xml.fileAssociations": [
+    {
+      "pattern": "**/*.def.xml",
+      "systemId": "./define.xsd"
+    }
+  ]
+}

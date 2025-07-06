@@ -1,0 +1,24 @@
+// Decompiled with JetBrains decompiler
+// Type: Verse.ThingCategory
+// Assembly: Assembly-CSharp, Version=1.5.9214.33606, Culture=neutral, PublicKeyToken=null
+// MVID: 630E2863-BC9A-4A34-93F2-EFF01E3A9556
+// Assembly location: C:\Program Files (x86)\Steam\steamapps\common\RimWorld\RimWorldWin64_Data\Managed\Assembly-CSharp.dll
+
+#nullable disable
+namespace Verse;
+
+public enum ThingCategory : byte
+{
+  None,
+  Pawn,
+  Item,
+  Building,
+  Plant,
+  Projectile,
+  Filth,
+  Gas,
+  Attachment,
+  Mote,
+  Ethereal,
+  PsychicEmitter,
+}

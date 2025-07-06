@@ -1,0 +1,12 @@
+{
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "package.json": "bun.lock"
+  },
+  "xml.fileAssociations": [
+    {
+      "pattern": "playground/*.def.xml",
+      "systemId": "./schemas/define.xsd"
+    }
+  ]
+}
