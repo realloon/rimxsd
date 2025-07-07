@@ -67,6 +67,7 @@
         </xs:annotation>
       </xs:element>
     </xs:choice>
+    <xs:attribute name="ParentName" type="xs:string" />
   </xs:complexType>
 
   <!-- BuildableDefType -->
@@ -93,20 +94,13 @@
               <xs:documentation>Default: -1f</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element name="costList">
-            <xs:complexType>
-              <xs:choice maxOccurs="unbounded">
-                <xs:any />
-                <!-- TODO:  -->
-              </xs:choice>
-            </xs:complexType>
-          </xs:element>
+          <xs:element name="costList" type="GeneralAnyListType" />
           <xs:element name="costStuffCount" type="xs:integer" />
           <xs:element name="stuffCategories">
             <xs:complexType>
               <xs:choice maxOccurs="unbounded">
-                <xs:element name="li" type="StuffCategoryDefType" minOccurs="0"
-                  maxOccurs="unbounded" />
+                <!-- StuffCategoryDefType -->
+                <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
               </xs:choice>
             </xs:complexType>
           </xs:element>
@@ -704,15 +698,7 @@
           </xs:element>
           <xs:element name="violentTechHediff" type="xs:boolean" />
           <xs:element name="destroyOnDrop" type="xs:boolean" />
-          <xs:element name="equippedStatOffsets">
-            <xs:complexType>
-              <xs:choice maxOccurs="unbounded">
-                <xs:any>
-                  <!-- TODO:  -->
-                </xs:any>
-              </xs:choice>
-            </xs:complexType>
-          </xs:element>
+          <xs:element name="equippedStatOffsets" type="GeneralAnyListType" />
           <xs:element name="meleeHitSound" type="SoundDefType" />
           <xs:element name="recoilPower" type="xs:float">
             <xs:annotation>
@@ -4238,6 +4224,162 @@
           </xs:choice>
         </xs:extension>
       </xs:complexContent> -->
+    <!-- FIXME: Temporarily Remove inheritance. -->
+    <!-- <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="bodyPartGroups">
+        <xs:annotation>
+          <xs:documentation>Default: new List&lt;BodyPartGroupDef&gt;()</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:choice maxOccurs="unbounded">
+            <xs:element name="li" type="BodyPartGroupDefType" minOccurs="0"
+              maxOccurs="unbounded" />
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="layers">
+        <xs:annotation>
+          <xs:documentation>Default: new List&lt;ApparelLayerDef&gt;()</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:choice maxOccurs="unbounded">
+            <xs:element name="li" type="ApparelLayerDefType" minOccurs="0"
+              maxOccurs="unbounded" />
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="wornGraphicPath" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Default: ""</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="wornGraphicPaths">
+        <xs:complexType>
+          <xs:choice maxOccurs="unbounded">
+            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="wornGraphicData" type="WornGraphicDataType" />
+      <xs:element name="useWornGraphicMask" type="xs:boolean" />
+      <xs:element name="renderSkipFlags">
+        <xs:complexType>
+          <xs:choice maxOccurs="unbounded">
+            <xs:element name="li" type="RenderSkipFlagDefType" minOccurs="0"
+              maxOccurs="unbounded" />
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="drawData" type="DrawDataType" />
+      <xs:element name="parentTagDef" type="PawnRenderNodeTagDefType" />
+      <xs:element name="forceEyesVisibleForRotations">
+        <xs:annotation>
+          <xs:documentation>Default: new List&lt;int&gt;()</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:choice maxOccurs="unbounded">
+            <xs:element name="li" type="xs:integer" minOccurs="0" maxOccurs="unbounded" />
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="shellRenderedBehindHead" type="xs:boolean" />
+      <xs:element name="tags">
+        <xs:annotation>
+          <xs:documentation>Default: new List&lt;string&gt;()</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:choice maxOccurs="unbounded">
+            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="defaultOutfitTags">
+        <xs:complexType>
+          <xs:choice maxOccurs="unbounded">
+            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="canBeGeneratedToSatisfyWarmth" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="canBeGeneratedToSatisfyToxicEnvironmentResistance" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="canBeDesiredForIdeo" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ideoDesireAllowedFactionCategoryTags">
+        <xs:complexType>
+          <xs:choice maxOccurs="unbounded">
+            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ideoDesireDisallowedFactionCategoryTags">
+        <xs:complexType>
+          <xs:choice maxOccurs="unbounded">
+            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="wearPerDay" type="xs:float">
+        <xs:annotation>
+          <xs:documentation>Default: 0.4f</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="careIfWornByCorpse" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="careIfDamaged" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ignoredByNonViolent" type="xs:boolean" />
+      <xs:element name="ai_pickUpOpportunistically" type="xs:boolean" />
+      <xs:element name="blocksAddedPartWoundGraphics" type="xs:boolean" />
+      <xs:element name="blocksVision" type="xs:boolean" />
+      <xs:element name="immuneToToxGasExposure" type="xs:boolean" />
+      <xs:element name="slaveApparel" type="xs:boolean" />
+      <xs:element name="mechanitorApparel" type="xs:boolean" />
+      <xs:element name="legsNakedUnlessCoveredBySomethingElse" type="xs:boolean" />
+      <xs:element name="useDeflectMetalEffect" type="xs:boolean" />
+      <xs:element name="countsAsClothingForNudity" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="anyTechLevelCanUseForWarmth" type="xs:boolean" />
+      <xs:element name="gender" type="GenderType" />
+      <xs:element name="scoreOffset" type="xs:float" />
+      <xs:element name="developmentalStageFilter" type="DevelopmentalStageType">
+        <xs:annotation>
+          <xs:documentation>Default: DevelopmentalStage.Adult</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="soundWear" type="SoundDefType" />
+      <xs:element name="soundRemove" type="SoundDefType" />
+      <xs:element name="RenderNodeProperties">
+        <xs:annotation>
+          <xs:documentation>Default: this.renderNodeProperties</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:choice maxOccurs="unbounded">
+            <xs:element name="li" type="PawnRenderNodePropertiesType" minOccurs="0"
+              maxOccurs="unbounded" />
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+    </xs:choice> -->
   </xs:complexType>
 
   <!-- MotePropertiesType -->
@@ -5687,13 +5829,7 @@
     </xs:annotation>
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:element name="difficultyVar" type="xs:string" />
-      <xs:element name="costList">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:any />
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
+      <xs:element name="costList" type="GeneralAnyListType" />
       <xs:element name="costStuffCount" type="xs:integer" />
       <xs:element name="invert" type="xs:boolean" />
     </xs:choice>
@@ -5792,5 +5928,12 @@
         </xs:annotation>
       </xs:element>
     </xs:choice>
+  </xs:complexType>
+
+  <!-- GeneralAnyListType -->
+  <xs:complexType name="GeneralAnyListType">
+    <xs:sequence>
+      <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
   </xs:complexType>
 </xs:schema>
