@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <!-- AltitudeLayerType -->
+  <xs:simpleType name="AltitudeLayerType">
+    <xs:annotation>
+      <xs:documentation>Enumeration of values for AltitudeLayer.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Terrain" />
+      <xs:enumeration value="TerrainScatter" />
+      <xs:enumeration value="Floor" />
+      <xs:enumeration value="Conduits" />
+      <xs:enumeration value="FloorCoverings" />
+      <xs:enumeration value="FloorEmplacement" />
+      <xs:enumeration value="Filth" />
+      <xs:enumeration value="Zone" />
+      <xs:enumeration value="SmallWire" />
+      <xs:enumeration value="LowPlant" />
+      <xs:enumeration value="MoteLow" />
+      <xs:enumeration value="Shadows" />
+      <xs:enumeration value="DoorMoveable" />
+      <xs:enumeration value="Building" />
+      <xs:enumeration value="BuildingBelowTop" />
+      <xs:enumeration value="BuildingOnTop" />
+      <xs:enumeration value="Item" />
+      <xs:enumeration value="ItemImportant" />
+      <xs:enumeration value="LayingPawn" />
+      <xs:enumeration value="PawnRope" />
+      <xs:enumeration value="Projectile" />
+      <xs:enumeration value="Pawn" />
+      <xs:enumeration value="PawnUnused" />
+      <xs:enumeration value="PawnState" />
+      <xs:enumeration value="Blueprint" />
+      <xs:enumeration value="MoteOverheadLow" />
+      <xs:enumeration value="MoteOverhead" />
+      <xs:enumeration value="Gas" />
+      <xs:enumeration value="Skyfaller" />
+      <xs:enumeration value="Weather" />
+      <xs:enumeration value="LightingOverlay" />
+      <xs:enumeration value="VisEffects" />
+      <xs:enumeration value="FogOfWar" />
+      <xs:enumeration value="Darkness" />
+      <xs:enumeration value="WorldClipper" />
+      <xs:enumeration value="Silhouettes" />
+      <xs:enumeration value="MapDataOverlay" />
+      <xs:enumeration value="MetaOverlays" />
+      <xs:enumeration value="_Count" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- GasType -->
+  <xs:simpleType name="GasType">
+    <xs:annotation>
+      <xs:documentation>Enumeration of values for GasType.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="BlindSmoke" />
+      <xs:enumeration value="ToxGas" />
+      <xs:enumeration value="RotStink" />
+      <xs:enumeration value="DeadlifeDust" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- VerbCategoryType -->
+  <xs:simpleType name="VerbCategoryType">
+    <xs:annotation>
+      <xs:documentation>Enumeration of values for VerbCategory.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Undefined" />
+      <xs:enumeration value="BeatFire" />
+      <xs:enumeration value="Ignite" />
+      <xs:enumeration value="Misc" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- TraversabilityType -->
+  <xs:simpleType name="TraversabilityType">
+    <xs:annotation>
+      <xs:documentation>Enumeration of values for Traversability.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Standable" />
+      <xs:enumeration value="PassThroughOnly" />
+      <xs:enumeration value="Impassable" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- TerrainDef.TerrainCategoryTypeType -->
+  <xs:simpleType name="TerrainDef.TerrainCategoryTypeType">
+    <xs:annotation>
+      <xs:documentation>Enumeration of values for TerrainCategoryType.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Misc" />
+      <xs:enumeration value="Soil" />
+      <xs:enumeration value="Stone" />
+      <xs:enumeration value="Sand" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- TreeCategoryType -->
+  <xs:simpleType name="TreeCategoryType">
+    <xs:annotation>
+      <xs:documentation>Enumeration of values for TreeCategory.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="Mini" />
+      <xs:enumeration value="Full" />
+      <xs:enumeration value="Super" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- PlantPurposeType -->
+  <xs:simpleType name="PlantPurposeType">
+    <xs:annotation>
+      <xs:documentation>Enumeration of values for PlantPurpose.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Food" />
+      <xs:enumeration value="Health" />
+      <xs:enumeration value="Beauty" />
+      <xs:enumeration value="Misc" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- PollutionType -->
+  <xs:simpleType name="PollutionType">
+    <xs:annotation>
+      <xs:documentation>Enumeration of values for Pollution.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="CleanOnly" />
+      <xs:enumeration value="PollutedOnly" />
+      <xs:enumeration value="Any" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- MechWeightClassType -->
+  <xs:simpleType name="MechWeightClassType">
+    <xs:annotation>
+      <xs:documentation>Enumeration of values for MechWeightClass.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Light" />
+      <xs:enumeration value="Medium" />
+      <xs:enumeration value="Heavy" />
+      <xs:enumeration value="UltraHeavy" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- BuildingSizeCategoryType -->
+  <xs:simpleType name="BuildingSizeCategoryType">
+    <xs:annotation>
+      <xs:documentation>Enumeration of values for BuildingSizeCategory.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="Small" />
+      <xs:enumeration value="Medium" />
+      <xs:enumeration value="Large" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- TerrainEdgeTypeType -->
+  <xs:simpleType name="TerrainEdgeTypeType">
+    <xs:annotation>
+      <xs:documentation>Enumeration of values for TerrainEdgeType.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Hard" />
+      <xs:enumeration value="Fade" />
+      <xs:enumeration value="FadeRough" />
+      <xs:enumeration value="Water" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- SpectateRectSideType -->
+  <xs:simpleType name="SpectateRectSideType">
+    <xs:annotation>
+      <xs:documentation>Enumeration of values for SpectateRectSide.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="Up" />
+      <xs:enumeration value="Right" />
+      <xs:enumeration value="Down" />
+      <xs:enumeration value="Left" />
+      <xs:enumeration value="Vertical" />
+      <xs:enumeration value="Down" />
+      <xs:enumeration value="Up" />
+      <xs:enumeration value="Horizontal" />
+      <xs:enumeration value="Left" />
+      <xs:enumeration value="Right" />
+      <xs:enumeration value="All" />
+      <xs:enumeration value="Horizontal" />
+      <xs:enumeration value="Vertical" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- SkyfallerMovementTypeType -->
+  <xs:simpleType name="SkyfallerMovementTypeType">
+    <xs:annotation>
+      <xs:documentation>Enumeration of values for SkyfallerMovementType.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Accelerate" />
+      <xs:enumeration value="ConstantSpeed" />
+      <xs:enumeration value="Decelerate" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- OffsetModeType -->
+  <xs:simpleType name="OffsetModeType">
+    <xs:annotation>
+      <xs:documentation>Enumeration of values for OffsetMode.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="TrueCenterCompensated" />
+      <xs:enumeration value="Free" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- IntelligenceType -->
+  <xs:simpleType name="IntelligenceType">
+    <xs:annotation>
+      <xs:documentation>Enumeration of values for Intelligence.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Animal" />
+      <xs:enumeration value="ToolUser" />
+      <xs:enumeration value="Humanlike" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- FilthSourceFlagsType -->
+  <xs:simpleType name="FilthSourceFlagsType">
+    <xs:annotation>
+      <xs:documentation>Enumeration of values for FilthSourceFlags.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="Terrain" />
+      <xs:enumeration value="Natural" />
+      <xs:enumeration value="Unnatural" />
+      <xs:enumeration value="Pawn" />
+      <xs:enumeration value="Any" />
+      <xs:enumeration value="Pawn" />
+      <xs:enumeration value="Unnatural" />
+      <xs:enumeration value="Natural" />
+      <xs:enumeration value="Terrain" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- DrugCategoryType -->
+  <xs:simpleType name="DrugCategoryType">
+    <xs:annotation>
+      <xs:documentation>Enumeration of values for DrugCategory.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="Medical" />
+      <xs:enumeration value="Social" />
+      <xs:enumeration value="Hard" />
+      <xs:enumeration value="Any" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- FoodPreferabilityType -->
+  <xs:simpleType name="FoodPreferabilityType">
+    <xs:annotation>
+      <xs:documentation>Enumeration of values for FoodPreferability.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Undefined" />
+      <xs:enumeration value="NeverForNutrition" />
+      <xs:enumeration value="DesperateOnly" />
+      <xs:enumeration value="DesperateOnlyForHumanlikes" />
+      <xs:enumeration value="RawBad" />
+      <xs:enumeration value="RawTasty" />
+      <xs:enumeration value="MealTerrible" />
+      <xs:enumeration value="MealAwful" />
+      <xs:enumeration value="MealSimple" />
+      <xs:enumeration value="MealFine" />
+      <xs:enumeration value="MealLavish" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- FoodTypeFlagsType -->
+  <xs:simpleType name="FoodTypeFlagsType">
+    <xs:annotation>
+      <xs:documentation>Enumeration of values for FoodTypeFlags.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="VegetableOrFruit" />
+      <xs:enumeration value="Meat" />
+      <xs:enumeration value="Fluid" />
+      <xs:enumeration value="Corpse" />
+      <xs:enumeration value="Seed" />
+      <xs:enumeration value="AnimalProduct" />
+      <xs:enumeration value="Plant" />
+      <xs:enumeration value="Tree" />
+      <xs:enumeration value="Meal" />
+      <xs:enumeration value="Processed" />
+      <xs:enumeration value="Liquor" />
+      <xs:enumeration value="Kibble" />
+      <xs:enumeration value="Fungus" />
+      <xs:enumeration value="VegetarianAnimal" />
+      <xs:enumeration value="Fungus" />
+      <xs:enumeration value="Kibble" />
+      <xs:enumeration value="Liquor" />
+      <xs:enumeration value="Processed" />
+      <xs:enumeration value="Meal" />
+      <xs:enumeration value="Seed" />
+      <xs:enumeration value="VegetarianRoughAnimal" />
+      <xs:enumeration value="VegetarianAnimal" />
+      <xs:enumeration value="Plant" />
+      <xs:enumeration value="CarnivoreAnimal" />
+      <xs:enumeration value="Kibble" />
+      <xs:enumeration value="Processed" />
+      <xs:enumeration value="Meal" />
+      <xs:enumeration value="Corpse" />
+      <xs:enumeration value="Meat" />
+      <xs:enumeration value="CarnivoreAnimalStrict" />
+      <xs:enumeration value="Corpse" />
+      <xs:enumeration value="Meat" />
+      <xs:enumeration value="OmnivoreAnimal" />
+      <xs:enumeration value="CarnivoreAnimalStrict" />
+      <xs:enumeration value="VegetarianAnimal" />
+      <xs:enumeration value="OmnivoreRoughAnimal" />
+      <xs:enumeration value="OmnivoreAnimal" />
+      <xs:enumeration value="Plant" />
+      <xs:enumeration value="DendrovoreAnimal" />
+      <xs:enumeration value="Fungus" />
+      <xs:enumeration value="Kibble" />
+      <xs:enumeration value="Processed" />
+      <xs:enumeration value="Tree" />
+      <xs:enumeration value="Seed" />
+      <xs:enumeration value="OvivoreAnimal" />
+      <xs:enumeration value="Kibble" />
+      <xs:enumeration value="Processed" />
+      <xs:enumeration value="Meal" />
+      <xs:enumeration value="AnimalProduct" />
+      <xs:enumeration value="OmnivoreHuman" />
+      <xs:enumeration value="OvivoreAnimal" />
+      <xs:enumeration value="CarnivoreAnimalStrict" />
+      <xs:enumeration value="Fungus" />
+      <xs:enumeration value="Liquor" />
+      <xs:enumeration value="Seed" />
+      <xs:enumeration value="Fluid" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- TechLevelType -->
+  <xs:simpleType name="TechLevelType">
+    <xs:annotation>
+      <xs:documentation>Enumeration of values for TechLevel.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Undefined" />
+      <xs:enumeration value="Animal" />
+      <xs:enumeration value="Neolithic" />
+      <xs:enumeration value="Medieval" />
+      <xs:enumeration value="Industrial" />
+      <xs:enumeration value="Spacer" />
+      <xs:enumeration value="Ultra" />
+      <xs:enumeration value="Archotech" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- EquipmentTypeType -->
+  <xs:simpleType name="EquipmentTypeType">
+    <xs:annotation>
+      <xs:documentation>Enumeration of values for EquipmentType.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="Primary" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- TradeabilityType -->
+  <xs:simpleType name="TradeabilityType">
+    <xs:annotation>
+      <xs:documentation>Enumeration of values for Tradeability.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="Sellable" />
+      <xs:enumeration value="Buyable" />
+      <xs:enumeration value="All" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- SurfaceTypeType -->
+  <xs:simpleType name="SurfaceTypeType">
+    <xs:annotation>
+      <xs:documentation>Enumeration of values for SurfaceType.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="Item" />
+      <xs:enumeration value="Eat" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- ResourceCountPriorityType -->
+  <xs:simpleType name="ResourceCountPriorityType">
+    <xs:annotation>
+      <xs:documentation>Enumeration of values for ResourceCountPriority.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Uncounted" />
+      <xs:enumeration value="Last" />
+      <xs:enumeration value="Middle" />
+      <xs:enumeration value="First" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- DrawerTypeType -->
+  <xs:simpleType name="DrawerTypeType">
+    <xs:annotation>
+      <xs:documentation>Enumeration of values for DrawerType.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="RealtimeOnly" />
+      <xs:enumeration value="MapMeshOnly" />
+      <xs:enumeration value="MapMeshAndRealTime" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- LinkFlagsType -->
+  <xs:simpleType name="LinkFlagsType">
+    <xs:annotation>
+      <xs:documentation>Enumeration of values for LinkFlags.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="MapEdge" />
+      <xs:enumeration value="Rock" />
+      <xs:enumeration value="Wall" />
+      <xs:enumeration value="Sandbags" />
+      <xs:enumeration value="PowerConduit" />
+      <xs:enumeration value="Barricades" />
+      <xs:enumeration value="Fences" />
+      <xs:enumeration value="Fleshmass" />
+      <xs:enumeration value="Custom1" />
+      <xs:enumeration value="Custom2" />
+      <xs:enumeration value="Custom3" />
+      <xs:enumeration value="Custom4" />
+      <xs:enumeration value="Custom5" />
+      <xs:enumeration value="Custom6" />
+      <xs:enumeration value="Custom7" />
+      <xs:enumeration value="Custom8" />
+      <xs:enumeration value="Custom9" />
+      <xs:enumeration value="Custom10" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- LinkDrawerTypeType -->
+  <xs:simpleType name="LinkDrawerTypeType">
+    <xs:annotation>
+      <xs:documentation>Enumeration of values for LinkDrawerType.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="Basic" />
+      <xs:enumeration value="CornerFiller" />
+      <xs:enumeration value="CornerOverlay" />
+      <xs:enumeration value="Transmitter" />
+      <xs:enumeration value="TransmitterOverlay" />
+      <xs:enumeration value="Asymmetric" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- TickerTypeType -->
+  <xs:simpleType name="TickerTypeType">
+    <xs:annotation>
+      <xs:documentation>Enumeration of values for TickerType.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Never" />
+      <xs:enumeration value="Normal" />
+      <xs:enumeration value="Rare" />
+      <xs:enumeration value="Long" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- ThingCategoryType -->
+  <xs:simpleType name="ThingCategoryType">
+    <xs:annotation>
+      <xs:documentation>Enumeration of values for ThingCategory.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="Pawn" />
+      <xs:enumeration value="Item" />
+      <xs:enumeration value="Building" />
+      <xs:enumeration value="Plant" />
+      <xs:enumeration value="Projectile" />
+      <xs:enumeration value="Filth" />
+      <xs:enumeration value="Gas" />
+      <xs:enumeration value="Attachment" />
+      <xs:enumeration value="Mote" />
+      <xs:enumeration value="Ethereal" />
+      <xs:enumeration value="PsychicEmitter" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

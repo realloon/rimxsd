@@ -1,0 +1,692 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="../enum_types.xsd"></xs:include>
+  <xs:include schemaLocation="../common_types.xsd"></xs:include>
+
+  <!-- ThingDefType -->
+  <xs:complexType name="ThingDefType">
+    <xs:annotation>
+      <xs:documentation>XML definition for RimWorld's ThingDef type.</xs:documentation>
+    </xs:annotation>
+    <xs:all>
+      <xs:element name="thingClass" type="xs:string" />
+      <xs:element name="category" type="ThingCategoryType" />
+      <xs:element name="tickerType" type="TickerTypeType" />
+      <xs:element name="stackLimit" type="xs:integer">
+        <xs:annotation>
+          <xs:documentation>Default: 1</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="size" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Default: IntVec2.One</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="destroyable" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="rotatable" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="smallVolume" type="xs:boolean" />
+      <xs:element name="useHitPoints" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="receivesSignals" type="xs:boolean" />
+      <xs:element name="comps">
+        <xs:annotation>
+          <xs:documentation>Default: CompProperties[]</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:choice maxOccurs="unbounded">
+            <xs:element name="li" type="CompPropertiesType" minOccurs="0" maxOccurs="unbounded"></xs:element>
+          </xs:choice>
+          <xs:attribute name="Inherit" type="xs:boolean" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="virtualDefs">
+        <xs:annotation>
+          <xs:documentation>Default: ThingDef[]</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:choice maxOccurs="unbounded">
+            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="virtualDefParent" type="xs:string" />
+      <xs:element name="devNote" type="xs:string" />
+      <!-- <xs:element name="killedLeavingsRanges">
+        <xs:complexType>
+          <xs:choice maxOccurs="unbounded">
+            <xs:element name="li" type="ThingDefCountRangeClassType" minOccurs="0"
+              maxOccurs="unbounded" />
+          </xs:choice>
+        </xs:complexType>
+      </xs:element> -->
+      <xs:element name="killedLeavings">
+        <xs:complexType>
+          <xs:choice maxOccurs="unbounded">
+            <xs:any />
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+      <!-- <xs:element name="killedLeavingsPlayerHostile">
+        <xs:complexType>
+          <xs:choice maxOccurs="unbounded">
+            <xs:element name="li" type="ThingDefCountClassType" minOccurs="0" maxOccurs="unbounded" />
+          </xs:choice>
+        </xs:complexType>
+      </xs:element> -->
+      <xs:element name="killedLeavingsChance" type="xs:float">
+        <xs:annotation>
+          <xs:documentation>Default: 1f</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="forceLeavingsAllowed" type="xs:boolean" />
+      <xs:element name="butcherProducts">
+        <xs:complexType>
+          <xs:choice maxOccurs="unbounded">
+            <xs:any />
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="smeltProducts">
+        <xs:complexType>
+          <xs:choice maxOccurs="unbounded">
+            <xs:any />
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="smeltable" type="xs:boolean" />
+      <xs:element name="burnableByRecipe" type="xs:boolean" />
+      <xs:element name="randomizeRotationOnSpawn" type="xs:boolean" />
+      <xs:element name="damageMultipliers">
+        <xs:complexType>
+          <xs:choice maxOccurs="unbounded">
+            <xs:element name="li" type="DamageMultiplierType" minOccurs="0"
+              maxOccurs="unbounded" />
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="isTechHediff" type="xs:boolean" />
+      <xs:element name="recipeMaker" type="RecipeMakerPropertiesType" />
+      <xs:element name="minifiedDef" type="xs:string" />
+      <xs:element name="isUnfinishedThing" type="xs:boolean" />
+      <xs:element name="leaveResourcesWhenKilled" type="xs:boolean" />
+      <xs:element name="slagDef" type="xs:string" />
+      <xs:element name="isFrameInt" type="xs:boolean" />
+      <xs:element name="multipleInteractionCellOffsets">
+        <xs:complexType>
+          <xs:choice maxOccurs="unbounded">
+            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="interactionCellOffset" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Default: IntVec3.Zero</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="hasInteractionCell" type="xs:boolean" />
+      <xs:element name="interactionCellIcon" type="xs:string" />
+      <xs:element name="interactionCellIconReverse" type="xs:boolean" />
+      <xs:element name="filthLeaving" type="xs:string" />
+      <xs:element name="forceDebugSpawnable" type="xs:boolean" />
+      <xs:element name="intricate" type="xs:boolean" />
+      <xs:element name="scatterableOnMapGen" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="deepCommonality" type="xs:float" />
+      <xs:element name="deepCountPerCell" type="xs:integer">
+        <xs:annotation>
+          <xs:documentation>Default: 300</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="deepCountPerPortion" type="xs:integer">
+        <xs:annotation>
+          <xs:documentation>Default: -1</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="deepLumpSizeRange" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Default: IntRange.zero</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="generateCommonality" type="xs:float">
+        <xs:annotation>
+          <xs:documentation>Default: 1f</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="generateAllowChance" type="xs:float">
+        <xs:annotation>
+          <xs:documentation>Default: 1f</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="startingHpRange" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Default: FloatRange.One</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="thingSetMakerTags">
+        <xs:complexType>
+          <xs:choice maxOccurs="unbounded">
+            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="alwaysFlee" type="xs:boolean" />
+      <xs:element name="recipes">
+        <xs:complexType>
+          <xs:choice maxOccurs="unbounded">
+            <xs:element name="li" type="DefNameType" minOccurs="0" maxOccurs="unbounded" />
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="messageOnDeteriorateInStorage" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="deteriorateFromEnvironmentalEffects" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="canDeteriorateUnspawned" type="xs:boolean" />
+      <xs:element name="canLoadIntoCaravan" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="isMechClusterThreat" type="xs:boolean" />
+      <xs:element name="displayNumbersBetweenSameDefDistRange" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Default: FloatRange.Zero</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="minRewardCount" type="xs:integer">
+        <xs:annotation>
+          <xs:documentation>Default: 1</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="preventSkyfallersLandingOn" type="xs:boolean" />
+      <xs:element name="requiresFactionToAcquire" type="DefNameType" />
+      <xs:element name="relicChance" type="xs:float" />
+      <xs:element name="orderedTakeGroup" type="xs:string" />
+      <xs:element name="allowedArchonexusCount" type="xs:integer" />
+      <xs:element name="possessionCount" type="xs:integer" />
+      <xs:element name="notifyMapRemoved" type="xs:boolean" />
+      <xs:element name="canScatterOver" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="genericMarketSellable" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="drawHighlight" type="xs:boolean" />
+      <xs:element name="autoTargetNearbyIdenticalThings" type="xs:boolean" />
+      <xs:element name="preventDroppingThingsOn" type="xs:boolean" />
+      <xs:element name="hiddenWhileUndiscovered" type="xs:boolean" />
+      <xs:element name="disableImpassableShotOverConfigError" type="xs:boolean" />
+      <xs:element name="showInSearch" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="graphicData" type="GraphicDataType" />
+      <xs:element name="drawerType" type="DrawerTypeType">
+        <xs:annotation>
+          <xs:documentation>Default: DrawerType.RealtimeOnly</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="drawOffscreen" type="xs:boolean" />
+      <xs:element name="colorGenerator">
+        <xs:complexType>
+          <xs:choice maxOccurs="unbounded">
+            <xs:any><!-- TODO:  -->
+            </xs:any>
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="hideAtSnowDepth" type="xs:float">
+        <xs:annotation>
+          <xs:documentation>Default: 99999f</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="drawDamagedOverlay" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="castEdgeShadows" type="xs:boolean" />
+      <xs:element name="staticSunShadowHeight" type="xs:float" />
+      <xs:element name="useSameGraphicForGhost" type="xs:boolean" />
+      <xs:element name="useBlueprintGraphicAsGhost" type="xs:boolean" />
+      <xs:element name="randomStyle">
+        <!-- <xs:complexType>
+          <xs:choice maxOccurs="unbounded">
+            <xs:element name="li" type="ThingStyleChanceType" minOccurs="0" maxOccurs="unbounded" />
+          </xs:choice>
+        </xs:complexType> -->
+      </xs:element>
+      <xs:element name="randomStyleChance" type="xs:float" />
+      <xs:element name="canEditAnyStyle" type="xs:boolean" />
+      <xs:element name="defaultStuff" type="xs:string" />
+      <xs:element name="killedLeavingsExpandRect" type="xs:integer" />
+      <xs:element name="minifiedDrawScale" type="xs:float">
+        <xs:annotation>
+          <xs:documentation>Default: 1f</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="overrideMinifiedRot" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Default: Rot4.Invalid</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="minifiedDrawOffset" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Default: Vector3.zero</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="deselectedSelectionBracketFactor" type="xs:float">
+        <xs:annotation>
+          <xs:documentation>Default: 1f</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="selectable" type="xs:boolean" />
+      <xs:element name="containedPawnsSelectable" type="xs:boolean" />
+      <xs:element name="containedItemsSelectable" type="xs:boolean" />
+      <xs:element name="neverMultiSelect" type="xs:boolean" />
+      <xs:element name="isAutoAttackableMapObject" type="xs:boolean" />
+      <xs:element name="hasTooltip" type="xs:boolean" />
+      <xs:element name="inspectorTabs">
+        <xs:complexType>
+          <xs:choice maxOccurs="unbounded">
+            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="inspectorTabsResolved">
+        <!-- <xs:complexType>
+          <xs:choice maxOccurs="unbounded">
+            <xs:element name="li" type="InspectTabBaseType" minOccurs="0" maxOccurs="unbounded" />
+          </xs:choice>
+        </xs:complexType> -->
+      </xs:element>
+      <xs:element name="seeThroughFog" type="xs:boolean" />
+      <xs:element name="drawGUIOverlay" type="xs:boolean" />
+      <xs:element name="drawGUIOverlayQuality" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="resourceReadoutPriority" type="ResourceCountPriorityType" />
+      <xs:element name="resourceReadoutAlwaysShow" type="xs:boolean" />
+      <xs:element name="drawPlaceWorkersWhileSelected" type="xs:boolean" />
+      <xs:element name="drawPlaceWorkersWhileInstallBlueprintSelected" type="xs:boolean" />
+      <xs:element name="storedConceptLearnOpportunity" type="xs:string" />
+      <xs:element name="uiIconScale" type="xs:float">
+        <xs:annotation>
+          <xs:documentation>Default: 1f</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="hasCustomRectForSelector" type="xs:boolean" />
+      <xs:element name="hideStats" type="xs:boolean" />
+      <xs:element name="hideInspect" type="xs:boolean" />
+      <xs:element name="onlyShowInspectString" type="xs:boolean" />
+      <xs:element name="hideMainDesc" type="xs:boolean" />
+      <xs:element name="alwaysHaulable" type="xs:boolean" />
+      <xs:element name="designateHaulable" type="xs:boolean" />
+      <xs:element name="thingCategories">
+        <xs:complexType>
+          <xs:choice maxOccurs="unbounded">
+            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="mineable" type="xs:boolean" />
+      <xs:element name="socialPropernessMatters" type="xs:boolean" />
+      <xs:element name="stealable" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="soundSpawned" type="DefNameType" />
+      <xs:element name="soundDrop" type="DefNameType" />
+      <xs:element name="soundPickup" type="DefNameType" />
+      <xs:element name="soundInteract" type="DefNameType" />
+      <xs:element name="soundImpactDefault" type="DefNameType" />
+      <xs:element name="soundPlayInstrument" type="DefNameType" />
+      <xs:element name="soundOpen" type="DefNameType" />
+      <xs:element name="saveCompressible" type="xs:boolean" />
+      <xs:element name="isSaveable" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="holdsRoof" type="xs:boolean" />
+      <xs:element name="fillPercent" type="xs:float" />
+      <xs:element name="coversFloor" type="xs:boolean" />
+      <xs:element name="neverOverlapFloors" type="xs:boolean" />
+      <xs:element name="surfaceType" type="SurfaceTypeType" />
+      <xs:element name="wipesPlants" type="xs:boolean" />
+      <xs:element name="blockPlants" type="xs:boolean" />
+      <xs:element name="blockLight" type="xs:boolean" />
+      <xs:element name="blockWind" type="xs:boolean" />
+      <xs:element name="blockWeather" type="xs:boolean" />
+      <xs:element name="tradeability" type="TradeabilityType">
+        <xs:annotation>
+          <xs:documentation>Default: Tradeability.All</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="tradeTags">
+        <xs:complexType>
+          <xs:choice maxOccurs="unbounded">
+            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="tradeNeverStack" type="xs:boolean" />
+      <xs:element name="tradeNeverGenerateStacked" type="xs:boolean" />
+      <xs:element name="healthAffectsPrice" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="colorGeneratorInTraderStock">
+        <xs:complexType>
+          <xs:choice maxOccurs="unbounded">
+            <xs:any></xs:any>
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="verbs">
+        <xs:complexType>
+          <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="li" type="VerbPropertiesType" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="tools">
+        <xs:complexType>
+          <xs:choice maxOccurs="unbounded">
+            <xs:element name="li" type="ToolType" minOccurs="0" maxOccurs="unbounded" />
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="equippedAngleOffset" type="xs:float" />
+      <xs:element name="equippedDistanceOffset" type="xs:float" />
+      <xs:element name="equipmentType" type="EquipmentTypeType" />
+      <xs:element name="techLevel" type="TechLevelType" />
+      <xs:element name="weaponClasses">
+        <xs:complexType>
+          <xs:choice maxOccurs="unbounded">
+            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="weaponTags">
+        <xs:complexType>
+          <xs:choice maxOccurs="unbounded">
+            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+          </xs:choice>
+          <xs:attribute name="Inherit" type="xs:boolean" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="techHediffsTags">
+        <xs:complexType>
+          <xs:choice maxOccurs="unbounded">
+            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="violentTechHediff" type="xs:boolean" />
+      <xs:element name="destroyOnDrop" type="xs:boolean" />
+      <xs:element name="equippedStatOffsets" type="GeneralAnyListType" />
+      <xs:element name="meleeHitSound" type="DefNameType" />
+      <xs:element name="recoilPower" type="xs:float">
+        <xs:annotation>
+          <xs:documentation>Default: 1f</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="recoilRelaxation" type="xs:float">
+        <xs:annotation>
+          <xs:documentation>Default: 10f</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="rotateInShelves" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="mergeVerbGizmos" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="entityDefToBuild" type="DefNameType" />
+      <xs:element name="projectileWhenLoaded" type="xs:string" />
+      <xs:element name="ideoBuildingNamerBase" type="DefNameType" />
+      <xs:element name="entityCodexEntry" type="DefNameType" />
+      <xs:element name="ingestible" type="IngestiblePropertiesType" />
+      <xs:element name="filth" type="FilthPropertiesType" />
+      <xs:element name="gas" type="DefNameType" />
+      <xs:element name="building" type="BuildingPropertiesType" />
+      <xs:element name="race" type="RacePropertiesType" />
+      <xs:element name="apparel" type="ApparelPropertiesType" />
+      <xs:element name="mote" type="MotePropertiesType" />
+      <xs:element name="plant" type="PlantPropertiesType" />
+      <xs:element name="projectile" type="ProjectilePropertiesType" />
+      <xs:element name="stuffProps" type="StuffPropertiesType" />
+      <xs:element name="skyfaller" type="SkyfallerPropertiesType" />
+      <xs:element name="pawnFlyer" type="PawnFlyerPropertiesType" />
+      <xs:element name="ritualFocus" type="RitualFocusPropertiesType" />
+      <xs:element name="ingredient" type="IngredientPropertiesType" />
+      <xs:element name="canBeUsedUnderRoof" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="interactionCellGraphic" type="GraphicType" />
+      <xs:element name="EverHaulable" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: this.alwaysHaulable || this.designateHaulable</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="EverPollutable" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: !this.building.isNaturalRock</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="VolumePerUnit" type="xs:float">
+        <xs:annotation>
+          <xs:documentation>Default: this.smallVolume ? 0.1f : 1f</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DiscardOnDestroyed" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: this.race == null</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="BaseFlammability" type="xs:float">
+        <xs:annotation>
+          <xs:documentation>Default: this.GetStatValueAbstract(StatDefOf.Flammability)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="BaseMass" type="xs:float">
+        <xs:annotation>
+          <xs:documentation>Default: this.GetStatValueAbstract(StatDefOf.Mass)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Minifiable" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: this.minifiedDef != null</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="HasThingIDNumber" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: this.category != ThingCategory.Mote</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CoexistsWithFloors" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: !this.neverOverlapFloors &amp;&amp; !this.coversFloor</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="MakeFog" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: this.Fillage == FillCategory.Full</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CountAsResource" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: this.resourceReadoutPriority != 0</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IsApparel" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: this.apparel != null</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IsBed" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: typeof (Building_Bed).IsAssignableFrom(this.thingClass)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IsCorpse" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: typeof (Corpse).IsAssignableFrom(this.thingClass)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IsFrame" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: this.isFrameInt</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IsStuff" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: this.stuffProps != null</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IsMedicine" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: this.statBases.StatListContains(StatDefOf.MedicalPotency)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IsDoor" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: typeof (Building_Door).IsAssignableFrom(this.thingClass)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IsFence" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: this.building != null &amp;&amp; this.building.isFence</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IsFilth" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: this.filth != null</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IsIngestible" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: this.ingestible != null</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IsCommsConsole" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: typeof
+            (Building_CommsConsole).IsAssignableFrom(this.thingClass)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IsDrug" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: this.ingestible != null &amp;&amp; this.ingestible.drugCategory
+            != 0</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IsPleasureDrug" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: this.IsDrug &amp;&amp; (double) this.ingestible.joy 0.0</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IsWorkTable" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: typeof (Building_WorkTable).IsAssignableFrom(this.thingClass)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IsShell" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: this.projectileWhenLoaded != null</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IsArt" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: this.IsWithinCategory(ThingCategoryDefOf.BuildingsArt)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IsSmoothable" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: this.building?.smoothedThing != null</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IsSmoothed" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: this.building?.unsmoothedThing != null</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IsGibbetCage" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: typeof (Building_GibbetCage).IsAssignableFrom(this.thingClass)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IsMechGestator" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: typeof
+            (Building_MechGestator).IsAssignableFrom(this.thingClass)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IsMechRecharger" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: typeof (Building_MechCharger).IsAssignableFrom(this.thingClass)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IsMeleeWeapon" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: this.IsWeapon &amp;&amp; !this.IsRangedWeapon</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CanAffectLinker" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: this.graphicData != null &amp;&amp; this.graphicData.Linked ||
+            this.IsDoor</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IsPlant" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: typeof (Plant).IsAssignableFrom(this.thingClass)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IsStudiable" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: this.HasAssignableCompFrom(typeof (CompStudiable))</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:all>
+  </xs:complexType>
+
+
+
+</xs:schema>
