@@ -23,6 +23,34 @@
     </xs:sequence>
   </xs:complexType>
 
+  <!-- CUSTOM: StatModifierListType -->
+  <xs:complexType name="StatModifierListType">
+    <xs:all>
+      <xs:element name="MaxHitPoints" type="xs:integer" minOccurs="0" />
+      <xs:element name="Mass" type="xs:float" minOccurs="0" />
+      <xs:element name="MarketValue" type="xs:integer" minOccurs="0" />
+      <xs:element name="SellPriceFactor" type="xs:float" minOccurs="0" />
+      <xs:element name="RoyalFavorValue" type="xs:float" minOccurs="0" />
+      <xs:element name="Flammability" type="xs:float" minOccurs="0" />
+      <xs:element name="WorkToMake" type="xs:integer" minOccurs="0" />
+      <xs:element name="DeteriorationRate" type="xs:integer" minOccurs="0" />
+      <xs:element name="Beauty" type="xs:integer" minOccurs="0" />
+      <xs:element name="Cleanliness" type="xs:float" minOccurs="0" />
+      <xs:element name="Comfort" type="xs:float" minOccurs="0" />
+      <xs:element name="Nutrition" type="xs:float" minOccurs="0" />
+      <xs:element name="FoodPoisonChanceFixedHuman" type="xs:float" minOccurs="0" />
+      <xs:element name="FoodPoisonChanceFixedHuman" type="xs:float" minOccurs="0" />
+      <xs:element name="ShootingAccuracyTurret" type="xs:float" minOccurs="0" />
+      <xs:element name="AccuracyTouch" type="xs:float" minOccurs="0" />
+      <xs:element name="AccuracyShort" type="xs:float" minOccurs="0" />
+      <xs:element name="AccuracyMedium" type="xs:float" minOccurs="0" />
+      <xs:element name="AccuracyLong" type="xs:float" minOccurs="0" />
+      <xs:element name="RangedWeapon_Cooldown" type="xs:float" minOccurs="0" />
+      <xs:element name="RangedWeapon_DamageMultiplier" type="xs:float" minOccurs="0" />
+      <!-- <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" /> -->
+    </xs:all>
+  </xs:complexType>
+
   <!-- CUSTOM: FloatRangeType -->
   <xs:simpleType name="FloatRangeType">
     <xs:restriction base="xs:string">
@@ -36,11 +64,8 @@
       <xs:documentation>XML definition for RimWorld's CompProperties type.</xs:documentation>
     </xs:annotation>
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element name="compClass" type="xs:string">
-        <xs:annotation>
-          <xs:documentation>Default: typeof (ThingComp)</xs:documentation>
-        </xs:annotation>
-      </xs:element>
+      <xs:element name="compClass" type="xs:string" />
+      <xs:any processContents="lax" />
     </xs:choice>
     <xs:attribute name="Class" type="DefNameType" />
   </xs:complexType>
@@ -95,7 +120,7 @@
       <xs:element name="workSpeedStat" type="xs:string" />
       <xs:element name="efficiencyStat" type="xs:string" />
       <xs:element name="unfinishedThingDef" type="xs:string" />
-      <xs:element name="defaultIngredientFilter" type="xs:string" />
+      <xs:element name="defaultIngredientFilter" type="ThingFilterType" />
       <xs:element name="skillRequirements" type="SkillListType" />
       <xs:element name="workSkill" type="xs:string" />
       <xs:element name="workSkillLearnPerTick" type="xs:float">
@@ -142,6 +167,66 @@
         <xs:annotation>
           <xs:documentation>Default: 99999</xs:documentation>
         </xs:annotation>
+      </xs:element>
+    </xs:choice>
+  </xs:complexType>
+
+  <!-- ThingFilterType -->
+  <xs:complexType name="ThingFilterType">
+    <xs:annotation>
+      <xs:documentation>XML definition for RimWorld's ThingFilter type.</xs:documentation>
+    </xs:annotation>
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="hiddenSpecialFilters">
+        <xs:annotation>
+          <xs:documentation>Default: new List&lt;SpecialThingFilterDef&gt;()</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="li" type="DefNameType" minOccurs="0"
+              maxOccurs="unbounded" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="allowedHitPointsConfigurable" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="allowedQualitiesConfigurable" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="customSummary" type="xs:string" />
+      <xs:element name="categories">
+        <xs:complexType>
+          <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="li" type="xs:string" />
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="OnlySpecialFilters" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Default: this.onlySpecialFilters</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AnyAllowedDef" type="DefNameType">
+        <xs:annotation>
+          <xs:documentation>Default: this.allowedDefs.FirstOrDefault&lt;ThingDef&gt;()</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AllowedDefCount" type="xs:integer">
+        <xs:annotation>
+          <xs:documentation>Default: this.allowedDefs.Count</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="disallowedThingDefs">
+        <xs:complexType>
+          <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="li" type="DefNameType" />
+          </xs:choice>
+        </xs:complexType>
       </xs:element>
     </xs:choice>
   </xs:complexType>
@@ -545,6 +630,7 @@
       <xs:element name="ai_ProjectileLaunchingIgnoresMeleeThreats" type="xs:boolean" />
       <xs:element name="ai_TargetHasRangedAttackScoreOffset" type="xs:float" />
       <xs:element name="defaultProjectile" type="DefNameType" />
+      <xs:element name="forcedMissRadius" type="xs:float" />
       <xs:element name="forcedMissEvenDispersal" type="xs:boolean" />
       <xs:element name="accuracyTouch" type="xs:float">
         <xs:annotation>
@@ -1553,62 +1639,6 @@
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:element name="owner" type="xs:string" />
       <xs:element name="filter" type="ThingFilterType" />
-    </xs:choice>
-  </xs:complexType>
-
-  <!-- ThingFilterType -->
-  <xs:complexType name="ThingFilterType">
-    <xs:annotation>
-      <xs:documentation>XML definition for RimWorld's ThingFilter type.</xs:documentation>
-    </xs:annotation>
-    <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element name="hiddenSpecialFilters">
-        <xs:annotation>
-          <xs:documentation>Default: new List&lt;SpecialThingFilterDef&gt;()</xs:documentation>
-        </xs:annotation>
-        <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:element name="li" type="xs:string" minOccurs="0"
-              maxOccurs="unbounded" />
-          </xs:choice>
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="allowedHitPointsConfigurable" type="xs:boolean">
-        <xs:annotation>
-          <xs:documentation>Default: true</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="allowedQualitiesConfigurable" type="xs:boolean">
-        <xs:annotation>
-          <xs:documentation>Default: true</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="customSummary" type="xs:string" />
-      <xs:element name="OnlySpecialFilters" type="xs:boolean">
-        <xs:annotation>
-          <xs:documentation>Default: this.onlySpecialFilters</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="AnyAllowedDef" type="xs:string">
-        <xs:annotation>
-          <xs:documentation>Default: this.allowedDefs.FirstOrDefault&lt;ThingDef&gt;()</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="AllowedThingDefs">
-        <xs:annotation>
-          <xs:documentation>Default: (IEnumerable&lt;ThingDef&gt;) this.allowedDefs</xs:documentation>
-        </xs:annotation>
-        <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:any />
-          </xs:choice>
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="AllowedDefCount" type="xs:integer">
-        <xs:annotation>
-          <xs:documentation>Default: this.allowedDefs.Count</xs:documentation>
-        </xs:annotation>
-      </xs:element>
     </xs:choice>
   </xs:complexType>
 
@@ -2826,7 +2856,7 @@
       </xs:element>
       <xs:element name="categories">
         <xs:annotation>
-          <xs:documentation>Default: new List&lt;StuffCategoryDef&gt;()</xs:documentation>
+          <xs:documentation>Default: StuffCategoryDef[]</xs:documentation>
         </xs:annotation>
         <xs:complexType>
           <xs:choice maxOccurs="unbounded">
@@ -3027,4 +3057,65 @@
       </xs:element>
     </xs:choice>
   </xs:complexType>
+
+  <!-- DefModExtensionType -->
+  <xs:complexType name="DefModExtensionType">
+    <xs:annotation>
+      <xs:documentation>XML definition for RimWorld's DefModExtension type.</xs:documentation>
+    </xs:annotation>
+  </xs:complexType>
+
+  <!-- CostListForDifficultyType -->
+  <xs:complexType name="CostListForDifficultyType">
+    <xs:annotation>
+      <xs:documentation>XML definition for RimWorld's CostListForDifficulty type.</xs:documentation>
+    </xs:annotation>
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="difficultyVar" type="xs:string" />
+      <xs:element name="costList" type="GeneralAnyListType" />
+      <xs:element name="costStuffCount" type="xs:integer" />
+      <xs:element name="invert" type="xs:boolean" />
+    </xs:choice>
+  </xs:complexType>
+
+
+  <!-- ColorForStuffType -->
+  <xs:complexType name="ColorForStuffType">
+    <xs:annotation>
+      <xs:documentation>XML definition for RimWorld's ColorForStuff type.</xs:documentation>
+    </xs:annotation>
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="Stuff" type="DefNameType">
+        <xs:annotation>
+          <xs:documentation>Default: this.stuff</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Color" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Default: this.color</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:choice>
+  </xs:complexType>
+
+  <!-- IconForStuffAppearanceType -->
+  <xs:complexType name="IconForStuffAppearanceType">
+    <xs:annotation>
+      <xs:documentation>XML definition for RimWorld's IconForStuffAppearance type.</xs:documentation>
+    </xs:annotation>
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="Appearance" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Default: this.appearance</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IconPath" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Default: this.iconPath</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:choice>
+  </xs:complexType>
+
+  <!-- ThingDefCountClassType -->
 </xs:schema>

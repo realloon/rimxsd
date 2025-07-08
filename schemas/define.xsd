@@ -12,242 +12,6 @@
     </xs:complexType>
   </xs:element>
 
-  <!-- attributes -->
-  <!-- <xs:attribute name="ParentName" type="xs:string" /> -->
-
-  <!-- DefType -->
-  <xs:group name="DefType">
-    <xs:all>
-      <xs:element name="defName" type="DefNameType">
-        <xs:annotation>
-          <xs:documentation>The name of this Def. It is used as an identifier by the game code.
-            Default: "UnnamedDef"</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="label" type="xs:string">
-        <xs:annotation>
-          <xs:documentation>The name of this Def. It is used as an identifier by the game code.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="description" type="xs:string">
-        <xs:annotation>
-          <xs:documentation>A human-readable description given when the Def is inspected by players.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="descriptionHyperlinks">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:any />
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="ignoreConfigErrors" type="xs:boolean">
-        <xs:annotation>
-          <xs:documentation>Disables config error checking. Intended for mod use. (Be careful!)</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="ignoreIllegalLabelCharacterConfigError" type="xs:boolean" />
-      <xs:element name="modExtensions">
-        <xs:annotation>
-          <xs:documentation>Mod-specific data. Not used by core game code.</xs:documentation>
-        </xs:annotation>
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element name="li" type="DefModExtensionType" minOccurs="0" maxOccurs="unbounded" />
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="shortHash" type="xs:unsignedShort" />
-      <xs:element name="index" type="xs:unsignedShort">
-        <xs:annotation>
-          <xs:documentation>Default: ushort.MaxValue</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="modContentPack" />
-      <xs:element name="fileName" type="xs:string" />
-      <xs:element name="generated" type="xs:boolean" />
-      <xs:element name="debugRandomId" type="xs:unsignedShort">
-        <xs:annotation>
-          <xs:documentation>Default: (ushort) Rand.RangeInclusive(0, (int) ushort.MaxValue)</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-    </xs:all>
-  </xs:group>
-
-  <!-- BuildableDefType -->
-  <xs:group name="BuildableDefType">
-    <xs:all>
-      <xs:element name="passability" type="TraversabilityType" />
-      <xs:element name="statBases" type="StatModifierListType" />
-      <xs:element name="pathCost" type="xs:integer" />
-      <xs:element name="pathCostIgnoreRepeat" type="xs:boolean">
-        <xs:annotation>
-          <xs:documentation>Default: true</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="fertility" type="xs:float">
-        <xs:annotation>
-          <xs:documentation>Default: -1f</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="costList" type="GeneralAnyListType" />
-      <xs:element name="costStuffCount" type="xs:integer" />
-      <xs:element name="stuffCategories">
-        <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <!-- StuffCategoryDefType -->
-            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
-          </xs:choice>
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="stuffCategorySummary" type="xs:string" />
-      <xs:element name="costListForDifficulty" type="CostListForDifficultyType" />
-      <xs:element name="placingDraggableDimensions" type="xs:integer" />
-      <xs:element name="clearBuildingArea" type="xs:boolean">
-        <xs:annotation>
-          <xs:documentation>Default: true</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="defaultPlacingRot" type="xs:string">
-        <xs:annotation>
-          <xs:documentation>Default: Rot4.North</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="resourcesFractionWhenDeconstructed" type="xs:float">
-        <xs:annotation>
-          <xs:documentation>Default: 0.5f</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="blocksAltitudes">
-        <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:element name="li" type="AltitudeLayerType" minOccurs="0" maxOccurs="unbounded" />
-          </xs:choice>
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="dominantStyleCategory" type="xs:string" />
-      <xs:element name="isAltar" type="xs:boolean" />
-      <xs:element name="useStuffTerrainAffordance" type="xs:boolean" />
-      <xs:element name="terrainAffordanceNeeded" type="xs:string" />
-      <xs:element name="buildingPrerequisites">
-        <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
-          </xs:choice>
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="researchPrerequisites">
-        <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:element name="li" type="ResearchProjectDefType" minOccurs="0"
-              maxOccurs="unbounded" />
-          </xs:choice>
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="minMonolithLevel" type="xs:integer" />
-      <xs:element name="constructionSkillPrerequisite" type="xs:integer" />
-      <xs:element name="artisticSkillPrerequisite" type="xs:integer" />
-      <xs:element name="minTechLevelToBuild" type="TechLevelType" />
-      <xs:element name="maxTechLevelToBuild" type="TechLevelType" />
-      <xs:element name="altitudeLayer" type="AltitudeLayerType">
-        <xs:annotation>
-          <xs:documentation>Default: AltitudeLayer.Item</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="repairEffect" type="EffecterDefType" />
-      <xs:element name="constructEffect" type="EffecterDefType" />
-      <xs:element name="colorPerStuff">
-        <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:element name="li" type="ColorForStuffType" minOccurs="0" maxOccurs="unbounded" />
-          </xs:choice>
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="canGenerateDefaultDesignator" type="xs:boolean">
-        <xs:annotation>
-          <xs:documentation>Default: true</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="ideoBuilding" type="xs:boolean" />
-      <xs:element name="specialDisplayRadius" type="xs:float" />
-      <xs:element name="placeWorkers">
-        <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
-          </xs:choice>
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="designationCategory" type="xs:string" />
-      <xs:element name="designatorDropdown" type="xs:string" />
-      <xs:element name="designationHotKey" type="xs:string" />
-      <xs:element name="uiOrder" type="xs:float">
-        <xs:annotation>
-          <xs:documentation>Default: 2999f</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="uiIconPath" type="xs:string" />
-      <xs:element name="uiIconPathsStuff">
-        <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:element name="li" type="IconForStuffAppearanceType" minOccurs="0"
-              maxOccurs="unbounded" />
-          </xs:choice>
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="uiIconOffset" type="xs:string" />
-      <xs:element name="uiIconColor" type="xs:string">
-        <xs:annotation>
-          <xs:documentation>Default: Color.white</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="uiIconForStackCount" type="xs:integer">
-        <xs:annotation>
-          <xs:documentation>Default: -1</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="blueprintDef" type="xs:string" />
-      <xs:element name="installBlueprintDef" type="xs:string" />
-      <xs:element name="frameDef" type="xs:string" />
-      <xs:element name="graphic" type="GraphicType">
-        <xs:annotation>
-          <xs:documentation>Default: BaseContent.BadGraphic</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="uiIcon">
-        <xs:annotation>
-          <xs:documentation>Default: BaseContent.BadTex</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="uiIconAngle" type="xs:float" />
-      <xs:element name="MadeFromStuff" type="xs:boolean">
-        <xs:annotation>
-          <xs:documentation>Default: &gt;
-            !this.stuffCategories.NullOrEmpty&lt;StuffCategoryDef&gt;()</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="BuildableByPlayer" type="xs:boolean">
-        <xs:annotation>
-          <xs:documentation>Default: this.designationCategory != null</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="DrawMatSingle">
-        <xs:annotation>
-          <xs:documentation>Default: this.graphic?.MatSingle</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="Altitude" type="xs:float">
-        <xs:annotation>
-          <xs:documentation>Default: this.altitudeLayer.AltitudeFor()</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="AffectsFertility" type="xs:boolean">
-        <xs:annotation>
-          <xs:documentation>Default: (double) this.fertility &gt;= 0.0</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-    </xs:all>
-  </xs:group>
-
 
   <!-- DamageDefType -->
   <xs:complexType name="DamageDefType">
@@ -1596,16 +1360,6 @@
   </xs:complexType>
 
 
-
-
-
-
-
-
-
-
-
-
   <!-- ResearchProjectDefType -->
   <xs:complexType name="ResearchProjectDefType">
     <xs:annotation>
@@ -1770,7 +1524,6 @@
   </xs:complexType>
 
 
-
   <!-- EffecterDefType -->
   <xs:complexType name="EffecterDefType">
     <xs:annotation>
@@ -1802,8 +1555,6 @@
   </xs:complexType>
 
 
-
-
   <!-- StuffCategoryDefType -->
   <xs:complexType name="StuffCategoryDefType">
     <xs:annotation>
@@ -1820,9 +1571,6 @@
       </xs:extension>
     </xs:complexContent> -->
   </xs:complexType>
-
-
-
 
 
   <!-- SkillRequirementType -->
@@ -2037,8 +1785,6 @@
   </xs:complexType>
 
 
-
-
   <!-- HediffGiverSetDefType -->
   <xs:complexType name="HediffGiverSetDefType">
     <xs:annotation>
@@ -2058,103 +1804,4 @@
       </xs:extension>
     </xs:complexContent> -->
   </xs:complexType>
-
-
-
-
-
-
-
-
-  <!-- CostListForDifficultyType -->
-  <xs:complexType name="CostListForDifficultyType">
-    <xs:annotation>
-      <xs:documentation>XML definition for RimWorld's CostListForDifficulty type.</xs:documentation>
-    </xs:annotation>
-    <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element name="difficultyVar" type="xs:string" />
-      <xs:element name="costList" type="GeneralAnyListType" />
-      <xs:element name="costStuffCount" type="xs:integer" />
-      <xs:element name="invert" type="xs:boolean" />
-    </xs:choice>
-  </xs:complexType>
-
-  <!-- ThingDefCountClassType -->
-
-  <!-- IconForStuffAppearanceType -->
-  <xs:complexType name="IconForStuffAppearanceType">
-    <xs:annotation>
-      <xs:documentation>XML definition for RimWorld's IconForStuffAppearance type.</xs:documentation>
-    </xs:annotation>
-    <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element name="Appearance" type="xs:string">
-        <xs:annotation>
-          <xs:documentation>Default: this.appearance</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="IconPath" type="xs:string">
-        <xs:annotation>
-          <xs:documentation>Default: this.iconPath</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-    </xs:choice>
-  </xs:complexType>
-
-
-  <!-- DefModExtensionType -->
-  <xs:complexType name="DefModExtensionType">
-    <xs:annotation>
-      <xs:documentation>XML definition for RimWorld's DefModExtension type.</xs:documentation>
-    </xs:annotation>
-  </xs:complexType>
-
-  <!-- ColorForStuffType -->
-  <xs:complexType name="ColorForStuffType">
-    <xs:annotation>
-      <xs:documentation>XML definition for RimWorld's ColorForStuff type.</xs:documentation>
-    </xs:annotation>
-    <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element name="Stuff" type="DefNameType">
-        <xs:annotation>
-          <xs:documentation>Default: this.stuff</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="Color" type="xs:string">
-        <xs:annotation>
-          <xs:documentation>Default: this.color</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-    </xs:choice>
-  </xs:complexType>
-
-
-  <!-- CUSTOM: StatModifierListType -->
-  <xs:complexType name="StatModifierListType">
-    <xs:all>
-      <xs:element name="MaxHitPoints" type="xs:integer" minOccurs="0" />
-      <xs:element name="Mass" type="xs:float" minOccurs="0" />
-      <xs:element name="MarketValue" type="xs:integer" minOccurs="0" />
-      <xs:element name="SellPriceFactor" type="xs:float" minOccurs="0" />
-      <xs:element name="RoyalFavorValue" type="xs:float" minOccurs="0" />
-      <xs:element name="Flammability" type="xs:float" minOccurs="0" />
-      <xs:element name="WorkToMake" type="xs:integer" minOccurs="0" />
-      <xs:element name="DeteriorationRate" type="xs:integer" minOccurs="0" />
-      <xs:element name="Beauty" type="xs:integer" minOccurs="0" />
-      <xs:element name="Cleanliness" type="xs:float" minOccurs="0" />
-      <xs:element name="Comfort" type="xs:float" minOccurs="0" />
-      <xs:element name="Nutrition" type="xs:float" minOccurs="0" />
-      <xs:element name="FoodPoisonChanceFixedHuman" type="xs:float" minOccurs="0" />
-      <xs:element name="FoodPoisonChanceFixedHuman" type="xs:float" minOccurs="0" />
-      <xs:element name="ShootingAccuracyTurret" type="xs:float" minOccurs="0" />
-      <xs:element name="AccuracyTouch" type="xs:float" minOccurs="0" />
-      <xs:element name="AccuracyShort" type="xs:float" minOccurs="0" />
-      <xs:element name="AccuracyMedium" type="xs:float" minOccurs="0" />
-      <xs:element name="AccuracyLong" type="xs:float" minOccurs="0" />
-      <xs:element name="RangedWeapon_Cooldown" type="xs:float" minOccurs="0" />
-      <xs:element name="RangedWeapon_DamageMultiplier" type="xs:float" minOccurs="0" />
-      <!-- <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" /> -->
-    </xs:all>
-  </xs:complexType>
-
-
 </xs:schema>
