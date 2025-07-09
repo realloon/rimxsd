@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:include schemaLocation="./common_types.xsd"></xs:include>
+  <xs:include schemaLocation="./custom.xsd"></xs:include>
+
   <xs:attributeGroup name="DefAttributeGroup">
     <xs:attribute name="Name" type="DefNameType" />
     <xs:attribute name="ParentName" type="DefNameType" />

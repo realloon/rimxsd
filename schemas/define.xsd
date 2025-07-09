@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:include schemaLocation="./common_types.xsd"></xs:include>
-  <xs:include schemaLocation="./enum_types.xsd"></xs:include>
+  <xs:include schemaLocation="./common.xsd"></xs:include>
+  <xs:include schemaLocation="./enum.xsd"></xs:include>
   <xs:include schemaLocation="./Defs/ThingDef.xsd"></xs:include>
   
   <!-- Root -->

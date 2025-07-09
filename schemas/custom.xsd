@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <!-- DefNameType -->
+  <xs:simpleType name="DefNameType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[A-Z][A-Za-z0-9_]*" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- FloatRangeType -->
+  <xs:simpleType name="FloatRangeType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="\d+(\.\d+)?~\d+(\.\d+)?" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- SkillListType -->
+  <xs:complexType name="SkillListType">
+    <xs:all>
+      <xs:element name="Shooting" type="xs:integer" minOccurs="0" />
+      <xs:element name="Melee" type="xs:integer" minOccurs="0" />
+      <xs:element name="Construction" type="xs:integer" minOccurs="0" />
+      <xs:element name="Mining" type="xs:integer" minOccurs="0" />
+      <xs:element name="Cooking" type="xs:integer" minOccurs="0" />
+      <xs:element name="Plants" type="xs:integer" minOccurs="0" />
+      <xs:element name="Animals" type="xs:integer" minOccurs="0" />
+      <xs:element name="Crafting" type="xs:integer" minOccurs="0" />
+      <xs:element name="Artistic" type="xs:integer" minOccurs="0" />
+      <xs:element name="Medicine" type="xs:integer" minOccurs="0" />
+      <xs:element name="Social" type="xs:integer" minOccurs="0" />
+      <xs:element name="Intellectual" type="xs:integer" minOccurs="0" />
+      <!-- <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" /> -->
+    </xs:all>
+  </xs:complexType>
+
+  <!-- StatModifierListType -->
+  <xs:complexType name="StatModifierListType">
+    <xs:all>
+      <xs:element name="MaxHitPoints" type="xs:integer" minOccurs="0" />
+      <xs:element name="Mass" type="xs:float" minOccurs="0" />
+      <xs:element name="MarketValue" type="xs:integer" minOccurs="0" />
+      <xs:element name="SellPriceFactor" type="xs:float" minOccurs="0" />
+      <xs:element name="RoyalFavorValue" type="xs:float" minOccurs="0" />
+      <xs:element name="Flammability" type="xs:float" minOccurs="0" />
+      <xs:element name="WorkToMake" type="xs:integer" minOccurs="0" />
+      <xs:element name="DeteriorationRate" type="xs:integer" minOccurs="0" />
+      <xs:element name="Beauty" type="xs:integer" minOccurs="0" />
+      <xs:element name="Cleanliness" type="xs:float" minOccurs="0" />
+      <xs:element name="Comfort" type="xs:float" minOccurs="0" />
+      <xs:element name="Nutrition" type="xs:float" minOccurs="0" />
+      <xs:element name="FoodPoisonChanceFixedHuman" type="xs:float" minOccurs="0" />
+      <xs:element name="FoodPoisonChanceFixedHuman" type="xs:float" minOccurs="0" />
+      <xs:element name="ShootingAccuracyTurret" type="xs:float" minOccurs="0" />
+      <xs:element name="AccuracyTouch" type="xs:float" minOccurs="0" />
+      <xs:element name="AccuracyShort" type="xs:float" minOccurs="0" />
+      <xs:element name="AccuracyMedium" type="xs:float" minOccurs="0" />
+      <xs:element name="AccuracyLong" type="xs:float" minOccurs="0" />
+      <xs:element name="RangedWeapon_Cooldown" type="xs:float" minOccurs="0" />
+      <xs:element name="RangedWeapon_DamageMultiplier" type="xs:float" minOccurs="0" />
+      <!-- <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" /> -->
+    </xs:all>
+  </xs:complexType>
+
+  <!-- GeneralAnyListType -->
+  <xs:complexType name="GeneralAnyListType">
+    <xs:sequence>
+      <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
