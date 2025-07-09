@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="../custom.xsd"></xs:include>
+  <xs:include schemaLocation="../enum.xsd"></xs:include>
+  <xs:include schemaLocation="../common.xsd"></xs:include>
+  <xs:include schemaLocation="../attributes.xsd"></xs:include>
+
+  <xs:complexType name="RecipeDefType">
+    <xs:annotation>
+      <xs:documentation>XML definition for RimWorld's RecipeDef type.</xs:documentation>
+    </xs:annotation>
+
+    <xs:all>
+      <!-- #region Inherit DefType -->
+      <xs:element name="defName" type="DefNameType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The name of this Def. It is used as an identifier by the game code.
+            Default: "UnnamedDef"</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="label" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The name of this Def. It is used as an identifier by the game code.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="description" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A human-readable description given when the Def is inspected by players.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="descriptionHyperlinks" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:any />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ignoreConfigErrors" type="BooleanType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Disables config error checking. Intended for mod use. (Be careful!)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ignoreIllegalLabelCharacterConfigError" type="BooleanType" minOccurs="0" />
+      <xs:element name="modExtensions" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Mod-specific data. Not used by core game code.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="li" type="DefModExtensionType" minOccurs="0" maxOccurs="unbounded" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="shortHash" type="xs:unsignedShort" minOccurs="0" />
+      <xs:element name="index" type="xs:unsignedShort" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: ushort.MaxValue</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="modContentPack" minOccurs="0" />
+      <xs:element name="fileName" type="xs:string" minOccurs="0" />
+      <xs:element name="generated" type="BooleanType" minOccurs="0" />
+      <xs:element name="debugRandomId" type="xs:unsignedShort" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: (ushort) Rand.RangeInclusive(0, (int) ushort.MaxValue)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <!-- #endregion -->
+
+      <xs:element name="workerClass" type="DefNameType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: typeof (RecipeWorker)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="workerCounterClass" type="DefNameType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: typeof (RecipeWorkerCounter)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="jobString" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: "Doing an unknown recipe."</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="requiredGiverWorkType" type="DefNameType" minOccurs="0" />
+      <xs:element name="workAmount" type="xs:float" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: -1f</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="workSpeedStat" type="DefNameType" minOccurs="0" />
+      <xs:element name="efficiencyStat" type="DefNameType" minOccurs="0" />
+      <xs:element name="workTableEfficiencyStat" type="DefNameType" minOccurs="0" />
+      <xs:element name="workTableSpeedStat" type="DefNameType" minOccurs="0" />
+      <xs:element name="ingredients" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: new List&lt;IngredientCount&gt;()</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:choice maxOccurs="unbounded">
+            <xs:element name="li" type="IngredientCountType" minOccurs="0"
+              maxOccurs="unbounded" />
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="fixedIngredientFilter" type="ThingFilterType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: new ThingFilter()</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="defaultIngredientFilter" type="ThingFilterType" minOccurs="0" />
+      <xs:element name="allowMixingIngredients" type="BooleanType" minOccurs="0" />
+      <xs:element name="ignoreIngredientCountTakeEntireStacks" type="BooleanType" minOccurs="0" />
+      <xs:element name="forceHiddenSpecialFilters" minOccurs="0">
+        <xs:complexType>
+          <xs:choice maxOccurs="unbounded">
+            <xs:element name="li" type="DefNameType" minOccurs="0"
+              maxOccurs="unbounded" />
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="autoStripCorpses" type="BooleanType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="interruptIfIngredientIsRotting" type="BooleanType" minOccurs="0" />
+      <xs:element name="products" type="GeneralAnyListType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: new List&lt;ThingDefCountClass&gt;()</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="specialProducts" minOccurs="0">
+        <xs:complexType>
+          <xs:choice maxOccurs="unbounded">
+            <xs:element name="li" type="DefNameType" minOccurs="0"
+              maxOccurs="unbounded" />
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="productHasIngredientStuff" type="BooleanType" minOccurs="0" />
+      <xs:element name="useIngredientsForColor" type="BooleanType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="targetCountAdjustment" type="xs:integer" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: 1</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="unfinishedThingDef" type="xs:string" minOccurs="0" />
+      <xs:element name="skillRequirements" minOccurs="0">
+        <xs:complexType>
+          <xs:choice maxOccurs="unbounded">
+            <xs:element name="li" type="SkillRequirementType" minOccurs="0"
+              maxOccurs="unbounded" />
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="workSkill" type="DefNameType" minOccurs="0" />
+      <xs:element name="workSkillLearnFactor" type="xs:float" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: 1f</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="effectWorking" type="EffecterDefType" minOccurs="0" />
+      <xs:element name="soundWorking" type="DefNameType" minOccurs="0" />
+      <xs:element name="successfullyRemovedHediffMessage" type="xs:string" minOccurs="0" />
+      <xs:element name="surgerySuccessChanceFactor" type="xs:float" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: 1f</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="deathOnFailedSurgeryChance" type="xs:float" minOccurs="0" />
+      <xs:element name="targetsBodyPart" type="BooleanType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="anesthetize" type="BooleanType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="minPartCount" type="xs:integer" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: -1</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="surgeryIgnoreEnvironment" type="BooleanType" minOccurs="0" />
+      <xs:element name="surgeryOutcomeEffect" type="DefNameType" minOccurs="0" />
+      <xs:element name="mustBeFertile" type="BooleanType" minOccurs="0" />
+      <xs:element name="allowedForQuestLodgers" type="BooleanType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="minAllowedAge" type="xs:integer" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: -1</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="humanlikeOnly" type="BooleanType" minOccurs="0" />
+      <xs:element name="mutantPrerequisite" minOccurs="0">
+        <xs:complexType>
+          <xs:choice maxOccurs="unbounded">
+            <xs:element name="li" type="DefNameType" minOccurs="0" maxOccurs="unbounded" />
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="mutantBlacklist" minOccurs="0">
+        <xs:complexType>
+          <xs:choice maxOccurs="unbounded">
+            <xs:element name="li" type="DefNameType" minOccurs="0" maxOccurs="unbounded" />
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="smeltingWorkAmount" type="xs:float" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: -1f</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="researchPrerequisite" type="ResearchProjectDefType" minOccurs="0" />
+      <xs:element name="memePrerequisitesAny" minOccurs="0">
+        <xs:complexType>
+          <xs:choice maxOccurs="unbounded">
+            <xs:element name="li" type="DefNameType" minOccurs="0" maxOccurs="unbounded" />
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="researchPrerequisites" minOccurs="0">
+        <xs:complexType>
+          <xs:choice maxOccurs="unbounded">
+            <xs:element name="li" type="ResearchProjectDefType" minOccurs="0"
+              maxOccurs="unbounded" />
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="factionPrerequisiteTags" minOccurs="0">
+        <xs:complexType>
+          <xs:choice maxOccurs="unbounded">
+            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="fromIdeoBuildingPreceptOnly" type="BooleanType" minOccurs="0" />
+      <xs:element name="conceptLearned" type="ConceptDefType" minOccurs="0" />
+      <xs:element name="dontShowIfAnyIngredientMissing" type="BooleanType" minOccurs="0" />
+      <xs:element name="displayPriority" type="xs:integer" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: 99999</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="formingTicks" type="xs:integer" minOccurs="0" />
+      <xs:element name="mechanitorOnlyRecipe" type="BooleanType" minOccurs="0" />
+      <xs:element name="gestationCycles" type="xs:integer" minOccurs="0" />
+      <xs:element name="mechResurrection" type="BooleanType" minOccurs="0" />
+      <xs:element name="regenerateOnDifficultyChange" type="BooleanType" minOccurs="0" />
+      <xs:element name="adjustedCount" type="xs:integer" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: 1</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="UIIconThing" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: this.uiIconThing ?? this.ProducedThingDef</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="UsesUnfinishedThing" type="BooleanType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: this.unfinishedThingDef != null</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:all>
+
+    <xs:attributeGroup ref="DefAttributeGroup"></xs:attributeGroup>
+  </xs:complexType>
+</xs:schema>

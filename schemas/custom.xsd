@@ -7,12 +7,75 @@
     </xs:restriction>
   </xs:simpleType>
 
+  <!-- EmptyStringType -->
+  <xs:simpleType name="EmptyStringType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value=""></xs:pattern>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- StringArray -->
+  <xs:simpleType name="StringArray">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="([A-Za-z0-9_]+(\.[A-Za-z0-9_]+)*(,\s?[A-Za-z0-9_]+(\.[A-Za-z0-9_]+)*)*)" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- #region boolean -->
+  <!-- BooleanType -->
+  <xs:simpleType name="BooleanType">
+    <xs:annotation>
+      <xs:documentation>Warn: For forward compatibility, the restriction is relaxed to allow "True"
+        and "False", but it is recommended to use only "true" and "false".</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="xs:boolean BooleanStringType"></xs:union>
+  </xs:simpleType>
+  <!-- BooleanStringType -->
+  <xs:simpleType name="BooleanStringType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="True"></xs:enumeration>
+      <xs:enumeration value="False"></xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- #endregion -->
+
+  <!-- #region intRange -->
+  <!-- IntRangeType -->
+  <xs:simpleType name="IntRangeType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="\d+~\d+" />
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- IntRangeMinMaxType -->
+  <xs:complexType name="IntRangeMinMaxType">
+    <xs:all>
+      <xs:element name="max" type="xs:integer" />
+      <xs:element name="min" type="xs:integer" />
+    </xs:all>
+  </xs:complexType>
+  <!-- #endregion -->
+
   <!-- FloatRangeType -->
   <xs:simpleType name="FloatRangeType">
     <xs:restriction base="xs:string">
       <xs:pattern value="\d+(\.\d+)?~\d+(\.\d+)?" />
     </xs:restriction>
   </xs:simpleType>
+
+  <!-- #region Vector -->
+  <!-- Vector2Type -->
+  <xs:simpleType name="Vector2Type">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="\(-?\d+(\.\d+)?, ?-?\d+(\.\d+)?\)" />
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- Vector3Type -->
+  <xs:simpleType name="Vector3Type">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="\(-?\d+(\.\d+)?, ?-?\d+(\.\d+)?, ?-?\d+(\.\d+)?\)" />
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- #endregion -->
 
   <!-- SkillListType -->
   <xs:complexType name="SkillListType">
@@ -29,36 +92,276 @@
       <xs:element name="Medicine" type="xs:integer" minOccurs="0" />
       <xs:element name="Social" type="xs:integer" minOccurs="0" />
       <xs:element name="Intellectual" type="xs:integer" minOccurs="0" />
-      <!-- <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" /> -->
     </xs:all>
   </xs:complexType>
 
   <!-- StatModifierListType -->
   <xs:complexType name="StatModifierListType">
-    <xs:all>
-      <xs:element name="MaxHitPoints" type="xs:integer" minOccurs="0" />
-      <xs:element name="Mass" type="xs:float" minOccurs="0" />
-      <xs:element name="MarketValue" type="xs:integer" minOccurs="0" />
-      <xs:element name="SellPriceFactor" type="xs:float" minOccurs="0" />
-      <xs:element name="RoyalFavorValue" type="xs:float" minOccurs="0" />
-      <xs:element name="Flammability" type="xs:float" minOccurs="0" />
-      <xs:element name="WorkToMake" type="xs:integer" minOccurs="0" />
-      <xs:element name="DeteriorationRate" type="xs:integer" minOccurs="0" />
-      <xs:element name="Beauty" type="xs:integer" minOccurs="0" />
-      <xs:element name="Cleanliness" type="xs:float" minOccurs="0" />
-      <xs:element name="Comfort" type="xs:float" minOccurs="0" />
-      <xs:element name="Nutrition" type="xs:float" minOccurs="0" />
-      <xs:element name="FoodPoisonChanceFixedHuman" type="xs:float" minOccurs="0" />
-      <xs:element name="FoodPoisonChanceFixedHuman" type="xs:float" minOccurs="0" />
-      <xs:element name="ShootingAccuracyTurret" type="xs:float" minOccurs="0" />
-      <xs:element name="AccuracyTouch" type="xs:float" minOccurs="0" />
-      <xs:element name="AccuracyShort" type="xs:float" minOccurs="0" />
-      <xs:element name="AccuracyMedium" type="xs:float" minOccurs="0" />
-      <xs:element name="AccuracyLong" type="xs:float" minOccurs="0" />
-      <xs:element name="RangedWeapon_Cooldown" type="xs:float" minOccurs="0" />
-      <xs:element name="RangedWeapon_DamageMultiplier" type="xs:float" minOccurs="0" />
-      <!-- <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" /> -->
-    </xs:all>
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <!-- #region From Stats_Basics_General -->
+      <xs:element name="MaxHitPoints" type="xs:float" />
+      <xs:element name="Mass" type="xs:float" />
+      <xs:element name="MarketValue" type="xs:float" />
+      <xs:element name="SellPriceFactor" type="xs:float" />
+      <xs:element name="RoyalFavorValue" type="xs:float" />
+      <xs:element name="Flammability" type="xs:float" />
+      <xs:element name="WorkToMake" type="xs:float" />
+      <xs:element name="DeteriorationRate" type="xs:integer" />
+      <xs:element name="Beauty" type="xs:float" />
+      <xs:element name="Cleanliness" type="xs:float" />
+      <xs:element name="Comfort" type="xs:float" />
+      <xs:element name="Nutrition" type="xs:float" />
+      <xs:element name="FoodPoisonChanceFixedHuman" type="xs:float" />
+      <xs:element name="FoodPoisonChanceFixedHuman" type="xs:float" />
+      <xs:element name="ShootingAccuracyTurret" type="xs:float" />
+      <!-- #endregion -->
+
+      <!-- #region From Stats_Abilities.xml -->
+      <xs:element name="Ability_RequiredPsylink" type="xs:integer">
+        <xs:annotation>
+          <xs:documentation>The minimum psylink level required to use this ability.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Ability_CastingTime" type="xs:integer">
+        <xs:annotation>
+          <xs:documentation>How long it takes to perform this ability.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Ability_EntropyGain" type="xs:integer">
+        <xs:annotation>
+          <xs:documentation>How much neural heat will be added as a result of performing this
+            ability.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Ability_PsyfocusCost" type="xs:integer">
+        <xs:annotation>
+          <xs:documentation>How much psyfocus must be spent to perform this ability.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Ability_Range" type="xs:integer">
+        <xs:annotation>
+          <xs:documentation>The maximum distance to a target of this ability, or to the center of
+            the target location.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Ability_Duration" type="xs:integer">
+        <xs:annotation>
+          <xs:documentation>How long the effects of this ability last.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Ability_EffectRadius" type="xs:integer">
+        <xs:annotation>
+          <xs:documentation>The radius of the area of effect of this ability.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Ability_GoodwillImpact" type="xs:integer">
+        <xs:annotation>
+          <xs:documentation>How casting this ability on someone will impact relations with their
+            faction.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Ability_DetectChancePerEntropy" type="xs:integer">
+        <xs:annotation>
+          <xs:documentation>The likelihood of this psychic power being detected when it is
+            used.\n\nSome factions try to enforce laws which restrict some powers to those holding
+            specific titles. When you use a power, there is a chance that the psychic signature will
+            be detected at a distance, which leads to diplomatic consequences.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <!-- #endregion -->
+
+      <!-- #region From Stats_Apparel.xml -->
+      <xs:element name="StuffEffectMultiplierArmor" type="xs:float"></xs:element>
+      <xs:element name="StuffEffectMultiplierInsulation_Cold" type="xs:float"></xs:element>
+      <xs:element name="StuffEffectMultiplierInsulation_Heat" type="xs:float"></xs:element>
+      <xs:element name="ArmorRating_Sharp" type="xs:float"></xs:element>
+      <xs:element name="ArmorRating_Blunt" type="xs:float"></xs:element>
+      <xs:element name="ArmorRating_Heat" type="xs:float"></xs:element>
+      <xs:element name="Insulation_Cold" type="xs:float"></xs:element>
+      <xs:element name="Insulation_Heat" type="xs:float"></xs:element>
+      <xs:element name="EnergyShieldEnergyMax" type="xs:float"></xs:element>
+      <xs:element name="EnergyShieldRechargeRate" type="xs:float"></xs:element>
+      <xs:element name="PackRadius" type="xs:float"></xs:element>
+      <xs:element name="EquipDelay" type="xs:float"></xs:element>
+      <!-- #endregion -->
+
+      <!-- #region From Stats_Basics_Special.xml -->
+      <xs:element name="MedicalPotency" type="xs:float"></xs:element>
+      <xs:element name="MedicalQualityMax" type="xs:float"></xs:element>
+      <xs:element name="ConstructionSpeedFactor" type="xs:float"></xs:element>
+      <xs:element name="MeditationFocusStrength" type="xs:float"></xs:element>
+      <xs:element name="PsychicSensitivityOffset" type="xs:float"></xs:element>
+      <xs:element name="PsychicSensitivityFactor" type="xs:float"></xs:element>
+      <xs:element name="PsychicEntropyMaxOffset" type="xs:float"></xs:element>
+      <xs:element name="PsychicEntropyRecoveryRateOffset" type="xs:float"></xs:element>
+      <xs:element name="FilthMultiplier" type="xs:float"></xs:element>
+      <xs:element name="CleaningTimeFactor" type="xs:float"></xs:element>
+      <!-- #endregion -->
+
+      <!-- #region From Stats_Building_Special -->
+      <xs:element name="WorkToBuild" type="xs:float"></xs:element>
+      <xs:element name="DoorOpenSpeed" type="xs:float"></xs:element>
+      <xs:element name="BedRestEffectiveness" type="xs:float"></xs:element>
+      <xs:element name="TrapMeleeDamage" type="xs:float"></xs:element>
+      <xs:element name="TrapSpringChance" type="xs:float"></xs:element>
+      <xs:element name="ResearchSpeedFactor" type="xs:float"></xs:element>
+      <xs:element name="MedicalTendQualityOffset" type="xs:float"></xs:element>
+      <xs:element name="ImmunityGainSpeedFactor" type="xs:float"></xs:element>
+      <xs:element name="PowerPlantMaxPowerOuput" type="xs:float"></xs:element>
+      <xs:element name="WorkTableWorkSpeedFactor" type="xs:float"></xs:element>
+      <xs:element name="WorkTableEfficiencyFactor" type="xs:float"></xs:element>
+      <xs:element name="JoyGainFactor" type="xs:float"></xs:element>
+      <xs:element name="SurgerySuccessChanceFactor" type="xs:float"></xs:element>
+      <xs:element name="RoomReadingBonus" type="xs:float">
+        <xs:annotation>
+          <xs:documentation>Provides a bonus to research speed, XP gained from reading, and
+            recreation gained from reading in the same room as the bookcase. This is increased by
+            placing more and higher quality books in the bookcase. \n\n This is only used to
+            communicate information in the special stats page</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <!-- #endregion -->
+
+      <!-- #region From Stats_Pawns_Combat -->
+      <xs:element name="StatWorker_MeleeDPS" type="xs:float"></xs:element>
+      <xs:element name="MeleeDamageFactor" type="xs:float"></xs:element>
+      <xs:element name="MeleeCooldownFactor" type="xs:float"></xs:element>
+      <xs:element name="MeleeArmorPenetration" type="xs:float"></xs:element>
+      <xs:element name="MeleeHitChance" type="xs:float"></xs:element>
+      <xs:element name="MeleeDodgeChance" type="xs:float"></xs:element>
+      <xs:element name="RangedCooldownFactor" type="xs:float"></xs:element>
+      <xs:element name="ShootingAccuracyPawn" type="xs:float"></xs:element>
+      <xs:element name="ShootingAccuracyFactor_Touch" type="xs:float"></xs:element>
+      <xs:element name="ShootingAccuracyFactor_Short" type="xs:float"></xs:element>
+      <xs:element name="ShootingAccuracyFactor_Medium" type="xs:float"></xs:element>
+      <xs:element name="ShootingAccuracyFactor_Long" type="xs:float"></xs:element>
+      <xs:element name="AimingDelayFactor" type="xs:float"></xs:element>
+      <xs:element name="MortarMissRadiusFactor" type="xs:float"></xs:element>
+      <xs:element name="PawnTrapSpringChance" type="xs:float"></xs:element>
+      <xs:element name="IncomingDamageFactor" type="xs:float"></xs:element>
+      <xs:element name="StaggerDurationFactor" type="xs:float"></xs:element>
+      <!-- #endregion -->
+
+      <!-- #region From Stats_Pawns_General -->
+      <xs:element name="MoveSpeed" type="xs:float"></xs:element>
+      <xs:element name="CrawlSpeed" type="xs:float"></xs:element>
+      <xs:element name="MentalBreakThreshold" type="xs:float"></xs:element>
+      <xs:element name="PsychicSensitivity" type="xs:float"></xs:element>
+      <xs:element name="ToxicResistance" type="xs:float"></xs:element>
+      <xs:element name="GlobalLearningFactor" type="xs:float"></xs:element>
+      <xs:element name="BedHungerRateFactor" type="xs:float">
+        <xs:annotation>
+          <xs:documentation>Hidden stat only used by facilities to control hunger rate of sleeping
+            pawns</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="RestRateMultiplier" type="xs:float"></xs:element>
+      <xs:element name="EatingSpeed" type="xs:float"></xs:element>
+      <xs:element name="ComfyTemperatureMin" type="xs:float"></xs:element>
+      <xs:element name="ComfyTemperatureMax" type="xs:float"></xs:element>
+      <xs:element name="ImmunityGainSpeed" type="xs:float"></xs:element>
+      <xs:element name="InjuryHealingFactor" type="xs:float"></xs:element>
+      <xs:element name="CarryingCapacity" type="xs:float"></xs:element>
+      <xs:element name="MeatAmount" type="xs:float"></xs:element>
+      <xs:element name="LeatherAmount" type="xs:float"></xs:element>
+      <xs:element name="MinimumHandlingSkill" type="xs:float"></xs:element>
+      <xs:element name="PainShockThreshold" type="xs:float"></xs:element>
+      <xs:element name="ForagedNutritionPerDay" type="xs:float"></xs:element>
+      <xs:element name="FilthRate" type="xs:float"></xs:element>
+      <xs:element name="AnimalsLearningFactor" type="xs:float"></xs:element>
+      <xs:element name="CaravanRidingSpeedFactor" type="xs:float"></xs:element>
+      <xs:element name="MaxNutrition" type="xs:float"></xs:element>
+      <xs:element name="LifespanFactor" type="xs:float"></xs:element>
+      <xs:element name="MeditationFocusGain" type="xs:float"></xs:element>
+      <xs:element name="PsychicEntropyMax" type="xs:float"></xs:element>
+      <xs:element name="PsychicEntropyRecoveryRate" type="xs:float"></xs:element>
+      <xs:element name="ToxicEnvironmentResistance" type="xs:float"></xs:element>
+      <xs:element name="RestFallRateFactor" type="xs:float"></xs:element>
+      <xs:element name="EMPResistance" type="xs:float"></xs:element>
+      <xs:element name="JoyFallRateFactor" type="xs:float"></xs:element>
+      <!-- #endregion -->
+
+      <!-- #region From Stats_Pawns_Social -->
+      <xs:element name="NegotiationAbility" type="xs:float"></xs:element>
+      <xs:element name="PawnBeauty" type="xs:float"></xs:element>
+      <xs:element name="ArrestSuccessChance" type="xs:float"></xs:element>
+      <xs:element name="TradePriceImprovement" type="xs:float"></xs:element>
+      <xs:element name="DrugSellPriceImprovement" type="xs:float"></xs:element>
+      <xs:element name="SocialImpact" type="xs:float"></xs:element>
+      <xs:element name="TameAnimalChance" type="xs:float"></xs:element>
+      <xs:element name="TrainAnimalChance" type="xs:float"></xs:element>
+      <xs:element name="BondAnimalChanceFactor" type="xs:float"></xs:element>
+      <!-- #endregion -->
+
+      <!-- #region From Stats_Pawns_WorkGeneral.xml -->
+      <xs:element name="WorkSpeedGlobal" type="xs:float"></xs:element>
+      <xs:element name="MiningSpeed" type="xs:float"></xs:element>
+      <xs:element name="DeepDrillingSpeed" type="xs:float"></xs:element>
+      <xs:element name="MiningYield" type="xs:float"></xs:element>
+      <xs:element name="SmoothingSpeed" type="xs:float"></xs:element>
+      <xs:element name="ResearchSpeed" type="xs:float"></xs:element>
+      <xs:element name="AnimalGatherSpeed" type="xs:float"></xs:element>
+      <xs:element name="AnimalGatherYield" type="xs:float"></xs:element>
+      <xs:element name="PlantWorkSpeed" type="xs:float"></xs:element>
+      <xs:element name="PlantHarvestYield" type="xs:float"></xs:element>
+      <xs:element name="DrugHarvestYield" type="xs:float"></xs:element>
+      <xs:element name="HuntingStealth" type="xs:float"></xs:element>
+      <xs:element name="ConstructionSpeed" type="xs:float"></xs:element>
+      <xs:element name="ConstructSuccessChance" type="xs:float"></xs:element>
+      <xs:element name="FixBrokenDownBuildingSuccessChance" type="xs:float"></xs:element>
+      <xs:element name="CleaningSpeed" type="xs:float"></xs:element>
+      <xs:element name="ReadingSpeed" type="xs:float"></xs:element>
+      <!-- #endregion -->
+
+      <!-- #region From Stats_Pawns_WorkMedical.xml -->
+      <xs:element name="MedicalTendSpeed" type="xs:float"></xs:element>
+      <xs:element name="MedicalTendQuality" type="xs:float"></xs:element>
+      <xs:element name="MedicalOperationSpeed" type="xs:float"></xs:element>
+      <xs:element name="MedicalSurgerySuccessChance" type="xs:float"></xs:element>
+      <!-- #endregion -->
+
+      <!-- #region From Stats_Pawns_WorkRecipes.xml -->
+      <xs:element name="SmeltingSpeed" type="xs:float"></xs:element>
+      <xs:element name="GeneralLaborSpeed" type="xs:float"></xs:element>
+      <xs:element name="DrugSynthesisSpeed" type="xs:float"></xs:element>
+      <xs:element name="CookSpeed" type="xs:float"></xs:element>
+      <xs:element name="FoodPoisonChance" type="xs:float"></xs:element>
+      <xs:element name="DrugCookingSpeed" type="xs:float"></xs:element>
+      <xs:element name="ButcheryFleshSpeed" type="xs:float"></xs:element>
+      <xs:element name="ButcheryMechanoidSpeed" type="xs:float"></xs:element>
+      <xs:element name="ButcheryFleshEfficiency" type="xs:float"></xs:element>
+      <xs:element name="ButcheryMechanoidEfficiency" type="xs:float"></xs:element>
+      <!-- #endregion -->
+
+      <!-- #region From Stats_Stuff.xml -->
+      <xs:element name="StuffPower_Armor_Sharp" type="xs:float"></xs:element>
+      <xs:element name="StuffPower_Armor_Blunt" type="xs:float"></xs:element>
+      <xs:element name="StuffPower_Armor_Heat" type="xs:float"></xs:element>
+      <xs:element name="StuffPower_Insulation_Cold" type="xs:float"></xs:element>
+      <xs:element name="StuffPower_Insulation_Heat" type="xs:float"></xs:element>
+      <!-- #endregion -->
+
+      <!-- #region From Stats_Weapons_Melee.xml -->
+      <xs:element name="MeleeWeapon_AverageDPS" type="xs:float"></xs:element>
+      <xs:element name="MeleeWeapon_AverageArmorPenetration" type="xs:float"></xs:element>
+      <xs:element name="MeleeWeapon_DamageMultiplier" type="xs:float"></xs:element>
+      <xs:element name="MeleeWeapon_CooldownMultiplier" type="xs:float"></xs:element>
+      <xs:element name="SharpDamageMultiplier" type="xs:float"></xs:element>
+      <xs:element name="BluntDamageMultiplier" type="xs:float"></xs:element>
+      <!-- #endregion -->
+
+      <!-- #region From Stats_Weapons_Ranged.xml -->
+      <xs:element name="AccuracyTouch" type="xs:float"></xs:element>
+      <xs:element name="AccuracyShort" type="xs:float"></xs:element>
+      <xs:element name="AccuracyMedium" type="xs:float"></xs:element>
+      <xs:element name="AccuracyLong" type="xs:float"></xs:element>
+      <xs:element name="RangedWeapon_Cooldown" type="xs:float"></xs:element>
+      <xs:element name="RangedWeapon_DamageMultiplier" type="xs:float"></xs:element>
+      <!-- #endregion -->
+
+      <!-- Fallback -->
+      <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
   </xs:complexType>
 
   <!-- GeneralAnyListType -->
@@ -67,4 +370,5 @@
       <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
     </xs:sequence>
   </xs:complexType>
+
 </xs:schema>

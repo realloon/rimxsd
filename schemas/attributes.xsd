@@ -5,6 +5,7 @@
   <xs:attributeGroup name="DefAttributeGroup">
     <xs:attribute name="Name" type="DefNameType" />
     <xs:attribute name="ParentName" type="DefNameType" />
-    <xs:attribute name="Abstract" type="xs:boolean" />
+    <xs:attribute name="Abstract" type="BooleanType" />
+    <xs:attribute name="MayRequireAnyOf" type="StringArray" />
   </xs:attributeGroup>
 </xs:schema>

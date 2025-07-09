@@ -61,6 +61,18 @@
     </xs:restriction>
   </xs:simpleType>
 
+  <!-- GenderType -->
+  <xs:simpleType name="GenderType">
+    <xs:annotation>
+      <xs:documentation>Enumeration of values for GenderType.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="Male" />
+      <xs:enumeration value="Female" />
+    </xs:restriction>
+  </xs:simpleType>
+
   <!-- VerbCategoryType -->
   <xs:simpleType name="VerbCategoryType">
     <xs:annotation>
@@ -234,22 +246,19 @@
     </xs:restriction>
   </xs:simpleType>
 
-  <!-- FilthSourceFlagsType -->
-  <xs:simpleType name="FilthSourceFlagsType">
+  <!-- FilthSourceType -->
+  <xs:simpleType name="FilthSourceType">
     <xs:annotation>
       <xs:documentation>Enumeration of values for FilthSourceFlags.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:string">
+      <!-- Remove `Flags` -->
       <xs:enumeration value="None" />
       <xs:enumeration value="Terrain" />
       <xs:enumeration value="Natural" />
       <xs:enumeration value="Unnatural" />
       <xs:enumeration value="Pawn" />
       <xs:enumeration value="Any" />
-      <xs:enumeration value="Pawn" />
-      <xs:enumeration value="Unnatural" />
-      <xs:enumeration value="Natural" />
-      <xs:enumeration value="Terrain" />
     </xs:restriction>
   </xs:simpleType>
 
@@ -509,4 +518,78 @@
       <xs:enumeration value="PsychicEmitter" />
     </xs:restriction>
   </xs:simpleType>
+
+  <!-- RenderNodePawnTypeType -->
+  <xs:simpleType name="RenderNodePawnTypeType">
+    <xs:annotation>
+      <xs:documentation>Enumeration of values for RenderNodePawnType.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Any" />
+      <xs:enumeration value="HumanlikeOnly" />
+      <xs:enumeration value="NonHumanlikeOnly" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- AttachmentColorTypeType -->
+  <xs:simpleType name="AttachmentColorTypeType">
+    <xs:annotation>
+      <xs:documentation>Enumeration of values for AttachmentColorType.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Custom" />
+      <xs:enumeration value="Hair" />
+      <xs:enumeration value="Skin" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- SideType -->
+  <xs:simpleType name="SideType">
+    <xs:annotation>
+      <xs:documentation>Enumeration of values for Side.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Center" />
+      <xs:enumeration value="Left" />
+      <xs:enumeration value="Right" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- PawnRenderNodeProperties.SideType -->
+  <xs:simpleType name="PawnRenderNodeProperties.SideType">
+    <xs:annotation>
+      <xs:documentation>Enumeration of values for PawnRenderNodeProperties.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Center" />
+      <xs:enumeration value="Left" />
+      <xs:enumeration value="Right" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- PawnRenderNodeProperties.AttachmentColorTypeType -->
+  <xs:simpleType name="PawnRenderNodeProperties.AttachmentColorTypeType">
+    <xs:annotation>
+      <xs:documentation>Enumeration of values for PawnRenderNodeProperties.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Custom" />
+      <xs:enumeration value="Hair" />
+      <xs:enumeration value="Skin" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- PawnRenderNodeProperties.RenderNodePawnTypeType -->
+  <xs:simpleType name="PawnRenderNodeProperties.RenderNodePawnTypeType">
+    <xs:annotation>
+      <xs:documentation>Enumeration of values for PawnRenderNodeProperties.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Any" />
+      <xs:enumeration value="HumanlikeOnly" />
+      <xs:enumeration value="NonHumanlikeOnly" />
+    </xs:restriction>
+  </xs:simpleType>
+
+
 </xs:schema>
