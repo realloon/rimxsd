@@ -1,13 +1,10 @@
-// import {test} from './test/index.test'
-// test()
-
 // Assets
-import csCode from './assets/Class.txt'
+import code from './assets/code.txt'
 // Modules
 import { parseCSharp, buildXsdDom, serializeXsd } from './modules'
 
 export function main() {
-  const irArr = parseCSharp(csCode)
+  const irArr = parseCSharp(code)
   const dom = buildXsdDom(irArr)
   const xsd = serializeXsd(dom)
   console.log(xsd)
