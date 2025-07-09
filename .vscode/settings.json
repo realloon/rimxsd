@@ -5,7 +5,7 @@
   },
   "xml.fileAssociations": [
     {
-      "pattern": "playground/*.def.xml",
+      "pattern": "playground/*.xml",
       "systemId": "./schemas/define.xsd"
     }
   ]
