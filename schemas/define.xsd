@@ -5,6 +5,7 @@
   <xs:include schemaLocation="./Defs/RecipeDef.xsd" />
   <xs:include schemaLocation="./Defs/GameConditionDef.xsd" />
   <xs:include schemaLocation="./Defs/PawnKindDef.xsd" />
+  <xs:include schemaLocation="./Defs/SurgeryOutcomeEffectDef.xsd" />
 
   <!-- Root -->
   <xs:element name="Defs">
@@ -13,6 +14,7 @@
         <xs:element name="ThingDef" type="ThingDefType" />
         <xs:element name="ThingCategoryDef" type="ThingCategoryDefType" />
         <xs:element name="RecipeDef" type="RecipeDefType" />
+        <xs:element name="SurgeryOutcomeEffectDef" type="SurgeryOutcomeEffectDefType" />
         <xs:element name="GameConditionDef" type="GameConditionDefType" />
         <xs:element name="PawnKindDef" type="PawnKindDefType" />
       </xs:choice>

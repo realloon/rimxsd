@@ -5008,4 +5008,17 @@
       <xs:element name="soundAttack" type="DefNameType" />
     </xs:choice>
   </xs:complexType>
+
+  <!-- SurgeryOutcomeType -->
+  <!-- <xs:complexType name="SurgeryOutcomeType">
+    <xs:all>
+      <xs:element name="chance" type="xs:float" minOccurs="0" />
+      <xs:element name="totalDamage" type="xs:integer" minOccurs="0" />
+      <xs:element name="applyEffectsToPart" type="xs:boolean" minOccurs="0" />
+      <xs:element name="failure" type="xs:boolean" minOccurs="0" />
+      <xs:element name="letterLabel" type="xs:string" minOccurs="0" />
+      <xs:element name="letterText" type="xs:string" minOccurs="0" />
+    </xs:all>
+    <xs:attribute name="Class" type="DefNameType" />
+  </xs:complexType> -->
 </xs:schema>
