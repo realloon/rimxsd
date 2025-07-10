@@ -27,13 +27,7 @@
           <xs:documentation>A human-readable description given when the Def is inspected by players.</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="descriptionHyperlinks" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:any />
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
+      <xs:element name="descriptionHyperlinks" minOccurs="0" />
       <xs:element name="ignoreConfigErrors" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Disables config error checking. Intended for mod use. (Be careful!)</xs:documentation>
