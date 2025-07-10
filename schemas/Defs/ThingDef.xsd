@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:include schemaLocation="../custom.xsd"></xs:include>
-  <xs:include schemaLocation="../enum.xsd"></xs:include>
-  <xs:include schemaLocation="../common.xsd"></xs:include>
-  <xs:include schemaLocation="../attributes.xsd"></xs:include>
+  <xs:include schemaLocation="../custom.xsd" />
+  <xs:include schemaLocation="../enum.xsd" />
+  <xs:include schemaLocation="../common.xsd" />
+  <xs:include schemaLocation="../attributes.xsd" />
 
   <xs:complexType name="ThingDefType">
     <xs:annotation>
@@ -132,6 +132,7 @@
             <xs:element name="li" type="DefNameType" minOccurs="0"
               maxOccurs="unbounded" />
           </xs:choice>
+          <xs:attribute name="Inherit" type="BooleanType" />
         </xs:complexType>
       </xs:element>
       <xs:element name="minMonolithLevel" type="xs:integer" minOccurs="0" />
@@ -167,7 +168,15 @@
           </xs:choice>
         </xs:complexType>
       </xs:element>
-      <xs:element name="designationCategory" type="xs:string" minOccurs="0" />
+      <xs:element name="designationCategory" minOccurs="0">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:string">
+              <xs:attribute name="Inherit" type="BooleanType" />
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
       <xs:element name="designatorDropdown" type="xs:string" minOccurs="0" />
       <xs:element name="designationHotKey" type="xs:string" minOccurs="0" />
       <xs:element name="uiOrder" type="xs:float" minOccurs="0">
@@ -272,10 +281,11 @@
           <xs:documentation>Default: CompProperties[]</xs:documentation>
         </xs:annotation>
         <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
+          <xs:sequence maxOccurs="unbounded">
             <xs:element name="li" type="CompPropertiesType" minOccurs="0" maxOccurs="unbounded"></xs:element>
-          </xs:choice>
+          </xs:sequence>
           <xs:attribute name="Inherit" type="BooleanType" />
+
         </xs:complexType>
       </xs:element>
       <xs:element name="virtualDefs" minOccurs="0">
@@ -298,13 +308,7 @@
           </xs:choice>
         </xs:complexType>
       </xs:element> -->
-      <xs:element name="killedLeavings" minOccurs="0">
-        <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:any />
-          </xs:choice>
-        </xs:complexType>
-      </xs:element>
+      <xs:element name="killedLeavings" type="GeneralAnyListType" minOccurs="0" />
       <!-- <xs:element name="killedLeavingsPlayerHostile" minOccurs="0">
         <xs:complexType>
           <xs:choice maxOccurs="unbounded">
@@ -392,6 +396,7 @@
           <xs:documentation>Default: FloatRange.One</xs:documentation>
         </xs:annotation>
       </xs:element>
+      <xs:element name="canOverlapZones" type="BooleanType" minOccurs="0" />
       <xs:element name="thingSetMakerTags" minOccurs="0">
         <xs:complexType>
           <xs:choice maxOccurs="unbounded">
@@ -452,6 +457,7 @@
         </xs:annotation>
       </xs:element>
       <xs:element name="drawHighlight" type="BooleanType" minOccurs="0" />
+      <xs:element name="highlightColor" type="Vector3Type" minOccurs="0" />
       <xs:element name="autoTargetNearbyIdenticalThings" type="BooleanType" minOccurs="0" />
       <xs:element name="preventDroppingThingsOn" type="BooleanType" minOccurs="0" />
       <xs:element name="hiddenWhileUndiscovered" type="BooleanType" minOccurs="0" />
@@ -699,7 +705,15 @@
       </xs:element>
       <xs:element name="entityDefToBuild" type="DefNameType" minOccurs="0" />
       <xs:element name="projectileWhenLoaded" type="xs:string" minOccurs="0" />
-      <xs:element name="ideoBuildingNamerBase" type="DefNameType" minOccurs="0" />
+      <xs:element name="ideoBuildingNamerBase" minOccurs="0">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="DefNameType">
+              <xs:attribute name="MayRequire" type="StringArrayType" />
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
       <xs:element name="entityCodexEntry" type="DefNameType" minOccurs="0" />
       <xs:element name="ingestible" type="IngestiblePropertiesType" minOccurs="0" />
       <xs:element name="filth" type="FilthPropertiesType" minOccurs="0" />

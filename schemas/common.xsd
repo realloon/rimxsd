@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:include schemaLocation="./custom.xsd"></xs:include>
-  <xs:include schemaLocation="./enum.xsd"></xs:include>
-
+  <xs:include schemaLocation="./custom.xsd" />
+  <xs:include schemaLocation="./enum.xsd" />
 
   <!-- CompPropertiesType -->
   <xs:complexType name="CompPropertiesType">
@@ -14,6 +13,7 @@
       <xs:any processContents="lax" />
     </xs:choice>
     <xs:attribute name="Class" type="DefNameType" />
+    <xs:attribute name="MayRequire" type="StringArrayType" />
   </xs:complexType>
 
   <!-- DamageMultiplierType -->
@@ -1119,13 +1119,13 @@
     <xs:annotation>
       <xs:documentation>XML definition for RimWorld's BuildingProperties type.</xs:documentation>
     </xs:annotation>
-    <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element name="isEdifice" type="BooleanType">
+    <xs:all>
+      <xs:element name="isEdifice" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="buildingTags">
+      <xs:element name="buildingTags" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: new List&lt;string&gt;()</xs:documentation>
         </xs:annotation>
@@ -1135,348 +1135,349 @@
           </xs:choice>
         </xs:complexType>
       </xs:element>
-      <xs:element name="isInert" type="BooleanType" />
-      <xs:element name="isTargetable" type="BooleanType">
+      <xs:element name="isInert" type="BooleanType" minOccurs="0" />
+      <xs:element name="isTargetable" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="alwaysDeconstructible" type="BooleanType" />
-      <xs:element name="leavingsBlacklist">
+      <xs:element name="deconstructible" type="BooleanType" minOccurs="0" />
+      <xs:element name="alwaysDeconstructible" type="BooleanType" minOccurs="0" />
+      <xs:element name="leavingsBlacklist" minOccurs="0">
         <xs:complexType>
           <xs:choice maxOccurs="unbounded">
             <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
           </xs:choice>
         </xs:complexType>
       </xs:element>
-      <xs:element name="claimable" type="BooleanType">
+      <xs:element name="claimable" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="isSittable" type="BooleanType" />
-      <xs:element name="multiSittable" type="BooleanType" />
-      <xs:element name="sitIgnoreOrientation" type="BooleanType" />
-      <xs:element name="soundAmbient" type="DefNameType" />
-      <xs:element name="spawnedConceptLearnOpportunity" type="DefNameType" />
-      <xs:element name="boughtConceptLearnOpportunity" type="DefNameType" />
-      <xs:element name="expandHomeArea" type="BooleanType">
+      <xs:element name="isSittable" type="BooleanType" minOccurs="0" />
+      <xs:element name="multiSittable" type="BooleanType" minOccurs="0" />
+      <xs:element name="sitIgnoreOrientation" type="BooleanType" minOccurs="0" />
+      <xs:element name="soundAmbient" type="DefNameType" minOccurs="0" />
+      <xs:element name="spawnedConceptLearnOpportunity" type="DefNameType" minOccurs="0" />
+      <xs:element name="boughtConceptLearnOpportunity" type="DefNameType" minOccurs="0" />
+      <xs:element name="expandHomeArea" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="blueprintClass" type="xs:string">
+      <xs:element name="blueprintClass" type="xs:string" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: typeof (Blueprint_Build)</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="blueprintGraphicData" type="GraphicDataType" />
-      <xs:element name="uninstallWork" type="xs:float">
+      <xs:element name="blueprintGraphicData" type="GraphicDataType" minOccurs="0" />
+      <xs:element name="uninstallWork" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 200f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="forceShowRoomStats" type="BooleanType" />
-      <xs:element name="neverBuildable" type="BooleanType" />
-      <xs:element name="wantsHopperAdjacent" type="BooleanType" />
-      <xs:element name="allowWireConnection" type="BooleanType">
+      <xs:element name="forceShowRoomStats" type="BooleanType" minOccurs="0" />
+      <xs:element name="neverBuildable" type="BooleanType" minOccurs="0" />
+      <xs:element name="wantsHopperAdjacent" type="BooleanType" minOccurs="0" />
+      <xs:element name="allowWireConnection" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="shipPart" type="BooleanType" />
-      <xs:element name="canPlaceOverImpassablePlant" type="BooleanType">
+      <xs:element name="shipPart" type="BooleanType" minOccurs="0" />
+      <xs:element name="canPlaceOverImpassablePlant" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="heatPerTickWhileWorking" type="xs:float" />
-      <xs:element name="canBuildNonEdificesUnder" type="BooleanType">
+      <xs:element name="heatPerTickWhileWorking" type="xs:float" minOccurs="0" />
+      <xs:element name="canBuildNonEdificesUnder" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="canPlaceOverWall" type="BooleanType" />
-      <xs:element name="isPlaceOverableWall" type="BooleanType" />
-      <xs:element name="allowAutoroof" type="BooleanType">
+      <xs:element name="canPlaceOverWall" type="BooleanType" minOccurs="0" />
+      <xs:element name="isPlaceOverableWall" type="BooleanType" minOccurs="0" />
+      <xs:element name="allowAutoroof" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="preventDeteriorationOnTop" type="BooleanType" />
-      <xs:element name="preventDeteriorationInside" type="BooleanType" />
-      <xs:element name="isMealSource" type="BooleanType" />
-      <xs:element name="isNaturalRock" type="BooleanType" />
-      <xs:element name="isResourceRock" type="BooleanType" />
-      <xs:element name="repairable" type="BooleanType">
+      <xs:element name="preventDeteriorationOnTop" type="BooleanType" minOccurs="0" />
+      <xs:element name="preventDeteriorationInside" type="BooleanType" minOccurs="0" />
+      <xs:element name="isMealSource" type="BooleanType" minOccurs="0" />
+      <xs:element name="isNaturalRock" type="BooleanType" minOccurs="0" />
+      <xs:element name="isResourceRock" type="BooleanType" minOccurs="0" />
+      <xs:element name="repairable" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="roofCollapseDamageMultiplier" type="xs:float">
+      <xs:element name="roofCollapseDamageMultiplier" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 1f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="hasFuelingPort" type="BooleanType" />
-      <xs:element name="smoothedThing" type="xs:string" />
-      <xs:element name="unsmoothedThing" type="xs:string" />
-      <xs:element name="naturalTerrain" type="DefNameType" />
-      <xs:element name="leaveTerrain" type="DefNameType" />
-      <xs:element name="combatPower" type="xs:float" />
-      <xs:element name="minMechClusterPoints" type="xs:integer" />
-      <xs:element name="destroyShakeAmount" type="xs:float">
+      <xs:element name="hasFuelingPort" type="BooleanType" minOccurs="0" />
+      <xs:element name="smoothedThing" type="xs:string" minOccurs="0" />
+      <xs:element name="unsmoothedThing" type="xs:string" minOccurs="0" />
+      <xs:element name="naturalTerrain" type="DefNameType" minOccurs="0" />
+      <xs:element name="leaveTerrain" type="DefNameType" minOccurs="0" />
+      <xs:element name="combatPower" type="xs:float" minOccurs="0" />
+      <xs:element name="minMechClusterPoints" type="xs:integer" minOccurs="0" />
+      <xs:element name="destroyShakeAmount" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: -1f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="destroySound" type="DefNameType" />
-      <xs:element name="soundMeleeHitOverride" type="DefNameType" />
-      <xs:element name="destroyEffecter" type="DefNameType" />
-      <xs:element name="buildingSizeCategory" type="BuildingSizeCategoryType" />
-      <xs:element name="isFence" type="BooleanType" />
-      <xs:element name="relatedBuildCommands">
+      <xs:element name="destroySound" type="DefNameType" minOccurs="0" />
+      <xs:element name="soundMeleeHitOverride" type="DefNameType" minOccurs="0" />
+      <xs:element name="destroyEffecter" type="DefNameType" minOccurs="0" />
+      <xs:element name="buildingSizeCategory" type="BuildingSizeCategoryType" minOccurs="0" />
+      <xs:element name="isFence" type="BooleanType" minOccurs="0" />
+      <xs:element name="relatedBuildCommands" minOccurs="0">
         <xs:complexType>
           <xs:choice maxOccurs="unbounded">
             <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
           </xs:choice>
         </xs:complexType>
       </xs:element>
-      <xs:element name="alwaysShowRelatedBuildCommands" type="BooleanType" />
-      <xs:element name="useIdeoColor" type="BooleanType" />
-      <xs:element name="wakeDormantPawnsOnConstruction" type="BooleanType">
+      <xs:element name="alwaysShowRelatedBuildCommands" type="BooleanType" minOccurs="0" />
+      <xs:element name="useIdeoColor" type="BooleanType" minOccurs="0" />
+      <xs:element name="wakeDormantPawnsOnConstruction" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="maxItemsInCell" type="xs:integer">
+      <xs:element name="maxItemsInCell" type="xs:integer" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 1</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="paintable" type="BooleanType" />
-      <xs:element name="canBeDamagedByAttacks" type="BooleanType">
+      <xs:element name="paintable" type="BooleanType" minOccurs="0" />
+      <xs:element name="canBeDamagedByAttacks" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="isHopper" type="BooleanType" />
-      <xs:element name="quickTargetable" type="BooleanType" />
-      <xs:element name="displayAttackToDestroyOnInspectPane" type="BooleanType" />
-      <xs:element name="isEscapableContainer" type="BooleanType" />
-      <xs:element name="isPowerConduit" type="BooleanType" />
-      <xs:element name="isAttachment" type="BooleanType" />
-      <xs:element name="supportsWallAttachments" type="BooleanType" />
-      <xs:element name="isPlayerEjectable" type="BooleanType" />
-      <xs:element name="openingStartedSound" type="DefNameType" />
-      <xs:element name="fullGraveGraphicData" type="GraphicDataType" />
-      <xs:element name="bed_healPerDay" type="xs:float" />
-      <xs:element name="bed_defaultMedical" type="BooleanType" />
-      <xs:element name="bed_showSleeperBody" type="BooleanType" />
-      <xs:element name="bed_humanlike" type="BooleanType">
+      <xs:element name="isHopper" type="BooleanType" minOccurs="0" />
+      <xs:element name="quickTargetable" type="BooleanType" minOccurs="0" />
+      <xs:element name="displayAttackToDestroyOnInspectPane" type="BooleanType" minOccurs="0" />
+      <xs:element name="isEscapableContainer" type="BooleanType" minOccurs="0" />
+      <xs:element name="isPowerConduit" type="BooleanType" minOccurs="0" />
+      <xs:element name="isAttachment" type="BooleanType" minOccurs="0" />
+      <xs:element name="supportsWallAttachments" type="BooleanType" minOccurs="0" />
+      <xs:element name="isPlayerEjectable" type="BooleanType" minOccurs="0" />
+      <xs:element name="openingStartedSound" type="DefNameType" minOccurs="0" />
+      <xs:element name="fullGraveGraphicData" type="GraphicDataType" minOccurs="0" />
+      <xs:element name="bed_healPerDay" type="xs:float" minOccurs="0" />
+      <xs:element name="bed_defaultMedical" type="BooleanType" minOccurs="0" />
+      <xs:element name="bed_showSleeperBody" type="BooleanType" minOccurs="0" />
+      <xs:element name="bed_humanlike" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="bed_maxBodySize" type="xs:float">
+      <xs:element name="bed_maxBodySize" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 9999f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="bed_caravansCanUse" type="BooleanType" />
-      <xs:element name="bed_slabBed" type="BooleanType" />
-      <xs:element name="bed_crib" type="BooleanType" />
-      <xs:element name="bed_pawnDrawOffset" type="xs:float" />
-      <xs:element name="bed_canBeMedical" type="BooleanType">
+      <xs:element name="bed_caravansCanUse" type="BooleanType" minOccurs="0" />
+      <xs:element name="bed_slabBed" type="BooleanType" minOccurs="0" />
+      <xs:element name="bed_crib" type="BooleanType" minOccurs="0" />
+      <xs:element name="bed_pawnDrawOffset" type="xs:float" minOccurs="0" />
+      <xs:element name="bed_canBeMedical" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="bed_DisplayOwnerType" type="BooleanType">
+      <xs:element name="bed_DisplayOwnerType" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="bed_DisplayOwnersInInspectString" type="BooleanType">
+      <xs:element name="bed_DisplayOwnersInInspectString" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="bed_countsForBedroomOrBarracks" type="BooleanType">
+      <xs:element name="bed_countsForBedroomOrBarracks" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="bed_emptyCountsForBarracks" type="BooleanType">
+      <xs:element name="bed_emptyCountsForBarracks" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="bed_UseSheetColor" type="BooleanType">
+      <xs:element name="bed_UseSheetColor" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="nutritionCostPerDispense" type="xs:float" />
-      <xs:element name="soundDispense" type="DefNameType" />
-      <xs:element name="turretGunDef" type="xs:string" />
-      <xs:element name="turretBurstWarmupTime" type="xs:string">
+      <xs:element name="nutritionCostPerDispense" type="xs:float" minOccurs="0" />
+      <xs:element name="soundDispense" type="DefNameType" minOccurs="0" />
+      <xs:element name="turretGunDef" type="xs:string" minOccurs="0" />
+      <xs:element name="turretBurstWarmupTime" type="xs:string" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: new FloatRange(0.25f, 0.75f)</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="turretBurstCooldownTime" type="xs:float">
+      <xs:element name="turretBurstCooldownTime" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: -1f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="turretInitialCooldownTime" type="xs:float" />
-      <xs:element name="turretTopMat" type="xs:string" />
-      <xs:element name="turretTopLoadedMat" type="xs:string" />
-      <xs:element name="turretTopDrawSize" type="xs:float">
+      <xs:element name="turretInitialCooldownTime" type="xs:float" minOccurs="0" />
+      <xs:element name="turretTopMat" type="xs:string" minOccurs="0" />
+      <xs:element name="turretTopLoadedMat" type="xs:string" minOccurs="0" />
+      <xs:element name="turretTopDrawSize" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 2f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="turretTopOffset" type="xs:string" />
-      <xs:element name="playTargetAcquiredSound" type="BooleanType">
+      <xs:element name="turretTopOffset" type="xs:string" minOccurs="0" />
+      <xs:element name="playTargetAcquiredSound" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="turretTopLoadedGraphic" type="GraphicDataType" />
-      <xs:element name="requiredMechWeightClasses">
+      <xs:element name="turretTopLoadedGraphic" type="GraphicDataType" minOccurs="0" />
+      <xs:element name="requiredMechWeightClasses" minOccurs="0">
         <xs:complexType>
           <xs:choice maxOccurs="unbounded">
             <xs:element name="li" type="MechWeightClassType" minOccurs="0" maxOccurs="unbounded" />
           </xs:choice>
         </xs:complexType>
       </xs:element>
-      <xs:element name="ai_combatDangerous" type="BooleanType" />
-      <xs:element name="ai_chillDestination" type="BooleanType">
+      <xs:element name="ai_combatDangerous" type="BooleanType" minOccurs="0" />
+      <xs:element name="ai_chillDestination" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="ai_neverTrashThis" type="BooleanType" />
-      <xs:element name="preferConnectingToFences" type="BooleanType" />
-      <xs:element name="roamerCanOpen" type="BooleanType" />
-      <xs:element name="soundDoorOpenPowered" type="DefNameType" />
-      <xs:element name="soundDoorClosePowered" type="DefNameType" />
-      <xs:element name="soundDoorOpenManual" type="DefNameType" />
-      <xs:element name="soundDoorCloseManual" type="DefNameType" />
-      <xs:element name="soundDoorCloseEnd" type="DefNameType" />
-      <xs:element name="poweredDoorOpenSpeedFactor" type="xs:float">
+      <xs:element name="ai_neverTrashThis" type="BooleanType" minOccurs="0" />
+      <xs:element name="preferConnectingToFences" type="BooleanType" minOccurs="0" />
+      <xs:element name="roamerCanOpen" type="BooleanType" minOccurs="0" />
+      <xs:element name="soundDoorOpenPowered" type="DefNameType" minOccurs="0" />
+      <xs:element name="soundDoorClosePowered" type="DefNameType" minOccurs="0" />
+      <xs:element name="soundDoorOpenManual" type="DefNameType" minOccurs="0" />
+      <xs:element name="soundDoorCloseManual" type="DefNameType" minOccurs="0" />
+      <xs:element name="soundDoorCloseEnd" type="DefNameType" minOccurs="0" />
+      <xs:element name="poweredDoorOpenSpeedFactor" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 1f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="poweredDoorCloseSpeedFactor" type="xs:float">
+      <xs:element name="poweredDoorCloseSpeedFactor" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 1f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="unpoweredDoorOpenSpeedFactor" type="xs:float">
+      <xs:element name="unpoweredDoorOpenSpeedFactor" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 1f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="unpoweredDoorCloseSpeedFactor" type="xs:float">
+      <xs:element name="unpoweredDoorCloseSpeedFactor" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 1f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="sowTag" type="xs:string" />
-      <xs:element name="defaultPlantToGrow" type="xs:string" />
-      <xs:element name="mineableThing" type="xs:string" />
-      <xs:element name="mineableYield" type="xs:integer">
+      <xs:element name="sowTag" type="xs:string" minOccurs="0" />
+      <xs:element name="defaultPlantToGrow" type="xs:string" minOccurs="0" />
+      <xs:element name="mineableThing" type="xs:string" minOccurs="0" />
+      <xs:element name="mineableYield" type="xs:integer" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 1</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="veinMineable" type="BooleanType" />
-      <xs:element name="mineableNonMinedEfficiency" type="xs:float">
+      <xs:element name="veinMineable" type="BooleanType" minOccurs="0" />
+      <xs:element name="mineableNonMinedEfficiency" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 0.7f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="mineableDropChance" type="xs:float">
+      <xs:element name="mineableDropChance" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 1f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="mineableYieldWasteable" type="BooleanType">
+      <xs:element name="mineableYieldWasteable" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="mineableScatterCommonality" type="xs:float" />
-      <xs:element name="mineableScatterLumpSizeRange" type="xs:string">
+      <xs:element name="mineableScatterCommonality" type="xs:float" minOccurs="0" />
+      <xs:element name="mineableScatterLumpSizeRange" type="xs:string" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: new IntRange(20, 40)</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="fixedStorageSettings" type="StorageSettingsType" />
-      <xs:element name="defaultStorageSettings" type="StorageSettingsType" />
-      <xs:element name="ignoreStoredThingsBeauty" type="BooleanType" />
-      <xs:element name="storageGroupTag" type="xs:string" />
-      <xs:element name="groupingLabel" type="xs:string" />
-      <xs:element name="groupingOrder" type="xs:integer" />
-      <xs:element name="isTrap" type="BooleanType" />
-      <xs:element name="trapDestroyOnSpring" type="BooleanType" />
-      <xs:element name="trapPeacefulWildAnimalsSpringChanceFactor" type="xs:float">
+      <xs:element name="fixedStorageSettings" type="StorageSettingsType" minOccurs="0" />
+      <xs:element name="defaultStorageSettings" type="StorageSettingsType" minOccurs="0" />
+      <xs:element name="ignoreStoredThingsBeauty" type="BooleanType" minOccurs="0" />
+      <xs:element name="storageGroupTag" type="xs:string" minOccurs="0" />
+      <xs:element name="groupingLabel" type="xs:string" minOccurs="0" />
+      <xs:element name="groupingOrder" type="xs:integer" minOccurs="0" />
+      <xs:element name="isTrap" type="BooleanType" minOccurs="0" />
+      <xs:element name="trapDestroyOnSpring" type="BooleanType" minOccurs="0" />
+      <xs:element name="trapPeacefulWildAnimalsSpringChanceFactor" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 1f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="trapDamageCategory" type="DefNameType" />
-      <xs:element name="trapUnarmedGraphicData" type="GraphicDataType" />
-      <xs:element name="trapUnarmedGraphic" type="GraphicType" />
-      <xs:element name="unpoweredWorkTableWorkSpeedFactor" type="xs:float" />
-      <xs:element name="workTableCompleteSoundDef" type="DefNameType" />
-      <xs:element name="watchBuildingStandDistanceRange" type="xs:string">
+      <xs:element name="trapDamageCategory" type="DefNameType" minOccurs="0" />
+      <xs:element name="trapUnarmedGraphicData" type="GraphicDataType" minOccurs="0" />
+      <xs:element name="trapUnarmedGraphic" type="GraphicType" minOccurs="0" />
+      <xs:element name="unpoweredWorkTableWorkSpeedFactor" type="xs:float" minOccurs="0" />
+      <xs:element name="workTableCompleteSoundDef" type="DefNameType" minOccurs="0" />
+      <xs:element name="watchBuildingStandDistanceRange" type="xs:string" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: IntRange.one</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="watchBuildingStandRectWidth" type="xs:integer">
+      <xs:element name="watchBuildingStandRectWidth" type="xs:integer" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 3</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="watchBuildingInSameRoom" type="BooleanType" />
-      <xs:element name="joyKind" type="xs:string" />
-      <xs:element name="haulToContainerDuration" type="xs:integer" />
-      <xs:element name="instrumentRange" type="xs:float" />
-      <xs:element name="minDistanceToSameTypeOfBuilding" type="xs:integer" />
-      <xs:element name="artificialForMeditationPurposes" type="BooleanType">
+      <xs:element name="watchBuildingInSameRoom" type="BooleanType" minOccurs="0" />
+      <xs:element name="joyKind" type="xs:string" minOccurs="0" />
+      <xs:element name="haulToContainerDuration" type="xs:integer" minOccurs="0" />
+      <xs:element name="instrumentRange" type="xs:float" minOccurs="0" />
+      <xs:element name="minDistanceToSameTypeOfBuilding" type="xs:integer" minOccurs="0" />
+      <xs:element name="artificialForMeditationPurposes" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="effectWatching" type="DefNameType" />
-      <xs:element name="gibbetCageTopGraphicData" type="GraphicDataType" />
-      <xs:element name="gibbetCorposeDrawOffset" type="xs:string" />
-      <xs:element name="gibbetCagePlaceCorpseEffecter" type="DefNameType" />
-      <xs:element name="openingEffect" type="DefNameType" />
-      <xs:element name="barDrawData" type="FillableBarRequestWithRotationType" />
-      <xs:element name="gestatorFormingMote" type="MoteForRotationDataType" />
-      <xs:element name="gestatorCycleCompleteMote" type="MoteForRotationDataType" />
-      <xs:element name="gestatorFormedMote" type="MoteForRotationDataType" />
-      <xs:element name="mechGestatorCylinderGraphic" type="GraphicDataType" />
-      <xs:element name="mechGestatorTopGraphic" type="GraphicDataType" />
-      <xs:element name="formingGraphicData" type="GraphicDataType" />
-      <xs:element name="formingMechBobSpeed" type="xs:float">
+      <xs:element name="effectWatching" type="DefNameType" minOccurs="0" />
+      <xs:element name="gibbetCageTopGraphicData" type="GraphicDataType" minOccurs="0" />
+      <xs:element name="gibbetCorposeDrawOffset" type="xs:string" minOccurs="0" />
+      <xs:element name="gibbetCagePlaceCorpseEffecter" type="DefNameType" minOccurs="0" />
+      <xs:element name="openingEffect" type="DefNameType" minOccurs="0" />
+      <xs:element name="barDrawData" type="FillableBarRequestWithRotationType" minOccurs="0" />
+      <xs:element name="gestatorFormingMote" type="MoteForRotationDataType" minOccurs="0" />
+      <xs:element name="gestatorCycleCompleteMote" type="MoteForRotationDataType" minOccurs="0" />
+      <xs:element name="gestatorFormedMote" type="MoteForRotationDataType" minOccurs="0" />
+      <xs:element name="mechGestatorCylinderGraphic" type="GraphicDataType" minOccurs="0" />
+      <xs:element name="mechGestatorTopGraphic" type="GraphicDataType" minOccurs="0" />
+      <xs:element name="formingGraphicData" type="GraphicDataType" minOccurs="0" />
+      <xs:element name="formingMechBobSpeed" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 1f / 1000f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="formingMechYBobDistance" type="xs:float">
+      <xs:element name="formingMechYBobDistance" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 0.1f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="formingMechPerRotationOffset">
+      <xs:element name="formingMechPerRotationOffset" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: new List&lt;Vector3&gt;()</xs:documentation>
         </xs:annotation>
@@ -1486,57 +1487,58 @@
           </xs:choice>
         </xs:complexType>
       </xs:element>
-      <xs:element name="maxFormedMechDrawSize" type="xs:string">
+      <xs:element name="maxFormedMechDrawSize" type="xs:string" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: new Vector2(1.5f, 1.5f)</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="subcoreScannerFixedIngredients">
+      <xs:element name="subcoreScannerFixedIngredients" minOccurs="0">
         <xs:complexType>
           <xs:choice maxOccurs="unbounded">
             <xs:any />
           </xs:choice>
         </xs:complexType>
       </xs:element>
-      <xs:element name="subcoreScannerTicks" type="xs:integer">
+      <xs:element name="subcoreScannerTicks" type="xs:integer" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 7500</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="subcoreScannerHediff" type="DefNameType" />
-      <xs:element name="destroyBrain" type="BooleanType" />
-      <xs:element name="subcoreScannerOutputDef" type="xs:string" />
-      <xs:element name="subcoreScannerStartEffect" type="DefNameType" />
-      <xs:element name="subcoreScannerWorking" type="DefNameType" />
-      <xs:element name="subcoreScannerComplete" type="DefNameType" />
-      <xs:element name="isInsectCocoon" type="BooleanType" />
-      <xs:element name="wastepackAtomizerBottomGraphic" type="GraphicDataType" />
-      <xs:element name="wastepackAtomizerWindowGraphic" type="GraphicDataType" />
-      <xs:element name="wastepackAtomizerOperationEffecter" type="DefNameType" />
-      <xs:element name="bookendGraphicEast" type="GraphicDataType" />
-      <xs:element name="bookendGraphicNorth" type="GraphicDataType" />
-      <xs:element name="doorTopGraphic" type="GraphicDataType" />
-      <xs:element name="doorSupportGraphic" type="GraphicDataType" />
-      <xs:element name="upperMoverGraphic" type="GraphicDataType" />
-      <xs:element name="groundSpawnerThingToSpawn" type="xs:string" />
-      <xs:element name="groundSpawnerSpawnDelay" type="xs:string" />
-      <xs:element name="groundSpawnerDestroyAdjacent" type="BooleanType" />
-      <xs:element name="groundSpawnerSustainerSound" type="DefNameType" />
-      <xs:element name="groundSpawnerSustainedEffecter" type="DefNameType" />
-      <xs:element name="groundSpawnerCompleteEffecter" type="DefNameType" />
-      <xs:element name="groundSpawnerLetterLabel" type="xs:string" />
-      <xs:element name="groundSpawnerLetterText" type="xs:string" />
-      <xs:element name="SupportsPlants" type="BooleanType">
+      <xs:element name="subcoreScannerHediff" type="DefNameType" minOccurs="0" />
+      <xs:element name="destroyBrain" type="BooleanType" minOccurs="0" />
+      <xs:element name="subcoreScannerOutputDef" type="xs:string" minOccurs="0" />
+      <xs:element name="subcoreScannerStartEffect" type="DefNameType" minOccurs="0" />
+      <xs:element name="subcoreScannerWorking" type="DefNameType" minOccurs="0" />
+      <xs:element name="subcoreScannerComplete" type="DefNameType" minOccurs="0" />
+      <xs:element name="isInsectCocoon" type="BooleanType" minOccurs="0" />
+      <xs:element name="wastepackAtomizerBottomGraphic" type="GraphicDataType" minOccurs="0" />
+      <xs:element name="wastepackAtomizerWindowGraphic" type="GraphicDataType" minOccurs="0" />
+      <xs:element name="wastepackAtomizerOperationEffecter" type="DefNameType" minOccurs="0" />
+      <xs:element name="bookendGraphicEast" type="GraphicDataType" minOccurs="0" />
+      <xs:element name="bookendGraphicNorth" type="GraphicDataType" minOccurs="0" />
+      <xs:element name="doorTopGraphic" type="GraphicDataType" minOccurs="0" />
+      <xs:element name="doorSupportGraphic" type="GraphicDataType" minOccurs="0" />
+      <xs:element name="upperMoverGraphic" type="GraphicDataType" minOccurs="0" />
+      <xs:element name="groundSpawnerThingToSpawn" type="xs:string" minOccurs="0" />
+      <xs:element name="groundSpawnerSpawnDelay" type="xs:string" minOccurs="0" />
+      <xs:element name="groundSpawnerDestroyAdjacent" type="BooleanType" minOccurs="0" />
+      <xs:element name="groundSpawnerSustainerSound" type="DefNameType" minOccurs="0" />
+      <xs:element name="groundSpawnerSustainedEffecter" type="DefNameType" minOccurs="0" />
+      <xs:element name="groundSpawnerCompleteEffecter" type="DefNameType" minOccurs="0" />
+      <xs:element name="groundSpawnerLetterLabel" type="xs:string" minOccurs="0" />
+      <xs:element name="groundSpawnerLetterText" type="xs:string" minOccurs="0" />
+      <xs:element name="SupportsPlants" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: this.sowTag != null</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="IsTurret" type="BooleanType">
+      <xs:element name="IsTurret" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: this.turretGunDef != null</xs:documentation>
         </xs:annotation>
       </xs:element>
-    </xs:choice>
+    </xs:all>
+    <xs:attribute name="Inherit" type="BooleanType" />
   </xs:complexType>
 
   <!-- MoteForRotationDataType -->

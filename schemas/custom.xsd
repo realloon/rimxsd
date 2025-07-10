@@ -14,8 +14,8 @@
     </xs:restriction>
   </xs:simpleType>
 
-  <!-- StringArray -->
-  <xs:simpleType name="StringArray">
+  <!-- StringArrayType -->
+  <xs:simpleType name="StringArrayType">
     <xs:restriction base="xs:string">
       <xs:pattern value="([A-Za-z0-9_]+(\.[A-Za-z0-9_]+)*(,\s?[A-Za-z0-9_]+(\.[A-Za-z0-9_]+)*)*)" />
     </xs:restriction>
@@ -369,6 +369,6 @@
     <xs:sequence>
       <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
     </xs:sequence>
+    <xs:attribute name="Inherit" type="BooleanType" />
   </xs:complexType>
-
 </xs:schema>

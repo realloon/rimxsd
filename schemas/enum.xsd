@@ -591,5 +591,18 @@
     </xs:restriction>
   </xs:simpleType>
 
-
+  <!-- PsychicDroneLevelType -->
+  <xs:simpleType name="PsychicDroneLevelType">
+    <xs:annotation>
+      <xs:documentation>Enumeration of values for PsychicDroneLevel.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="GoodMedium" />
+      <xs:enumeration value="BadLow" />
+      <xs:enumeration value="BadMedium" />
+      <xs:enumeration value="BadHigh" />
+      <xs:enumeration value="BadExtreme" />
+    </xs:restriction>
+  </xs:simpleType>
 </xs:schema>
