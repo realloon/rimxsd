@@ -2,7 +2,7 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:include schemaLocation="../custom.xsd" />
   <xs:include schemaLocation="../common.xsd" />
-
+  <xs:include schemaLocation="../attributes.xsd" />
 
   <xs:complexType name="ThingCategoryDefType">
     <xs:annotation>
@@ -114,5 +114,7 @@
         </xs:complexType>
       </xs:element>
     </xs:all>
+
+    <xs:attributeGroup ref="DefAttributeGroup" />
   </xs:complexType>
 </xs:schema>
