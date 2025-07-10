@@ -1,8 +1,0 @@
-{
-  "xml.fileAssociations": [
-    {
-      "pattern": "**/*.def.xml",
-      "systemId": "schemas/define.xsd"
-    }
-  ]
-}
