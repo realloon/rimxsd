@@ -3,6 +3,7 @@
   <xs:include schemaLocation="../common.xsd" />
   <xs:include schemaLocation="../enum.xsd" />
   <xs:include schemaLocation="../custom.xsd" />
+  <xs:include schemaLocation="../attributes.xsd" />
 
   <xs:complexType name="GameConditionDefType">
     <xs:annotation>
@@ -125,5 +126,7 @@
       <xs:element name="minNearbyPollution" type="xs:float" minOccurs="0" />
       <xs:element name="mtbOverNearbyPollutionCurve" type="SimpleCurveType" minOccurs="0" />
     </xs:all>
+
+    <xs:attributeGroup ref="DefAttributeGroup" />
   </xs:complexType>
 </xs:schema>

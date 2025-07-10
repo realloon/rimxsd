@@ -917,6 +917,6 @@
       </xs:element>
     </xs:all>
 
-    <xs:attributeGroup ref="DefAttributeGroup"></xs:attributeGroup>
+    <xs:attributeGroup ref="DefAttributeGroup" />
   </xs:complexType>
 </xs:schema>
