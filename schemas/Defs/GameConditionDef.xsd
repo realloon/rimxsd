@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:include schemaLocation="../common.xsd" />
-  <xs:include schemaLocation="../enum.xsd" />
-  <xs:include schemaLocation="../custom.xsd" />
-  <xs:include schemaLocation="../attributes.xsd" />
+  <xs:include schemaLocation="../Shared/common.xsd" />
+  <xs:include schemaLocation="../Shared/enum.xsd" />
+  <xs:include schemaLocation="../Shared/custom.xsd" />
+  <xs:include schemaLocation="../Shared/attributes.xsd" />
 
   <xs:complexType name="GameConditionDefType">
     <xs:annotation>
