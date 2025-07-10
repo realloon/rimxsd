@@ -6,6 +6,6 @@
     <xs:attribute name="Name" type="DefNameType" />
     <xs:attribute name="ParentName" type="DefNameType" />
     <xs:attribute name="Abstract" type="BooleanType" />
-    <xs:attribute name="MayRequireAnyOf" type="StringArrayType" />
+    <xs:attribute name="MayRequireAnyOf" type="DependenciesType" />
   </xs:attributeGroup>
 </xs:schema>

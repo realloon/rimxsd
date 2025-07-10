@@ -617,4 +617,49 @@
       <xs:enumeration value="Critical" />
     </xs:restriction>
   </xs:simpleType>
+
+  <!-- QualityCategoryType -->
+  <xs:simpleType name="QualityCategoryType">
+    <xs:annotation>
+      <xs:documentation>Enumeration of values for QualityCategory.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Awful" />
+      <xs:enumeration value="Poor" />
+      <xs:enumeration value="Normal" />
+      <xs:enumeration value="Good" />
+      <xs:enumeration value="Excellent" />
+      <xs:enumeration value="Masterwork" />
+      <xs:enumeration value="Legendary" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- WorkTagType -->
+  <xs:simpleType name="WorkTagType">
+    <xs:annotation>
+      <xs:documentation>Enumeration of values for WorkTags.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ManualDumb" />
+      <xs:enumeration value="ManualSkilled" />
+      <xs:enumeration value="Violent" />
+      <xs:enumeration value="Caring" />
+      <xs:enumeration value="Social" />
+      <xs:enumeration value="Commoner" />
+      <xs:enumeration value="Intellectual" />
+      <xs:enumeration value="Animals" />
+      <xs:enumeration value="Artistic" />
+      <xs:enumeration value="Crafting" />
+      <xs:enumeration value="Cooking" />
+      <xs:enumeration value="Firefighting" />
+      <xs:enumeration value="Cleaning" />
+      <xs:enumeration value="Hauling" />
+      <xs:enumeration value="PlantWork" />
+      <xs:enumeration value="Mining" />
+      <xs:enumeration value="Hunting" />
+      <xs:enumeration value="Constructing" />
+      <xs:enumeration value="Shooting" />
+      <xs:enumeration value="AllWork" />
+    </xs:restriction>
+  </xs:simpleType>
 </xs:schema>

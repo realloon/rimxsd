@@ -14,8 +14,15 @@
     </xs:restriction>
   </xs:simpleType>
 
-  <!-- StringArrayType -->
-  <xs:simpleType name="StringArrayType">
+  <!-- StringListType -->
+  <xs:complexType name="StringListType">
+    <xs:sequence minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="li" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- DependenciesType -->
+  <xs:simpleType name="DependenciesType">
     <xs:restriction base="xs:string">
       <xs:pattern value="([A-Za-z0-9_]+(\.[A-Za-z0-9_]+)*(,\s?[A-Za-z0-9_]+(\.[A-Za-z0-9_]+)*)*)" />
     </xs:restriction>
@@ -379,7 +386,7 @@
         <xs:complexType>
           <xs:simpleContent>
             <xs:extension base="DefNameType">
-              <xs:attribute name="MayRequire" type="StringArrayType"></xs:attribute>
+              <xs:attribute name="MayRequire" type="DependenciesType" />
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>

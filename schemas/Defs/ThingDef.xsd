@@ -259,7 +259,7 @@
         <xs:complexType>
           <xs:simpleContent>
             <xs:extension base="TickerTypeType">
-              <xs:attribute name="MayRequire" type="StringArrayType" />
+              <xs:attribute name="MayRequire" type="DependenciesType" />
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
@@ -545,13 +545,7 @@
       <xs:element name="neverMultiSelect" type="BooleanType" minOccurs="0" />
       <xs:element name="isAutoAttackableMapObject" type="BooleanType" minOccurs="0" />
       <xs:element name="hasTooltip" type="BooleanType" minOccurs="0" />
-      <xs:element name="inspectorTabs" minOccurs="0">
-        <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
-          </xs:choice>
-        </xs:complexType>
-      </xs:element>
+      <xs:element name="inspectorTabs" type="DefNameListType" minOccurs="0" />
       <xs:element name="inspectorTabsResolved" minOccurs="0">
         <!-- <xs:complexType>
           <xs:choice maxOccurs="unbounded">
@@ -719,7 +713,7 @@
         <xs:complexType>
           <xs:simpleContent>
             <xs:extension base="DefNameType">
-              <xs:attribute name="MayRequire" type="StringArrayType" />
+              <xs:attribute name="MayRequire" type="DependenciesType" />
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
