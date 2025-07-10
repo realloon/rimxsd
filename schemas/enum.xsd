@@ -605,4 +605,16 @@
       <xs:enumeration value="BadExtreme" />
     </xs:restriction>
   </xs:simpleType>
+
+  <!-- StoragePriorityType -->
+  <xs:simpleType name="StoragePriorityType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Unstored" />
+      <xs:enumeration value="Low" />
+      <xs:enumeration value="Normal" />
+      <xs:enumeration value="Preferred" />
+      <xs:enumeration value="Important" />
+      <xs:enumeration value="Critical" />
+    </xs:restriction>
+  </xs:simpleType>
 </xs:schema>

@@ -84,10 +84,10 @@
       <xs:element name="costStuffCount" type="xs:integer" minOccurs="0" />
       <xs:element name="stuffCategories" minOccurs="0">
         <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <!-- StuffCategoryDefType -->
-            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+          <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="li" type="DefNameType" />
           </xs:choice>
+          <xs:attribute name="Inherit" type="BooleanType" />
         </xs:complexType>
       </xs:element>
       <xs:element name="stuffCategorySummary" type="xs:string" minOccurs="0" />
@@ -118,7 +118,15 @@
       <xs:element name="dominantStyleCategory" type="xs:string" minOccurs="0" />
       <xs:element name="isAltar" type="BooleanType" minOccurs="0" />
       <xs:element name="useStuffTerrainAffordance" type="BooleanType" minOccurs="0" />
-      <xs:element name="terrainAffordanceNeeded" type="xs:string" minOccurs="0" />
+      <xs:element name="terrainAffordanceNeeded" minOccurs="0">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:string">
+              <xs:attribute name="IsNull" type="BooleanType" />
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
       <xs:element name="buildingPrerequisites" minOccurs="0">
         <xs:complexType>
           <xs:choice maxOccurs="unbounded">
@@ -149,9 +157,9 @@
       <xs:element name="constructEffect" type="DefNameType" minOccurs="0" />
       <xs:element name="colorPerStuff" minOccurs="0">
         <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:element name="li" type="ColorForStuffType" minOccurs="0" maxOccurs="unbounded" />
-          </xs:choice>
+          <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="li" type="ColorForStuffType" />
+          </xs:sequence>
         </xs:complexType>
       </xs:element>
       <xs:element name="canGenerateDefaultDesignator" type="BooleanType" minOccurs="0">
@@ -187,10 +195,9 @@
       <xs:element name="uiIconPath" type="xs:string" minOccurs="0" />
       <xs:element name="uiIconPathsStuff" minOccurs="0">
         <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:element name="li" type="IconForStuffAppearanceType" minOccurs="0"
-              maxOccurs="unbounded" />
-          </xs:choice>
+          <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="li" type="IconForStuffAppearanceType" />
+          </xs:sequence>
         </xs:complexType>
       </xs:element>
       <xs:element name="uiIconOffset" type="xs:string" minOccurs="0" />
@@ -248,7 +255,15 @@
 
       <xs:element name="thingClass" type="xs:string" minOccurs="0" />
       <xs:element name="category" type="ThingCategoryType" minOccurs="0" />
-      <xs:element name="tickerType" type="TickerTypeType" minOccurs="0" />
+      <xs:element name="tickerType" minOccurs="0">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="TickerTypeType">
+              <xs:attribute name="MayRequire" type="StringArrayType" />
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
       <xs:element name="stackLimit" type="xs:integer" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 1</xs:documentation>
@@ -405,13 +420,7 @@
         </xs:complexType>
       </xs:element>
       <xs:element name="alwaysFlee" type="BooleanType" minOccurs="0" />
-      <xs:element name="recipes" minOccurs="0">
-        <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:element name="li" type="DefNameType" minOccurs="0" maxOccurs="unbounded" />
-          </xs:choice>
-        </xs:complexType>
-      </xs:element>
+      <xs:element name="recipes" type="DefNameListType" minOccurs="0" />
       <xs:element name="messageOnDeteriorateInStorage" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
@@ -577,9 +586,10 @@
       <xs:element name="designateHaulable" type="BooleanType" minOccurs="0" />
       <xs:element name="thingCategories" minOccurs="0">
         <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
-          </xs:choice>
+          <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="li" type="xs:string" />
+          </xs:sequence>
+          <xs:attribute name="Inherit" type="BooleanType" />
         </xs:complexType>
       </xs:element>
       <xs:element name="mineable" type="BooleanType" minOccurs="0" />

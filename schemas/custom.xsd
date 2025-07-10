@@ -371,4 +371,19 @@
     </xs:sequence>
     <xs:attribute name="Inherit" type="BooleanType" />
   </xs:complexType>
+
+  <!-- DefNameListType -->
+  <xs:complexType name="DefNameListType">
+    <xs:sequence minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="li">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="DefNameType">
+              <xs:attribute name="MayRequire" type="StringArrayType"></xs:attribute>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
 </xs:schema>
