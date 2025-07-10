@@ -186,20 +186,8 @@
           </xs:sequence>
         </xs:complexType>
       </xs:element>
-      <xs:element name="specialFiltersToAllow" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence minOccurs="0" maxOccurs="unbounded">
-            <xs:element name="li" type="xs:string" />
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="specialFiltersToDisallow" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence minOccurs="0" maxOccurs="unbounded">
-            <xs:element name="li" type="xs:string" />
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
+      <xs:element name="specialFiltersToAllow" type="DefNameListType" minOccurs="0" />
+      <xs:element name="specialFiltersToDisallow" type="DefNameListType" minOccurs="0" />
       <!-- <xs:element name="stuffCategoriesToAllow" minOccurs="0" /> -->
       <!-- <xs:element name="allowAllWhoCanMake" minOccurs="0" /> -->
       <xs:element name="disallowWorsePreferability" type="DefNameType" minOccurs="0" />
@@ -4487,16 +4475,11 @@
     <xs:annotation>
       <xs:documentation>XML definition for RimWorld's SkillRequirement type.</xs:documentation>
     </xs:annotation>
-    <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element name="skill" type="xs:string" />
-      <xs:element name="minLevel" type="xs:integer" />
-      <xs:element name="Summary" type="xs:string">
-        <xs:annotation>
-          <xs:documentation>Default: this.skill == null ? "" : $"{this.skill.LabelCap}
-            ({this.minLevel})"</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-    </xs:choice>
+    <xs:all>
+      <xs:element name="skill" type="xs:string" minOccurs="0" />
+      <xs:element name="minLevel" type="xs:integer" minOccurs="0" />
+      <xs:element name="Summary" type="xs:string" minOccurs="0" />
+    </xs:all>
   </xs:complexType>
 
   <!-- TerrainDefType -->

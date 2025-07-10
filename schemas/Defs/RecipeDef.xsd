@@ -111,6 +111,7 @@
       <xs:element name="defaultIngredientFilter" type="ThingFilterType" minOccurs="0" />
       <xs:element name="allowMixingIngredients" type="BooleanType" minOccurs="0" />
       <xs:element name="ignoreIngredientCountTakeEntireStacks" type="BooleanType" minOccurs="0" />
+      <xs:element name="ingredientValueGetterClass" type="DefNameType" minOccurs="0" />
       <xs:element name="forceHiddenSpecialFilters" minOccurs="0">
         <xs:complexType>
           <xs:choice maxOccurs="unbounded">
@@ -150,22 +151,27 @@
         </xs:annotation>
       </xs:element>
       <xs:element name="unfinishedThingDef" type="xs:string" minOccurs="0" />
-      <xs:element name="skillRequirements" minOccurs="0">
-        <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:element name="li" type="SkillRequirementType" minOccurs="0"
-              maxOccurs="unbounded" />
-          </xs:choice>
-        </xs:complexType>
-      </xs:element>
+      <xs:element name="skillRequirements" type="SkillListType" minOccurs="0" />
       <xs:element name="workSkill" type="DefNameType" minOccurs="0" />
       <xs:element name="workSkillLearnFactor" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 1f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="effectWorking" type="EffecterDefType" minOccurs="0" />
+      <xs:element name="effectWorking" type="DefNameType" minOccurs="0" />
       <xs:element name="soundWorking" type="DefNameType" minOccurs="0" />
+      <xs:element name="uiIconPath" type="xs:string" minOccurs="0" />
+      <xs:element name="recipeUsers" type="DefNameListType" minOccurs="0" />
+      <xs:element name="appliedOnFixedBodyParts" type="DefNameListType" minOccurs="0" />
+      <xs:element name="appliedOnFixedBodyPartGroups" type="DefNameListType" minOccurs="0" />
+      <xs:element name="addsHediff" type="DefNameType" minOccurs="0" />
+      <xs:element name="removesHediff" type="DefNameType" minOccurs="0" />
+      <xs:element name="addsHediffOnFailure" type="DefNameType" minOccurs="0" />
+      <xs:element name="changesHediffLevel" type="DefNameType" minOccurs="0" />
+      <xs:element name="incompatibleWithHediffTags" type="StringListType" minOccurs="0" />
+      <xs:element name="hediffLevelOffset" type="xs:integer" minOccurs="0" />
+      <xs:element name="hideBodyPartNames" type="xs:boolean" minOccurs="0" />
+      <xs:element name="isViolation" type="xs:boolean" minOccurs="0" />
       <xs:element name="successfullyRemovedHediffMessage" type="xs:string" minOccurs="0" />
       <xs:element name="surgerySuccessChanceFactor" type="xs:float" minOccurs="0">
         <xs:annotation>
@@ -209,6 +215,7 @@
           <xs:documentation>Default: -1</xs:documentation>
         </xs:annotation>
       </xs:element>
+      <xs:element name="developmentalStageFilter" type="DevelopmentalStageType" minOccurs="0" />
       <xs:element name="humanlikeOnly" type="BooleanType" minOccurs="0" />
       <xs:element name="mutantPrerequisite" minOccurs="0">
         <xs:complexType>
@@ -229,7 +236,7 @@
           <xs:documentation>Default: -1f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="researchPrerequisite" type="ResearchProjectDefType" minOccurs="0" />
+      <xs:element name="researchPrerequisite" type="DefNameType" minOccurs="0" />
       <xs:element name="memePrerequisitesAny" minOccurs="0">
         <xs:complexType>
           <xs:choice maxOccurs="unbounded">
@@ -253,7 +260,7 @@
         </xs:complexType>
       </xs:element>
       <xs:element name="fromIdeoBuildingPreceptOnly" type="BooleanType" minOccurs="0" />
-      <xs:element name="conceptLearned" type="ConceptDefType" minOccurs="0" />
+      <xs:element name="conceptLearned" type="DefNameType" minOccurs="0" />
       <xs:element name="dontShowIfAnyIngredientMissing" type="BooleanType" minOccurs="0" />
       <xs:element name="displayPriority" type="xs:integer" minOccurs="0">
         <xs:annotation>
@@ -270,9 +277,11 @@
           <xs:documentation>Default: 1</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="UIIconThing" type="xs:string" minOccurs="0">
+      <xs:element name="uiIconThing" type="DefNameType" minOccurs="0" />
+      <xs:element name="UIIconThing" type="DefNameType" minOccurs="0">
         <xs:annotation>
-          <xs:documentation>Default: this.uiIconThing ?? this.ProducedThingDef</xs:documentation>
+          <xs:documentation>Warn: For forward compatibility, the restriction is relaxed to allow
+            "UIIconThing" tag, but it is recommended to use only "uiIconThing".</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="UsesUnfinishedThing" type="BooleanType" minOccurs="0">
