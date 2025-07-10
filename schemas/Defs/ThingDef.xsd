@@ -873,11 +873,7 @@
           <xs:documentation>Default: this.projectileWhenLoaded != null</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="IsArt" type="BooleanType" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>Default: this.IsWithinCategory(ThingCategoryDefOf.BuildingsArt)</xs:documentation>
-        </xs:annotation>
-      </xs:element>
+      <xs:element name="IsArt" type="BooleanType" minOccurs="0" />
       <xs:element name="IsSmoothable" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: this.building?.smoothedThing != null</xs:documentation>

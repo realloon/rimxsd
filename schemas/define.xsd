@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:include schemaLocation="./Defs/ThingDef.xsd" />
+  <xs:include schemaLocation="./Defs/ThingCategoryDef.xsd" />
   <xs:include schemaLocation="./Defs/RecipeDef.xsd" />
   <xs:include schemaLocation="./Defs/GameConditionDef.xsd" />
 
@@ -9,6 +10,7 @@
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
         <xs:element name="ThingDef" type="ThingDefType" />
+        <xs:element name="ThingCategoryDef" type="ThingCategoryDefType" />
         <xs:element name="RecipeDef" type="RecipeDefType" />
         <xs:element name="GameConditionDef" type="GameConditionDefType" />
       </xs:choice>

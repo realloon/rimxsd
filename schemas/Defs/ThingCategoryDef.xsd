@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="../custom.xsd" />
+  <xs:include schemaLocation="../common.xsd" />
+
+
+  <xs:complexType name="ThingCategoryDefType">
+    <xs:annotation>
+      <xs:documentation>XML definition for RimWorld's ThingCategoryDef type.</xs:documentation>
+    </xs:annotation>
+    <xs:all>
+      <!-- #region Inherit DefType -->
+      <xs:element name="defName" type="DefNameType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The name of this Def. It is used as an identifier by the game code.
+            Default: "UnnamedDef"</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="label" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The name of this Def. It is used as an identifier by the game code.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="description" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A human-readable description given when the Def is inspected by players.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="descriptionHyperlinks" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:any />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ignoreConfigErrors" type="BooleanType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Disables config error checking. Intended for mod use. (Be careful!)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ignoreIllegalLabelCharacterConfigError" type="BooleanType" minOccurs="0" />
+      <xs:element name="modExtensions" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Mod-specific data. Not used by core game code.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="li" type="DefModExtensionType" minOccurs="0" maxOccurs="unbounded" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="shortHash" type="xs:unsignedShort" minOccurs="0" />
+      <xs:element name="index" type="xs:unsignedShort" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: ushort.MaxValue</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="modContentPack" minOccurs="0" />
+      <xs:element name="fileName" type="xs:string" minOccurs="0" />
+      <xs:element name="generated" type="BooleanType" minOccurs="0" />
+      <xs:element name="debugRandomId" type="xs:unsignedShort" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: (ushort) Rand.RangeInclusive(0, (int) ushort.MaxValue)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <!-- #endregion -->
+
+      <xs:element name="parent" type="DefNameType" minOccurs="0" />
+      <xs:element name="iconPath" type="xs:string" minOccurs="0" />
+      <xs:element name="resourceReadoutRoot" type="xs:boolean" minOccurs="0" />
+      <!-- <xs:element name="treeNode" type="TreeNode_ThingCategoryType" minOccurs="0" /> -->
+      <xs:element name="childCategories" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: new List&lt;ThingCategoryDef&gt;()</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="li" type="ThingCategoryDefType" minOccurs="0"
+              maxOccurs="unbounded" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="childThingDefs" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="li" type="DefNameType" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <!-- <xs:element name="childSpecialFilters" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: new List&lt;SpecialThingFilterDef&gt;()</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="li" type="SpecialThingFilterDefType" minOccurs="0"
+              maxOccurs="unbounded" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element> -->
+      <xs:element name="icon" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: BaseContent.BadTex</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SortedChildThingDefs" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: &gt; this.sortedChildThingDefsCached</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="li" type="DefNameType" minOccurs="0" maxOccurs="unbounded" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:all>
+  </xs:complexType>
+</xs:schema>
