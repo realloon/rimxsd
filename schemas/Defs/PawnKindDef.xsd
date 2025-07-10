@@ -9,7 +9,8 @@
     <xs:annotation>
       <xs:documentation>XML definition for RimWorld's PawnKindDef type.</xs:documentation>
     </xs:annotation>
-    <xs:all minOccurs="0">
+
+    <xs:all>
       <!-- #region Inherit DefType -->
       <xs:element name="defName" type="DefNameType" minOccurs="0">
         <xs:annotation>
@@ -66,9 +67,9 @@
       </xs:element>
       <!-- #endregion -->
 
-      <xs:element name="race" type="DefNameType" />
-      <xs:element name="defaultFactionType" type="DefNameType" />
-      <xs:element name="backstoryFilters">
+      <xs:element name="race" type="DefNameType" minOccurs="0" />
+      <xs:element name="defaultFactionType" type="DefNameType" minOccurs="0" />
+      <xs:element name="backstoryFilters" minOccurs="0">
         <xs:complexType>
           <xs:sequence>
             <xs:element name="li" type="BackstoryCategoryFilterType" minOccurs="0"
@@ -76,43 +77,52 @@
           </xs:sequence>
         </xs:complexType>
       </xs:element>
-      <xs:element name="backstoryFiltersOverride">
+      <xs:element name="backstoryFiltersOverride" minOccurs="0">
         <xs:complexType>
           <xs:sequence minOccurs="0" maxOccurs="unbounded">
             <xs:element name="li" type="BackstoryCategoryFilterType" />
           </xs:sequence>
         </xs:complexType>
       </xs:element>
-      <xs:element name="backstoryCategories">
+      <xs:element name="backstoryCategories" minOccurs="0">
         <xs:complexType>
           <xs:sequence minOccurs="0" maxOccurs="unbounded">
             <xs:element name="li" type="xs:string" />
           </xs:sequence>
         </xs:complexType>
       </xs:element>
-      <xs:element name="labelPlural" type="xs:string" />
-      <xs:element name="lifeStages">
+      <xs:element name="labelPlural" type="xs:string" minOccurs="0" />
+      <xs:element name="lifeStages" minOccurs="0">
         <xs:complexType>
           <xs:sequence minOccurs="0" maxOccurs="unbounded">
-            <xs:element name="li" type="PawnKindLifeStageType" />
+            <xs:element name="li">
+              <xs:complexType>
+                <xs:complexContent>
+                  <xs:extension base="PawnKindLifeStageType">
+                    <xs:attribute name="MayRequire" type="DependenciesType" />
+                  </xs:extension>
+                </xs:complexContent>
+              </xs:complexType>
+            </xs:element>
           </xs:sequence>
+          <xs:attribute name="Inherit" type="BooleanType" />
         </xs:complexType>
       </xs:element>
-      <xs:element name="alternateGraphics">
+      <xs:element name="alternateGraphics" minOccurs="0">
         <xs:complexType>
           <xs:sequence minOccurs="0" maxOccurs="unbounded">
             <xs:element name="li" type="AlternateGraphicType" />
           </xs:sequence>
         </xs:complexType>
       </xs:element>
-      <xs:element name="forcedTraits">
+      <xs:element name="forcedTraits" minOccurs="0">
         <xs:complexType>
           <xs:sequence minOccurs="0" maxOccurs="unbounded">
             <xs:element name="li" type="TraitRequirementType" />
           </xs:sequence>
         </xs:complexType>
       </xs:element>
-      <xs:element name="disallowedTraitsWithDegree">
+      <xs:element name="disallowedTraitsWithDegree" minOccurs="0">
         <xs:complexType>
           <xs:sequence>
             <xs:element name="li" type="TraitRequirementType" minOccurs="0"
@@ -120,22 +130,22 @@
           </xs:sequence>
         </xs:complexType>
       </xs:element>
-      <xs:element name="disallowedTraits">
+      <xs:element name="disallowedTraits" minOccurs="0">
         <xs:complexType>
           <xs:sequence>
             <xs:element name="li" type="DefNameType" minOccurs="0" maxOccurs="unbounded" />
           </xs:sequence>
         </xs:complexType>
       </xs:element>
-      <xs:element name="alternateGraphicChance" type="xs:float" />
-      <xs:element name="mutant" type="DefNameType" />
-      <xs:element name="xenotypeSet" type="XenotypeSetType" />
-      <xs:element name="useFactionXenotypes" type="xs:boolean">
+      <xs:element name="alternateGraphicChance" type="xs:float" minOccurs="0" />
+      <xs:element name="mutant" type="DefNameType" minOccurs="0" />
+      <xs:element name="xenotypeSet" type="XenotypeSetType" minOccurs="0" />
+      <xs:element name="useFactionXenotypes" type="xs:boolean" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="styleItemTags">
+      <xs:element name="styleItemTags" minOccurs="0">
         <xs:complexType>
           <xs:sequence>
             <xs:element name="li" type="StyleItemTagWeightedType" minOccurs="0"
@@ -143,27 +153,27 @@
           </xs:sequence>
         </xs:complexType>
       </xs:element>
-      <xs:element name="forcedHair" type="DefNameType" />
-      <xs:element name="missingParts">
+      <xs:element name="forcedHair" type="DefNameType" minOccurs="0" />
+      <xs:element name="missingParts" minOccurs="0">
         <xs:complexType>
           <xs:sequence>
             <xs:element name="li" type="MissingPartType" minOccurs="0" maxOccurs="unbounded" />
           </xs:sequence>
         </xs:complexType>
       </xs:element>
-      <xs:element name="nameMaker" type="DefNameType" />
-      <xs:element name="nameMakerFemale" type="DefNameType" />
-      <xs:element name="abilities">
+      <xs:element name="nameMaker" type="DefNameType" minOccurs="0" />
+      <xs:element name="nameMakerFemale" type="DefNameType" minOccurs="0" />
+      <xs:element name="abilities" minOccurs="0">
         <xs:complexType>
           <xs:sequence>
             <xs:element name="li" type="DefNameType" minOccurs="0" maxOccurs="unbounded" />
           </xs:sequence>
         </xs:complexType>
       </xs:element>
-      <xs:element name="preventIdeo" type="xs:boolean" />
-      <xs:element name="studiableAsPrisoner" type="xs:boolean" />
-      <xs:element name="isBoss" type="xs:boolean" />
-      <xs:element name="fixedChildBackstories">
+      <xs:element name="preventIdeo" type="xs:boolean" minOccurs="0" />
+      <xs:element name="studiableAsPrisoner" type="xs:boolean" minOccurs="0" />
+      <xs:element name="isBoss" type="xs:boolean" minOccurs="0" />
+      <xs:element name="fixedChildBackstories" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: new List&lt;BackstoryDef&gt;()</xs:documentation>
         </xs:annotation>
@@ -173,7 +183,7 @@
           </xs:sequence>
         </xs:complexType>
       </xs:element>
-      <xs:element name="fixedAdultBackstories">
+      <xs:element name="fixedAdultBackstories" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: new List&lt;BackstoryDef&gt;()</xs:documentation>
         </xs:annotation>
@@ -183,93 +193,101 @@
           </xs:sequence>
         </xs:complexType>
       </xs:element>
-      <xs:element name="backstoryCryptosleepCommonality" type="xs:float" />
-      <xs:element name="minGenerationAge" type="xs:integer" />
-      <xs:element name="maxGenerationAge" type="xs:integer">
+      <xs:element name="backstoryCryptosleepCommonality" type="xs:float" minOccurs="0" />
+      <xs:element name="minGenerationAge" minOccurs="0">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:integer">
+              <xs:attribute name="MayRequire" type="DependenciesType"></xs:attribute>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="maxGenerationAge" type="xs:integer" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 999999</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="factionLeader" type="xs:boolean" />
-      <xs:element name="allowOldAgeInjuries" type="xs:boolean">
+      <xs:element name="factionLeader" type="xs:boolean" minOccurs="0" />
+      <xs:element name="allowOldAgeInjuries" type="xs:boolean" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="generateInitialNonFamilyRelations" type="xs:boolean">
+      <xs:element name="generateInitialNonFamilyRelations" type="xs:boolean" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="destroyGearOnDrop" type="xs:boolean" />
-      <xs:element name="canStrip" type="xs:boolean">
+      <xs:element name="destroyGearOnDrop" type="xs:boolean" minOccurs="0" />
+      <xs:element name="canStrip" type="xs:boolean" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="defendPointRadius" type="xs:float">
+      <xs:element name="defendPointRadius" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: -1f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="factionHostileOnKill" type="xs:boolean" />
-      <xs:element name="factionHostileOnDeath" type="xs:boolean" />
-      <xs:element name="hostileToAll" type="xs:boolean" />
-      <xs:element name="forceNoDeathNotification" type="xs:boolean" />
-      <xs:element name="skipResistant" type="xs:boolean" />
-      <xs:element name="controlGroupPortraitZoom" type="xs:float">
+      <xs:element name="factionHostileOnKill" type="xs:boolean" minOccurs="0" />
+      <xs:element name="factionHostileOnDeath" type="xs:boolean" minOccurs="0" />
+      <xs:element name="hostileToAll" type="xs:boolean" minOccurs="0" />
+      <xs:element name="forceNoDeathNotification" type="xs:boolean" minOccurs="0" />
+      <xs:element name="skipResistant" type="xs:boolean" minOccurs="0" />
+      <xs:element name="controlGroupPortraitZoom" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 1f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="forceDeathOnDowned" type="xs:boolean" />
-      <xs:element name="immuneToGameConditionEffects" type="xs:boolean" />
-      <xs:element name="immuneToTraps" type="xs:boolean" />
-      <xs:element name="collidesWithPawns" type="xs:boolean">
+      <xs:element name="forceDeathOnDowned" type="xs:boolean" minOccurs="0" />
+      <xs:element name="immuneToGameConditionEffects" type="xs:boolean" minOccurs="0" />
+      <xs:element name="immuneToTraps" type="xs:boolean" minOccurs="0" />
+      <xs:element name="collidesWithPawns" type="xs:boolean" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="ignoresPainShock" type="xs:boolean" />
-      <xs:element name="canMeleeAttack" type="xs:boolean">
+      <xs:element name="ignoresPainShock" type="xs:boolean" minOccurs="0" />
+      <xs:element name="canMeleeAttack" type="xs:boolean" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="basePrisonBreakMtbDays" type="xs:float">
+      <xs:element name="basePrisonBreakMtbDays" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 60f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="useFixedRotation" type="xs:boolean" />
-      <xs:element name="fixedRotation" type="xs:string" />
-      <xs:element name="showInDebugSpawner" type="xs:boolean">
+      <xs:element name="useFixedRotation" type="xs:boolean" minOccurs="0" />
+      <xs:element name="fixedRotation" type="xs:string" minOccurs="0" />
+      <xs:element name="showInDebugSpawner" type="xs:boolean" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="overrideDebugActionCategory" type="xs:string" />
-      <xs:element name="royalTitleChance" type="xs:float" />
-      <xs:element name="titleRequired" type="DefNameType" />
-      <xs:element name="minTitleRequired" type="DefNameType" />
-      <xs:element name="titleSelectOne">
+      <xs:element name="overrideDebugActionCategory" type="xs:string" minOccurs="0" />
+      <xs:element name="royalTitleChance" type="xs:float" minOccurs="0" />
+      <xs:element name="titleRequired" type="DefNameType" minOccurs="0" />
+      <xs:element name="minTitleRequired" type="DefNameType" minOccurs="0" />
+      <xs:element name="titleSelectOne" minOccurs="0">
         <xs:complexType>
           <xs:sequence>
             <xs:element name="li" type="DefNameType" minOccurs="0" maxOccurs="unbounded" />
           </xs:sequence>
         </xs:complexType>
       </xs:element>
-      <xs:element name="allowRoyalRoomRequirements" type="xs:boolean">
+      <xs:element name="allowRoyalRoomRequirements" type="xs:boolean" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="allowRoyalApparelRequirements" type="xs:boolean">
+      <xs:element name="allowRoyalApparelRequirements" type="xs:boolean" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="meleeAttackInfectionPathways">
+      <xs:element name="meleeAttackInfectionPathways" minOccurs="0">
         <xs:complexType>
           <xs:sequence>
             <xs:element name="li" type="DefNameType" minOccurs="0"
@@ -277,7 +295,7 @@
           </xs:sequence>
         </xs:complexType>
       </xs:element>
-      <xs:element name="rangedAttackInfectionPathways">
+      <xs:element name="rangedAttackInfectionPathways" minOccurs="0">
         <xs:complexType>
           <xs:sequence>
             <xs:element name="li" type="DefNameType" minOccurs="0"
@@ -285,117 +303,117 @@
           </xs:sequence>
         </xs:complexType>
       </xs:element>
-      <xs:element name="isFighter" type="xs:boolean">
+      <xs:element name="isFighter" type="xs:boolean" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="combatPower" type="xs:float">
+      <xs:element name="combatPower" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: -1f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="canArriveManhunter" type="xs:boolean">
+      <xs:element name="canArriveManhunter" type="xs:boolean" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="canBeSapper" type="xs:boolean" />
-      <xs:element name="isGoodBreacher" type="xs:boolean" />
-      <xs:element name="allowInMechClusters" type="xs:boolean">
+      <xs:element name="canBeSapper" type="xs:boolean" minOccurs="0" />
+      <xs:element name="isGoodBreacher" type="xs:boolean" minOccurs="0" />
+      <xs:element name="allowInMechClusters" type="xs:boolean" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="maxPerGroup" type="xs:integer">
+      <xs:element name="maxPerGroup" type="xs:integer" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: int.MaxValue</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="isGoodPsychicRitualInvoker" type="xs:boolean" />
-      <xs:element name="canBeScattered" type="xs:boolean">
+      <xs:element name="isGoodPsychicRitualInvoker" type="xs:boolean" minOccurs="0" />
+      <xs:element name="canBeScattered" type="xs:boolean" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="aiAvoidCover" type="xs:boolean" />
-      <xs:element name="fleeHealthThresholdRange" type="FloatRangeType">
+      <xs:element name="aiAvoidCover" type="xs:boolean" minOccurs="0" />
+      <xs:element name="fleeHealthThresholdRange" type="FloatRangeType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: new FloatRange(-0.4f, 0.4f)</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="acceptArrestChanceFactor" type="xs:float">
+      <xs:element name="acceptArrestChanceFactor" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 1f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="canUseAvoidGrid" type="xs:boolean" />
-      <xs:element name="itemQuality" type="QualityCategoryType">
+      <xs:element name="canUseAvoidGrid" type="xs:boolean" minOccurs="0" />
+      <xs:element name="itemQuality" type="QualityCategoryType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: QualityCategory.Normal</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="forceNormalGearQuality" type="xs:boolean" />
-      <xs:element name="gearHealthRange" type="FloatRangeType">
+      <xs:element name="forceNormalGearQuality" type="xs:boolean" minOccurs="0" />
+      <xs:element name="gearHealthRange" type="FloatRangeType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: FloatRange.One</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="weaponMoney" type="FloatRangeType">
+      <xs:element name="weaponMoney" type="FloatRangeType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: FloatRange.Zero</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="weaponTags">
+      <xs:element name="weaponTags" minOccurs="0">
         <xs:complexType>
           <xs:sequence>
             <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
           </xs:sequence>
         </xs:complexType>
       </xs:element>
-      <xs:element name="weaponStuffOverride" type="DefNameType" />
-      <xs:element name="weaponStyleDef" type="DefNameType" />
-      <xs:element name="apparelMoney" type="FloatRangeType">
+      <xs:element name="weaponStuffOverride" type="DefNameType" minOccurs="0" />
+      <xs:element name="weaponStyleDef" type="DefNameType" minOccurs="0" />
+      <xs:element name="apparelMoney" type="FloatRangeType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: FloatRange.Zero</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="apparelRequired">
+      <xs:element name="apparelRequired" minOccurs="0">
         <xs:complexType>
           <xs:sequence>
             <xs:element name="li" type="DefNameType" minOccurs="0" maxOccurs="unbounded" />
           </xs:sequence>
         </xs:complexType>
       </xs:element>
-      <xs:element name="apparelTags">
+      <xs:element name="apparelTags" minOccurs="0">
         <xs:complexType>
           <xs:sequence>
             <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
           </xs:sequence>
         </xs:complexType>
       </xs:element>
-      <xs:element name="apparelDisallowTags">
+      <xs:element name="apparelDisallowTags" minOccurs="0">
         <xs:complexType>
           <xs:sequence>
             <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
           </xs:sequence>
         </xs:complexType>
       </xs:element>
-      <xs:element name="apparelAllowHeadgearChance" type="xs:float">
+      <xs:element name="apparelAllowHeadgearChance" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 1f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="apparelIgnoreSeasons" type="xs:boolean" />
-      <xs:element name="apparelIgnorePollution" type="xs:boolean" />
-      <xs:element name="ignoreFactionApparelStuffRequirements" type="xs:boolean" />
-      <xs:element name="apparelColor" type="xs:string">
+      <xs:element name="apparelIgnoreSeasons" type="xs:boolean" minOccurs="0" />
+      <xs:element name="apparelIgnorePollution" type="xs:boolean" minOccurs="0" />
+      <xs:element name="ignoreFactionApparelStuffRequirements" type="xs:boolean" minOccurs="0" />
+      <xs:element name="apparelColor" type="xs:string" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: Color.white</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="ignoreIdeoApparelColors" type="xs:boolean" />
-      <xs:element name="specificApparelRequirements">
+      <xs:element name="ignoreIdeoApparelColors" type="xs:boolean" minOccurs="0" />
+      <xs:element name="specificApparelRequirements" minOccurs="0">
         <xs:complexType>
           <xs:sequence>
             <xs:element name="li" type="SpecificApparelRequirementType" minOccurs="0"
@@ -403,60 +421,68 @@
           </xs:sequence>
         </xs:complexType>
       </xs:element>
-      <xs:element name="techHediffsRequired" type="DefNameListType" />
-      <xs:element name="techHediffsMoney" type="FloatRangeType">
+      <xs:element name="techHediffsRequired" type="DefNameListType" minOccurs="0" />
+      <xs:element name="techHediffsMoney" type="FloatRangeType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: FloatRange.Zero</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="techHediffsTags">
+      <xs:element name="techHediffsTags" minOccurs="0">
         <xs:complexType>
           <xs:sequence>
             <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
           </xs:sequence>
         </xs:complexType>
       </xs:element>
-      <xs:element name="techHediffsDisallowTags">
+      <xs:element name="techHediffsDisallowTags" minOccurs="0">
         <xs:complexType>
           <xs:sequence>
             <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
           </xs:sequence>
         </xs:complexType>
       </xs:element>
-      <xs:element name="techHediffsChance" type="xs:float" />
-      <xs:element name="techHediffsMaxAmount" type="xs:integer">
+      <xs:element name="techHediffsChance" minOccurs="0">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:float">
+              <xs:attribute name="MayRequire" type="DependenciesType" />
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="techHediffsMaxAmount" type="xs:integer" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 1</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="biocodeWeaponChance" type="xs:float" />
-      <xs:element name="humanPregnancyChance" type="xs:float">
+      <xs:element name="biocodeWeaponChance" type="xs:float" minOccurs="0" />
+      <xs:element name="humanPregnancyChance" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 0.03f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="startingHediffs">
+      <xs:element name="startingHediffs" minOccurs="0">
         <xs:complexType>
           <xs:sequence>
             <xs:element name="li" type="StartingHediffType" minOccurs="0" maxOccurs="unbounded" />
           </xs:sequence>
         </xs:complexType>
       </xs:element>
-      <xs:element name="nakedChance" type="xs:float" />
-      <xs:element name="existingDamage">
+      <xs:element name="nakedChance" type="xs:float" minOccurs="0" />
+      <xs:element name="existingDamage" minOccurs="0">
         <xs:complexType>
           <xs:sequence>
             <xs:element name="li" type="MiscDamageType" minOccurs="0" maxOccurs="unbounded" />
           </xs:sequence>
         </xs:complexType>
       </xs:element>
-      <xs:element name="minApparelQuality" type="QualityCategoryType" />
-      <xs:element name="maxApparelQuality" type="QualityCategoryType">
+      <xs:element name="minApparelQuality" type="QualityCategoryType" minOccurs="0" />
+      <xs:element name="maxApparelQuality" type="QualityCategoryType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: QualityCategory.Excellent</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="fixedInventory">
+      <xs:element name="fixedInventory" minOccurs="0">
         <xs:complexType>
           <xs:sequence>
             <xs:element name="li" type="ThingDefCountClassType" minOccurs="0"
@@ -464,17 +490,17 @@
           </xs:sequence>
         </xs:complexType>
       </xs:element>
-      <xs:element name="inventoryOptions" type="PawnInventoryOptionType" />
-      <xs:element name="invNutrition" type="xs:float" />
-      <xs:element name="invFoodDef" type="DefNameType" />
-      <xs:element name="chemicalAddictionChance" type="xs:float" />
-      <xs:element name="combatEnhancingDrugsChance" type="xs:float" />
-      <xs:element name="combatEnhancingDrugsCount" type="IntRangeType">
+      <xs:element name="inventoryOptions" type="PawnInventoryOptionType" minOccurs="0" />
+      <xs:element name="invNutrition" type="xs:float" minOccurs="0" />
+      <xs:element name="invFoodDef" type="DefNameType" minOccurs="0" />
+      <xs:element name="chemicalAddictionChance" type="xs:float" minOccurs="0" />
+      <xs:element name="combatEnhancingDrugsChance" type="xs:float" minOccurs="0" />
+      <xs:element name="combatEnhancingDrugsCount" type="IntRangeType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: IntRange.zero</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="forcedAddictions">
+      <xs:element name="forcedAddictions" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: new List&lt;ChemicalDef&gt;()</xs:documentation>
         </xs:annotation>
@@ -484,46 +510,46 @@
           </xs:sequence>
         </xs:complexType>
       </xs:element>
-      <xs:element name="trader" type="xs:boolean" />
-      <xs:element name="skills">
+      <xs:element name="trader" type="xs:boolean" minOccurs="0" />
+      <xs:element name="skills" minOccurs="0">
         <xs:complexType>
           <xs:sequence>
             <xs:element name="li" type="SkillRangeType" minOccurs="0" maxOccurs="unbounded" />
           </xs:sequence>
         </xs:complexType>
       </xs:element>
-      <xs:element name="requiredWorkTags">
+      <xs:element name="requiredWorkTags" minOccurs="0">
         <xs:complexType>
           <xs:sequence minOccurs="0" maxOccurs="unbounded">
             <xs:element name="li" type="WorkTagType" />
           </xs:sequence>
         </xs:complexType>
       </xs:element>
-      <xs:element name="disabledWorkTags">
+      <xs:element name="disabledWorkTags" minOccurs="0">
         <xs:complexType>
           <xs:sequence minOccurs="0" maxOccurs="unbounded">
             <xs:element name="li" type="WorkTagType" />
           </xs:sequence>
         </xs:complexType>
       </xs:element>
-      <xs:element name="extraSkillLevels" type="xs:integer" />
-      <xs:element name="minTotalSkillLevels" type="xs:integer" />
-      <xs:element name="minBestSkillLevel" type="xs:integer" />
-      <xs:element name="labelMale" type="xs:string" />
-      <xs:element name="labelMalePlural" type="xs:string" />
-      <xs:element name="labelFemale" type="xs:string" />
-      <xs:element name="labelFemalePlural" type="xs:string" />
-      <xs:element name="wildGroupSize" type="IntRangeType">
+      <xs:element name="extraSkillLevels" type="xs:integer" minOccurs="0" />
+      <xs:element name="minTotalSkillLevels" type="xs:integer" minOccurs="0" />
+      <xs:element name="minBestSkillLevel" type="xs:integer" minOccurs="0" />
+      <xs:element name="labelMale" type="xs:string" minOccurs="0" />
+      <xs:element name="labelMalePlural" type="xs:string" minOccurs="0" />
+      <xs:element name="labelFemale" type="xs:string" minOccurs="0" />
+      <xs:element name="labelFemalePlural" type="xs:string" minOccurs="0" />
+      <xs:element name="wildGroupSize" type="IntRangeType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: IntRange.one</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="ecoSystemWeight" type="xs:float">
+      <xs:element name="ecoSystemWeight" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 1f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="RaceProps" type="RacePropertiesType">
+      <xs:element name="RaceProps" type="RacePropertiesType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: &gt; this.race.race</xs:documentation>
         </xs:annotation>

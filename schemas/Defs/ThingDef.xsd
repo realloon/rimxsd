@@ -352,7 +352,15 @@
       </xs:element>
       <xs:element name="isTechHediff" type="BooleanType" minOccurs="0" />
       <xs:element name="recipeMaker" type="RecipeMakerPropertiesType" minOccurs="0" />
-      <xs:element name="minifiedDef" type="xs:string" minOccurs="0" />
+      <xs:element name="minifiedDef" minOccurs="0">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:string">
+              <xs:attribute name="IsNull" type="BooleanType" />
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
       <xs:element name="isUnfinishedThing" type="BooleanType" minOccurs="0" />
       <xs:element name="leaveResourcesWhenKilled" type="BooleanType" minOccurs="0" />
       <xs:element name="slagDef" type="xs:string" minOccurs="0" />
@@ -406,7 +414,7 @@
           <xs:documentation>Default: 1f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="startingHpRange" type="xs:string" minOccurs="0">
+      <xs:element name="startingHpRange" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: FloatRange.One</xs:documentation>
         </xs:annotation>
@@ -638,8 +646,11 @@
       <xs:element name="colorGeneratorInTraderStock" minOccurs="0">
         <xs:complexType>
           <xs:choice maxOccurs="unbounded">
-            <xs:any></xs:any>
+            <xs:any processContents="lax">
+              <!-- TODO -->
+            </xs:any>
           </xs:choice>
+          <xs:attribute name="Class" type="DefNameType"></xs:attribute>
         </xs:complexType>
       </xs:element>
       <xs:element name="verbs" minOccurs="0">

@@ -130,7 +130,7 @@
     <xs:annotation>
       <xs:documentation>XML definition for RimWorld's ThingFilter type.</xs:documentation>
     </xs:annotation>
-    <xs:all minOccurs="0">
+    <xs:all>
       <!-- <xs:element name="allowedDefs" minOccurs="0" /> -->
       <!-- <xs:element name="disallowedSpecialFilters" minOccurs="0" /> -->
       <!-- <xs:element name="hiddenSpecialFilters" minOccurs="0" /> -->
@@ -241,9 +241,11 @@
       <xs:element name="shaderType" type="xs:string" minOccurs="0" />
       <xs:element name="shaderParameters" minOccurs="0">
         <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:any />
-          </xs:choice>
+          <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:any processContents="lax">
+              <!-- TODO: shaderParameters -->
+            </xs:any>
+          </xs:sequence>
         </xs:complexType>
       </xs:element>
       <xs:element name="color" type="xs:string" minOccurs="0">
@@ -811,7 +813,15 @@
       <xs:element name="points" minOccurs="0">
         <xs:complexType>
           <xs:sequence minOccurs="0" maxOccurs="unbounded">
-            <xs:element name="li" type="xs:string"></xs:element>
+            <xs:element name="li">
+              <xs:complexType>
+                <xs:simpleContent>
+                  <xs:extension base="xs:string">
+                    <xs:attribute name="MayRequire" type="DependenciesType" />
+                  </xs:extension>
+                </xs:simpleContent>
+              </xs:complexType>
+            </xs:element>
           </xs:sequence>
         </xs:complexType>
       </xs:element>
@@ -948,7 +958,7 @@
       </xs:element>
       <xs:element name="babiesCanIngest" type="BooleanType" />
       <xs:element name="humanlikeOnly" type="BooleanType" />
-      <xs:element name="tasteThought" type="DefNameType" />
+      <xs:element name="tasteThought" type="NullableDefNameType" />
       <xs:element name="specialThoughtDirect" type="DefNameType" />
       <xs:element name="specialThoughtAsIngredient" type="DefNameType" />
       <xs:element name="ateEvent" type="xs:string" />
@@ -974,7 +984,7 @@
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="foodType" type="FoodTypeFlagsType" />
+      <xs:element name="foodType" type="xs:string" />
       <xs:element name="joy" type="xs:float" />
       <xs:element name="joyKind" type="xs:string" />
       <xs:element name="sourceDef" type="xs:string" />
@@ -1075,18 +1085,9 @@
     <xs:annotation>
       <xs:documentation>XML definition for RimWorld's IngredientProperties type.</xs:documentation>
     </xs:annotation>
-    <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element name="mergeCompatibilityTags">
-        <xs:annotation>
-          <xs:documentation>Default: string[]</xs:documentation>
-        </xs:annotation>
-        <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
-          </xs:choice>
-        </xs:complexType>
-      </xs:element>
-    </xs:choice>
+    <xs:all>
+      <xs:element name="mergeCompatibilityTags" type="DefNameListType" minOccurs="0" />
+    </xs:all>
   </xs:complexType>
 
   <!-- RitualFocusPropertiesType -->
@@ -1635,10 +1636,19 @@
         </xs:annotation>
       </xs:element>
       <xs:element name="thinkTreeMain" type="xs:string" minOccurs="0" />
-      <xs:element name="thinkTreeConstant" type="xs:string" minOccurs="0" />
+      <xs:element name="thinkTreeConstant" minOccurs="0">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="DefNameType">
+              <xs:attribute name="MayRequire" type="DependenciesType"></xs:attribute>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
       <xs:element name="dutyBoss" type="xs:string" minOccurs="0" />
       <xs:element name="nameCategory" type="xs:string" minOccurs="0" />
-      <xs:element name="foodType" type="FoodTypeFlagsType" minOccurs="0" />
+      <xs:element name="foodType" type="xs:string" minOccurs="0" />
+      <!-- TODO: FoodTypeFlagsType -->
       <xs:element name="body" type="xs:string" minOccurs="0" />
       <xs:element name="deathAction" type="DeathActionPropertiesType" minOccurs="0" />
       <xs:element name="wildBiomes" minOccurs="0">
@@ -1667,6 +1677,7 @@
           </xs:choice>
         </xs:complexType>
       </xs:element>
+      <xs:element name="roamMtbDays" type="xs:float" minOccurs="0" />
       <xs:element name="allowedOnCaravan" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
@@ -1734,13 +1745,7 @@
         </xs:annotation>
       </xs:element>
       <xs:element name="animalType" type="xs:string" minOccurs="0" />
-      <xs:element name="willNeverEat" minOccurs="0">
-        <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
-          </xs:choice>
-        </xs:complexType>
-      </xs:element>
+      <xs:element name="willNeverEat" type="DefNameListType" minOccurs="0" />
       <xs:element name="giveNonToolUserBeatFireVerb" type="BooleanType" minOccurs="0" />
       <xs:element name="disableIgniteVerb" type="BooleanType" minOccurs="0" />
       <xs:element name="disableAreaControl" type="BooleanType" minOccurs="0" />
@@ -1816,7 +1821,15 @@
         </xs:complexType>
       </xs:element>
       <xs:element name="trainability" type="xs:string" minOccurs="0" />
-      <xs:element name="nameGenerator" type="DefNameType" minOccurs="0" />
+      <xs:element name="nameGenerator" minOccurs="0">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="DefNameType">
+              <xs:attribute name="MayRequire" type="DependenciesType"></xs:attribute>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
       <xs:element name="nameGeneratorFemale" type="DefNameType" minOccurs="0" />
       <xs:element name="nameOnTameChance" type="xs:float" minOccurs="0" />
       <xs:element name="baseBodySize" type="xs:float" minOccurs="0">
@@ -1835,27 +1848,29 @@
         </xs:annotation>
       </xs:element>
       <xs:element name="lifeStageAges" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>Default: new List&lt;LifeStageAge&gt;()</xs:documentation>
-        </xs:annotation>
         <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:any>
-              <!-- TODO:  -->
-            </xs:any>
-          </xs:choice>
+          <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="li">
+              <xs:complexType>
+                <xs:complexContent>
+                  <xs:extension base="LifeStageAgeType">
+                    <xs:attribute name="MayRequire" type="DependenciesType" />
+                  </xs:extension>
+                </xs:complexContent>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+          <xs:attribute name="Inherit" type="BooleanType" />
         </xs:complexType>
       </xs:element>
       <xs:element name="lifeStageWorkSettings" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>Default: new List&lt;LifeStageWorkSettings&gt;()</xs:documentation>
-        </xs:annotation>
         <xs:complexType>
           <xs:choice maxOccurs="unbounded">
-            <xs:any>
-              <!-- TODO:  -->
+            <xs:any processContents="lax">
+              <!-- TODO: lifeStageWorkSettings -->
             </xs:any>
           </xs:choice>
+          <xs:attribute name="MayRequire" type="DependenciesType" />
         </xs:complexType>
       </xs:element>
       <xs:element name="hasMeat" type="BooleanType" minOccurs="0">
@@ -1915,7 +1930,15 @@
       <xs:element name="soundAmbience" type="DefNameType" minOccurs="0" />
       <xs:element name="soundMoving" type="DefNameType" minOccurs="0" />
       <xs:element name="soundEating" type="DefNameType" minOccurs="0" />
-      <xs:element name="knowledgeCategory" type="xs:string" minOccurs="0" />
+      <xs:element name="knowledgeCategory" minOccurs="0">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="DefNameType">
+              <xs:attribute name="MayRequire" type="DependenciesType" />
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
       <xs:element name="anomalyKnowledge" type="xs:integer" minOccurs="0" />
       <xs:element name="meatDef" type="xs:string" minOccurs="0" />
       <xs:element name="corpseDef" type="xs:string" minOccurs="0" />
@@ -2507,41 +2530,41 @@
     <xs:annotation>
       <xs:documentation>XML definition for RimWorld's PlantProperties type.</xs:documentation>
     </xs:annotation>
-    <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element name="wildBiomes">
+    <xs:all>
+      <xs:element name="wildBiomes" minOccurs="0">
         <xs:complexType>
           <xs:choice maxOccurs="unbounded">
             <xs:element name="li" type="PlantBiomeRecordType" minOccurs="0" maxOccurs="unbounded" />
           </xs:choice>
         </xs:complexType>
       </xs:element>
-      <xs:element name="wildClusterRadius" type="xs:integer">
+      <xs:element name="wildClusterRadius" type="xs:integer" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: -1</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="wildClusterWeight" type="xs:float">
+      <xs:element name="wildClusterWeight" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 15f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="wildOrder" type="xs:float">
+      <xs:element name="wildOrder" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 2f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="wildEqualLocalDistribution" type="BooleanType">
+      <xs:element name="wildEqualLocalDistribution" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="cavePlant" type="BooleanType" />
-      <xs:element name="cavePlantWeight" type="xs:float">
+      <xs:element name="cavePlant" type="BooleanType" minOccurs="0" />
+      <xs:element name="cavePlantWeight" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 1f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="sowTags">
+      <xs:element name="sowTags" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: new List&lt;string&gt;()</xs:documentation>
         </xs:annotation>
@@ -2551,205 +2574,208 @@
           </xs:choice>
         </xs:complexType>
       </xs:element>
-      <xs:element name="sowWork" type="xs:float">
+      <xs:element name="sowWork" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 10f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="sowMinSkill" type="xs:integer" />
-      <xs:element name="blockAdjacentSow" type="BooleanType" />
-      <xs:element name="sowResearchPrerequisites">
+      <xs:element name="sowMinSkill" type="xs:integer" minOccurs="0" />
+      <xs:element name="blockAdjacentSow" type="BooleanType" minOccurs="0" />
+      <xs:element name="sowResearchPrerequisites" minOccurs="0">
         <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:element name="li" type="DefNameType" minOccurs="0"
-              maxOccurs="unbounded" />
-          </xs:choice>
+          <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="li" type="DefNameType" />
+          </xs:sequence>
+          <xs:attribute name="Inherit" type="BooleanType" />
         </xs:complexType>
       </xs:element>
-      <xs:element name="mustBeWildToSow" type="BooleanType" />
-      <xs:element name="harvestWork" type="xs:float">
+      <xs:element name="mustBeWildToSow" type="BooleanType" minOccurs="0" />
+      <xs:element name="harvestWork" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 10f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="harvestYield" type="xs:float" />
-      <xs:element name="harvestedThingDef" type="xs:string" />
-      <xs:element name="harvestTag" type="xs:string" />
-      <xs:element name="harvestMinGrowth" type="xs:float">
+      <xs:element name="harvestYield" type="xs:float" minOccurs="0" />
+      <xs:element name="harvestedThingDef" type="xs:string" minOccurs="0" />
+      <xs:element name="harvestTag" type="xs:string" minOccurs="0" />
+      <xs:element name="harvestMinGrowth" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 0.65f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="harvestAfterGrowth" type="xs:float" />
-      <xs:element name="harvestFailable" type="BooleanType">
+      <xs:element name="harvestAfterGrowth" type="xs:float" minOccurs="0" />
+      <xs:element name="harvestFailable" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="harvestYieldAffectedByDifficulty" type="BooleanType">
+      <xs:element name="harvestYieldAffectedByDifficulty" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="soundHarvesting" type="DefNameType" />
-      <xs:element name="soundHarvestFinish" type="DefNameType" />
-      <xs:element name="autoHarvestable" type="BooleanType">
+      <xs:element name="soundHarvesting" type="DefNameType" minOccurs="0" />
+      <xs:element name="soundHarvestFinish" type="DefNameType" minOccurs="0" />
+      <xs:element name="autoHarvestable" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="skipDeteriorationMessage" type="BooleanType" />
-      <xs:element name="growDays" type="xs:float">
+      <xs:element name="skipDeteriorationMessage" type="BooleanType" minOccurs="0" />
+      <xs:element name="growDays" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 2f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="lifespanDaysPerGrowDays" type="xs:float">
+      <xs:element name="lifespanDaysPerGrowDays" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 8f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="growMinGlow" type="xs:float">
+      <xs:element name="growMinGlow" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 0.51f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="growOptimalGlow" type="xs:float">
+      <xs:element name="growOptimalGlow" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 1f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="pollution" type="PollutionType" />
-      <xs:element name="fertilityMin" type="xs:float">
+      <xs:element name="pollution" type="PollutionType" minOccurs="0" />
+      <xs:element name="fertilityMin" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 0.9f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="fertilitySensitivity" type="xs:float">
+      <xs:element name="fertilitySensitivity" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 0.5f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="dieIfLeafless" type="BooleanType" />
-      <xs:element name="neverBlightable" type="BooleanType" />
-      <xs:element name="interferesWithRoof" type="BooleanType" />
-      <xs:element name="dieIfNoSunlight" type="BooleanType">
+      <xs:element name="dieIfLeafless" type="BooleanType" minOccurs="0" />
+      <xs:element name="neverBlightable" type="BooleanType" minOccurs="0" />
+      <xs:element name="interferesWithRoof" type="BooleanType" minOccurs="0" />
+      <xs:element name="dieIfNoSunlight" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="dieFromToxicFallout" type="BooleanType">
+      <xs:element name="dieFromToxicFallout" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="purpose" type="PlantPurposeType">
+      <xs:element name="purpose" type="PlantPurposeType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: PlantPurpose.Misc</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="humanFoodPlant" type="BooleanType" />
-      <xs:element name="treeLoversCareIfChopped" type="BooleanType">
+      <xs:element name="humanFoodPlant" type="BooleanType" minOccurs="0" />
+      <xs:element name="treeLoversCareIfChopped" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="allowAutoCut" type="BooleanType">
+      <xs:element name="allowAutoCut" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="drugForHarvestPurposes" type="BooleanType" />
-      <xs:element name="treeCategory" type="TreeCategoryType" />
-      <xs:element name="burnedThingDef" type="xs:string" />
-      <xs:element name="choppedThingDef" type="xs:string" />
-      <xs:element name="smashedThingDef" type="xs:string" />
-      <xs:element name="canDeteriorate" type="BooleanType" />
-      <xs:element name="showGrowthInInspectPane" type="BooleanType">
+      <xs:element name="drugForHarvestPurposes" type="BooleanType" minOccurs="0" />
+      <xs:element name="treeCategory" type="TreeCategoryType" minOccurs="0" />
+      <xs:element name="burnedThingDef" type="xs:string" minOccurs="0" />
+      <xs:element name="choppedThingDef" type="xs:string" minOccurs="0" />
+      <xs:element name="smashedThingDef" type="xs:string" minOccurs="0" />
+      <xs:element name="canDeteriorate" type="BooleanType" minOccurs="0" />
+      <xs:element name="showGrowthInInspectPane" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="minSpacingBetweenSamePlant" type="xs:float" />
-      <xs:element name="forceIsTree" type="BooleanType" />
-      <xs:element name="warnIfMarkedForCut" type="BooleanType" />
-      <xs:element name="isStump" type="BooleanType" />
-      <xs:element name="topWindExposure" type="xs:float">
+      <xs:element name="minSpacingBetweenSamePlant" type="xs:float" minOccurs="0" />
+      <xs:element name="forceIsTree" type="BooleanType" minOccurs="0" />
+      <xs:element name="warnIfMarkedForCut" type="BooleanType" minOccurs="0" />
+      <xs:element name="isStump" type="BooleanType" minOccurs="0" />
+      <xs:element name="topWindExposure" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 0.25f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="maxMeshCount" type="xs:integer">
+      <xs:element name="maxMeshCount" type="xs:integer" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 1</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="visualSizeRange" type="xs:string">
+      <xs:element name="visualSizeRange" type="xs:string" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: new FloatRange(0.9f, 1.1f)</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="leaflessGraphic" type="GraphicType" />
-      <xs:element name="immatureGraphic" type="GraphicType" />
-      <xs:element name="dropLeaves" type="BooleanType" />
-      <xs:element name="pollutedGraphic" type="GraphicType" />
-      <xs:element name="Sowable" type="BooleanType">
+      <xs:element name="leaflessGraphicPath" type="xs:string" minOccurs="0" />
+      <xs:element name="leaflessGraphic" type="GraphicType" minOccurs="0" />
+      <xs:element name="immatureGraphicPath" type="xs:string" minOccurs="0" />
+      <xs:element name="immatureGraphic" type="GraphicType" minOccurs="0" />
+      <xs:element name="dropLeaves" type="BooleanType" minOccurs="0" />
+      <xs:element name="pollutedGraphicPath" type="xs:string" minOccurs="0" />
+      <xs:element name="pollutedGraphic" type="GraphicType" minOccurs="0" />
+      <xs:element name="Sowable" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: !this.sowTags.NullOrEmpty&lt;string&gt;()</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="Harvestable" type="BooleanType">
+      <xs:element name="Harvestable" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: (double) this.harvestYield 1.0 / 1000.0</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="HarvestDestroys" type="BooleanType">
+      <xs:element name="HarvestDestroys" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: (double) this.harvestAfterGrowth &lt;= 0.0</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="IsTree" type="BooleanType">
+      <xs:element name="IsTree" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: this.harvestTag == "Wood" || this.forceIsTree</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="LifespanDays" type="xs:float">
+      <xs:element name="LifespanDays" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: this.growDays * this.lifespanDaysPerGrowDays</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="LifespanTicks" type="xs:integer">
+      <xs:element name="LifespanTicks" type="xs:integer" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: (int) ((double) this.LifespanDays * 60000.0)</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="LimitedLifespan" type="BooleanType">
+      <xs:element name="LimitedLifespan" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: (double) this.lifespanDaysPerGrowDays 0.0</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="Blightable" type="BooleanType">
+      <xs:element name="Blightable" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: this.Sowable &amp;&amp; this.Harvestable &amp;&amp;
             !this.neverBlightable</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="GrowsInClusters" type="BooleanType">
+      <xs:element name="GrowsInClusters" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: this.wildClusterRadius 0</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="RequiresPollution" type="BooleanType">
+      <xs:element name="RequiresPollution" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: this.pollution == Pollution.PollutedOnly</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="RequiresNoPollution" type="BooleanType">
+      <xs:element name="RequiresNoPollution" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: this.pollution == Pollution.CleanOnly</xs:documentation>
         </xs:annotation>
       </xs:element>
-    </xs:choice>
+    </xs:all>
   </xs:complexType>
 
   <!-- PlantBiomeRecordType -->
@@ -4738,59 +4764,59 @@
 
   <!-- BackstoryCategoryFilterType -->
   <xs:complexType name="BackstoryCategoryFilterType">
-    <xs:all minOccurs="0">
-      <xs:element name="categories" type="StringListType" />
-      <xs:element name="exclude" type="StringListType" />
-      <xs:element name="categoriesChildhood" type="StringListType" />
-      <xs:element name="excludeChildhood" type="StringListType" />
-      <xs:element name="categoriesAdulthood" type="StringListType" />
-      <xs:element name="excludeAdulthood" type="StringListType" />
-      <xs:element name="commonality" type="xs:float" />
+    <xs:all>
+      <xs:element name="categories" type="StringListType" minOccurs="0" />
+      <xs:element name="exclude" type="StringListType" minOccurs="0" />
+      <xs:element name="categoriesChildhood" type="StringListType" minOccurs="0" />
+      <xs:element name="excludeChildhood" type="StringListType" minOccurs="0" />
+      <xs:element name="categoriesAdulthood" type="StringListType" minOccurs="0" />
+      <xs:element name="excludeAdulthood" type="StringListType" minOccurs="0" />
+      <xs:element name="commonality" type="xs:float" minOccurs="0" />
     </xs:all>
   </xs:complexType>
 
   <!-- SkillRangeType -->
   <xs:complexType name="SkillRangeType">
-    <xs:all minOccurs="0">
-      <xs:element name="skill" type="DefNameType" />
-      <xs:element name="range" type="xs:string" />
+    <xs:all>
+      <xs:element name="skill" type="DefNameType" minOccurs="0" />
+      <xs:element name="range" type="xs:string" minOccurs="0" />
     </xs:all>
   </xs:complexType>
 
   <!-- ThingDefCountClassType -->
   <xs:complexType name="ThingDefCountClassType">
-    <xs:all minOccurs="0">
-      <xs:element name="thingDef" type="DefNameType" />
-      <xs:element name="count" type="xs:integer" />
-      <xs:element name="color" type="xs:string" />
-      <xs:element name="chance" type="xs:float" />
-      <xs:element name="stuff" type="DefNameType" />
-      <xs:element name="quality" type="QualityCategoryType" />
+    <xs:all>
+      <xs:element name="thingDef" type="DefNameType" minOccurs="0" />
+      <xs:element name="count" type="xs:integer" minOccurs="0" />
+      <xs:element name="color" type="xs:string" minOccurs="0" />
+      <xs:element name="chance" type="xs:float" minOccurs="0" />
+      <xs:element name="stuff" type="DefNameType" minOccurs="0" />
+      <xs:element name="quality" type="QualityCategoryType" minOccurs="0" />
     </xs:all>
   </xs:complexType>
 
   <!-- MiscDamageType -->
   <xs:complexType name="MiscDamageType">
-    <xs:all minOccurs="0">
-      <xs:element name="damage" type="DefNameType" />
-      <xs:element name="groups">
+    <xs:all>
+      <xs:element name="damage" type="DefNameType" minOccurs="0" />
+      <xs:element name="groups" minOccurs="0">
         <xs:complexType>
           <xs:sequence minOccurs="0" maxOccurs="unbounded">
             <xs:element name="li" type="DefNameType" />
           </xs:sequence>
         </xs:complexType>
       </xs:element>
-      <xs:element name="chance" type="xs:float" />
+      <xs:element name="chance" type="xs:float" minOccurs="0" />
     </xs:all>
   </xs:complexType>
 
   <!-- StartingHediffType -->
   <xs:complexType name="StartingHediffType">
-    <xs:all minOccurs="0">
-      <xs:element name="def" type="DefNameType" />
-      <xs:element name="severity" type="xs:float" />
-      <xs:element name="chance" type="xs:float" />
-      <xs:element name="durationTicksRange" type="xs:string" />
+    <xs:all>
+      <xs:element name="def" type="DefNameType" minOccurs="0" />
+      <xs:element name="severity" type="xs:float" minOccurs="0" />
+      <xs:element name="chance" type="xs:float" minOccurs="0" />
+      <xs:element name="durationTicksRange" type="xs:string" minOccurs="0" />
     </xs:all>
   </xs:complexType>
 
@@ -4799,24 +4825,24 @@
     <xs:annotation>
       <xs:documentation>XML definition for RimWorld's PawnKindLifeStage type.</xs:documentation>
     </xs:annotation>
-    <xs:all minOccurs="0">
-      <xs:element name="label" type="xs:string" />
-      <xs:element name="labelPlural" type="xs:string" />
-      <xs:element name="labelMale" type="xs:string" />
-      <xs:element name="labelMalePlural" type="xs:string" />
-      <xs:element name="labelFemale" type="xs:string" />
-      <xs:element name="labelFemalePlural" type="xs:string" />
-      <xs:element name="untranslatedLabel" type="xs:string" />
-      <xs:element name="untranslatedLabelMale" type="xs:string" />
-      <xs:element name="untranslatedLabelFemale" type="xs:string" />
-      <xs:element name="bodyGraphicData" type="GraphicDataType" />
-      <xs:element name="femaleGraphicData" type="GraphicDataType" />
-      <xs:element name="dessicatedBodyGraphicData" type="GraphicDataType" />
-      <xs:element name="femaleDessicatedBodyGraphicData" type="GraphicDataType" />
-      <xs:element name="corpseGraphicData" type="GraphicDataType" />
-      <xs:element name="femaleCorpseGraphicData" type="GraphicDataType" />
-      <xs:element name="silhouetteGraphicData" type="GraphicDataType" />
-      <xs:element name="butcherBodyPart" type="BodyPartToDropType" />
+    <xs:all>
+      <xs:element name="label" type="xs:string" minOccurs="0" />
+      <xs:element name="labelPlural" type="xs:string" minOccurs="0" />
+      <xs:element name="labelMale" type="xs:string" minOccurs="0" />
+      <xs:element name="labelMalePlural" type="xs:string" minOccurs="0" />
+      <xs:element name="labelFemale" type="xs:string" minOccurs="0" />
+      <xs:element name="labelFemalePlural" type="xs:string" minOccurs="0" />
+      <xs:element name="untranslatedLabel" type="xs:string" minOccurs="0" />
+      <xs:element name="untranslatedLabelMale" type="xs:string" minOccurs="0" />
+      <xs:element name="untranslatedLabelFemale" type="xs:string" minOccurs="0" />
+      <xs:element name="bodyGraphicData" type="GraphicDataType" minOccurs="0" />
+      <xs:element name="femaleGraphicData" type="GraphicDataType" minOccurs="0" />
+      <xs:element name="dessicatedBodyGraphicData" type="GraphicDataType" minOccurs="0" />
+      <xs:element name="femaleDessicatedBodyGraphicData" type="GraphicDataType" minOccurs="0" />
+      <xs:element name="corpseGraphicData" type="GraphicDataType" minOccurs="0" />
+      <xs:element name="femaleCorpseGraphicData" type="GraphicDataType" minOccurs="0" />
+      <xs:element name="silhouetteGraphicData" type="GraphicDataType" minOccurs="0" />
+      <xs:element name="butcherBodyPart" type="BodyPartToDropType" minOccurs="0" />
     </xs:all>
   </xs:complexType>
 
@@ -4846,47 +4872,52 @@
     <xs:annotation>
       <xs:documentation>XML definition for RimWorld's AlternateGraphic type.</xs:documentation>
     </xs:annotation>
-    <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element name="graphicData" type="GraphicDataType" />
-      <xs:element name="dessicatedGraphicData" type="GraphicDataType" />
-      <xs:element name="attachPoints">
+    <xs:all>
+      <xs:element name="Weight" type="xs:float" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: this.weight</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="texPath" type="xs:string" minOccurs="0" />
+      <xs:element name="texPath" type="xs:string" minOccurs="0" />
+      <xs:element name="dessicatedTexPath" type="GraphicDataType" minOccurs="0" />
+      <xs:element name="color" type="xs:string" minOccurs="0" />
+      <xs:element name="colorTwo" type="xs:string" minOccurs="0" />
+      <xs:element name="graphicData" type="GraphicDataType" minOccurs="0" />
+      <xs:element name="dessicatedGraphicData" type="GraphicDataType" minOccurs="0" />
+      <xs:element name="attachPoints" minOccurs="0">
         <xs:complexType>
           <xs:sequence>
             <xs:element name="li" type="AttachPointType" minOccurs="0" maxOccurs="unbounded" />
           </xs:sequence>
         </xs:complexType>
       </xs:element>
-      <xs:element name="Weight" type="xs:float">
-        <xs:annotation>
-          <xs:documentation>Default: this.weight</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-    </xs:choice>
+    </xs:all>
   </xs:complexType>
 
   <!-- TraitRequirementType -->
   <xs:complexType name="TraitRequirementType">
-    <xs:all minOccurs="0">
-      <xs:element name="def" type="DefNameType" />
-      <xs:element name="degree" type="xs:integer" />
+    <xs:all>
+      <xs:element name="def" type="DefNameType" minOccurs="0" />
+      <xs:element name="degree" type="xs:integer" minOccurs="0" />
     </xs:all>
   </xs:complexType>
 
   <!-- StyleItemTagWeightedType -->
   <xs:complexType name="StyleItemTagWeightedType">
-    <xs:all minOccurs="0">
-      <xs:element name="tag" type="xs:string" />
-      <xs:element name="baseWeight" type="xs:float" />
-      <xs:element name="weightFactor" type="xs:float" />
+    <xs:all>
+      <xs:element name="tag" type="xs:string" minOccurs="0" />
+      <xs:element name="baseWeight" type="xs:float" minOccurs="0" />
+      <xs:element name="weightFactor" type="xs:float" minOccurs="0" />
     </xs:all>
   </xs:complexType>
 
   <!-- MissingPartType -->
   <xs:complexType name="MissingPartType">
-    <xs:all minOccurs="0">
-      <xs:element name="bodyPart" type="DefNameType" />
-      <xs:element name="injury" type="DefNameType" />
-      <xs:element name="chance" type="xs:float" />
+    <xs:all>
+      <xs:element name="bodyPart" type="DefNameType" minOccurs="0" />
+      <xs:element name="injury" type="DefNameType" minOccurs="0" />
+      <xs:element name="chance" type="xs:float" minOccurs="0" />
     </xs:all>
   </xs:complexType>
 
@@ -4924,9 +4955,9 @@
           <xs:sequence minOccurs="0" maxOccurs="unbounded">
             <xs:element name="li">
               <xs:complexType>
-                <xs:all minOccurs="0">
-                  <xs:element name="tag" type="xs:string" />
-                  <xs:element name="chance" type="xs:float" />
+                <xs:all>
+                  <xs:element name="tag" type="xs:string" minOccurs="0" />
+                  <xs:element name="chance" type="xs:float" minOccurs="0" />
                 </xs:all>
               </xs:complexType>
             </xs:element>
@@ -4975,6 +5006,23 @@
       </xs:element>
       <xs:element name="tag" type="xs:string" />
       <xs:element name="chance" type="xs:float" />
+    </xs:choice>
+  </xs:complexType>
+
+  <!-- LifeStageAgeType -->
+  <xs:complexType name="LifeStageAgeType">
+    <xs:annotation>
+      <xs:documentation>XML definition for RimWorld's LifeStageAge type.</xs:documentation>
+    </xs:annotation>
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="def" type="DefNameType" />
+      <xs:element name="minAge" type="xs:float" />
+      <xs:element name="soundCall" type="DefNameType" />
+      <xs:element name="soundAngry" type="DefNameType" />
+      <xs:element name="soundWounded" type="DefNameType" />
+      <xs:element name="soundDeath" type="DefNameType" />
+      <xs:element name="soundAmbience" type="DefNameType" />
+      <xs:element name="soundAttack" type="DefNameType" />
     </xs:choice>
   </xs:complexType>
 </xs:schema>

@@ -189,7 +189,15 @@
         </xs:annotation>
       </xs:element>
       <xs:element name="surgeryIgnoreEnvironment" type="BooleanType" minOccurs="0" />
-      <xs:element name="surgeryOutcomeEffect" type="DefNameType" minOccurs="0" />
+      <xs:element name="surgeryOutcomeEffect" minOccurs="0">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="NullableDefNameType">
+              <xs:attribute name="IsNull" type="BooleanType" />
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
       <xs:element name="mustBeFertile" type="BooleanType" minOccurs="0" />
       <xs:element name="allowedForQuestLodgers" type="BooleanType" minOccurs="0">
         <xs:annotation>

@@ -14,6 +14,11 @@
     </xs:restriction>
   </xs:simpleType>
 
+  <!-- NullableDefNameType -->
+  <xs:simpleType name="NullableDefNameType">
+    <xs:union memberTypes="DefNameType EmptyStringType" />
+  </xs:simpleType>
+
   <!-- StringListType -->
   <xs:complexType name="StringListType">
     <xs:sequence minOccurs="0" maxOccurs="unbounded">
@@ -105,6 +110,8 @@
   <!-- StatModifierListType -->
   <xs:complexType name="StatModifierListType">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <!-- For expansion compatibility, `choice` has to be used. -->
+
       <!-- #region From Stats_Basics_General -->
       <xs:element name="MaxHitPoints" type="xs:float" />
       <xs:element name="Mass" type="xs:float" />
@@ -113,7 +120,7 @@
       <xs:element name="RoyalFavorValue" type="xs:float" />
       <xs:element name="Flammability" type="xs:float" />
       <xs:element name="WorkToMake" type="xs:float" />
-      <xs:element name="DeteriorationRate" type="xs:integer" />
+      <xs:element name="DeteriorationRate" type="xs:float" />
       <xs:element name="Beauty" type="xs:float" />
       <xs:element name="Cleanliness" type="xs:float" />
       <xs:element name="Comfort" type="xs:float" />
@@ -282,7 +289,15 @@
       <xs:element name="MeditationFocusGain" type="xs:float"></xs:element>
       <xs:element name="PsychicEntropyMax" type="xs:float"></xs:element>
       <xs:element name="PsychicEntropyRecoveryRate" type="xs:float"></xs:element>
-      <xs:element name="ToxicEnvironmentResistance" type="xs:float"></xs:element>
+      <xs:element name="ToxicEnvironmentResistance">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:float">
+              <xs:attribute name="MayRequire" type="DependenciesType" />
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
       <xs:element name="RestFallRateFactor" type="xs:float"></xs:element>
       <xs:element name="EMPResistance" type="xs:float"></xs:element>
       <xs:element name="JoyFallRateFactor" type="xs:float"></xs:element>
@@ -301,7 +316,15 @@
       <!-- #endregion -->
 
       <!-- #region From Stats_Pawns_WorkGeneral.xml -->
-      <xs:element name="WorkSpeedGlobal" type="xs:float"></xs:element>
+      <xs:element name="WorkSpeedGlobal">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:float">
+              <xs:attribute name="MayRequire" type="DependenciesType"></xs:attribute>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
       <xs:element name="MiningSpeed" type="xs:float"></xs:element>
       <xs:element name="DeepDrillingSpeed" type="xs:float"></xs:element>
       <xs:element name="MiningYield" type="xs:float"></xs:element>
