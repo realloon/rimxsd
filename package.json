@@ -1,7 +1,7 @@
 {
   "name": "rimxsd",
   "scripts": {
-    "dev": "bun run index.html",
+    "dev": "bun run ./packages/generator/index.html",
     "bundle": "bun run ./packages/bundler/main.ts ./schemas/define.xsd ./schemas/define.bundled.xsd"
   },
   "dependencies": {
