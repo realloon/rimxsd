@@ -2872,10 +2872,13 @@
         </xs:annotation>
       </xs:element>
       <xs:element name="filth" type="xs:string" minOccurs="0" />
+      <xs:element name="filthChance" type="xs:float" minOccurs="0" />
       <xs:element name="filthCount" type="xs:string" minOccurs="0" />
       <xs:element name="numExtraHitCells" type="xs:integer" minOccurs="0" />
       <xs:element name="explosionSpawnsSingleFilth" type="xs:boolean" minOccurs="0" />
       <xs:element name="bulletChanceToStartFire" type="xs:float" minOccurs="0" />
+      <xs:element name="spawnTerrain" type="DefNameType" minOccurs="0" />
+      <xs:element name="terrainChance" type="xs:float" minOccurs="0" />
       <xs:element name="bulletFireSizeRange" type="xs:string" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: new FloatRange(0.55f, 0.85f)</xs:documentation>
