@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="../Shared/common.xsd" />
+  <xs:include schemaLocation="../Shared/enum.xsd" />
+  <xs:include schemaLocation="../Shared/custom.xsd" />
+  <xs:include schemaLocation="../Shared/attributes.xsd" />
+
+  <xs:complexType name="AbilityDefType">
+    <xs:annotation>
+      <xs:documentation>XML definition for RimWorld's AbilityDef type.</xs:documentation>
+    </xs:annotation>
+
+    <xs:all>
+      <!-- #region Inherit DefType -->
+      <xs:element name="defName" type="DefNameType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The name of this Def. It is used as an identifier by the game code.
+            Default: "UnnamedDef"</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="label" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The name of this Def. It is used as an identifier by the game code.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="description" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A human-readable description given when the Def is inspected by players.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="descriptionHyperlinks" minOccurs="0" />
+      <xs:element name="ignoreConfigErrors" type="BooleanType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Disables config error checking. Intended for mod use. (Be careful!)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ignoreIllegalLabelCharacterConfigError" type="BooleanType" minOccurs="0" />
+      <xs:element name="modExtensions" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Mod-specific data. Not used by core game code.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="li" type="DefModExtensionType" minOccurs="0" maxOccurs="unbounded" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="shortHash" type="xs:unsignedShort" minOccurs="0" />
+      <xs:element name="index" type="xs:unsignedShort" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: ushort.MaxValue</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="modContentPack" minOccurs="0" />
+      <xs:element name="fileName" type="xs:string" minOccurs="0" />
+      <xs:element name="generated" type="BooleanType" minOccurs="0" />
+      <xs:element name="debugRandomId" type="xs:unsignedShort" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: (ushort) Rand.RangeInclusive(0, (int) ushort.MaxValue)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <!-- #endregion -->
+
+      <xs:element name="abilityClass" type="DefNameType" minOccurs="0" />
+      <xs:element name="gizmoClass" type="DefNameType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: typeof (Command_Ability)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="comps" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="li" type="CompPropertiesType" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="category" type="DefNameWithRequireType" minOccurs="0" />
+      <xs:element name="displayOrder" type="xs:integer" minOccurs="0" />
+      <xs:element name="statBases" type="StatModifierListType" minOccurs="0" />
+      <xs:element name="verbProperties" type="VerbPropertiesType" minOccurs="0" />
+      <xs:element name="hotKey" type="DefNameType" minOccurs="0" />
+      <xs:element name="jobDef" type="DefNameType" minOccurs="0" />
+      <xs:element name="warmupMote" type="DefNameType" minOccurs="0" />
+      <xs:element name="warmupEffecter" type="DefNameType" minOccurs="0" />
+      <xs:element name="emittedFleck" type="DefNameType" minOccurs="0" />
+      <xs:element name="emissionInterval" type="xs:integer" minOccurs="0" />
+      <xs:element name="warmupMoteSocialSymbol" type="xs:string" minOccurs="0" />
+      <xs:element name="warmupStartSound" type="DefNameType" minOccurs="0" />
+      <xs:element name="warmupSound" type="DefNameType" minOccurs="0" />
+      <xs:element name="warmupPreEndSound" type="DefNameType" minOccurs="0" />
+      <xs:element name="warmupPreEndSoundSeconds" type="xs:float" minOccurs="0" />
+      <xs:element name="moteDrawOffset" type="xs:string" minOccurs="0" />
+      <xs:element name="moteOffsetAmountTowardsTarget" type="xs:float" minOccurs="0" />
+      <xs:element name="canUseAoeToGetTargets" type="BooleanType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="useAverageTargetPositionForWarmupEffecter" type="BooleanType" minOccurs="0" />
+      <xs:element name="targetRequired" type="BooleanType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="targetWorldCell" type="BooleanType" minOccurs="0" />
+      <xs:element name="showGizmoOnWorldView" type="BooleanType" minOccurs="0" />
+      <xs:element name="aiCanUse" type="BooleanType" minOccurs="0" />
+      <xs:element name="ai_SearchAOEForTargets" type="BooleanType" minOccurs="0" />
+      <xs:element name="ai_IsOffensive" type="BooleanType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ai_IsIncendiary" type="BooleanType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="groupAbility" type="BooleanType" minOccurs="0" />
+      <xs:element name="level" type="xs:integer" minOccurs="0" />
+      <xs:element name="cooldownTicksRange" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Type: IntRange</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="cooldownPerCharge" type="BooleanType" minOccurs="0" />
+      <xs:element name="hasExternallyHandledCooldown" type="BooleanType" minOccurs="0" />
+      <xs:element name="charges" type="xs:integer" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: -1</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="groupDef" type="DefNameType" minOccurs="0" />
+      <xs:element name="overrideGroupCooldown" type="BooleanType" minOccurs="0" />
+      <xs:element name="requiredMemes" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="li" type="DefNameType" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="sendLetterOnCooldownComplete" type="BooleanType" minOccurs="0" />
+      <xs:element name="sendMessageOnCooldownComplete" type="BooleanType" minOccurs="0" />
+      <xs:element name="displayGizmoWhileUndrafted" type="BooleanType" minOccurs="0" />
+      <xs:element name="disableGizmoWhileUndrafted" type="BooleanType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="writeCombatLog" type="BooleanType" minOccurs="0" />
+      <xs:element name="stunTargetWhileCasting" type="BooleanType" minOccurs="0" />
+      <xs:element name="showPsycastEffects" type="BooleanType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="showCastingProgressBar" type="BooleanType" minOccurs="0" />
+      <xs:element name="detectionChanceOverride" type="xs:float" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: -1f</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="uiOrder" type="xs:float" minOccurs="0" />
+      <xs:element name="waitForJobEnd" type="BooleanType" minOccurs="0" />
+      <xs:element name="showWhenDrafted" type="BooleanType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="showOnCharacterCard" type="BooleanType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="hostile" type="BooleanType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="casterMustBeCapableOfViolence" type="BooleanType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="confirmationDialogText" type="xs:string" minOccurs="0" />
+      <xs:element name="iconPath" type="xs:string" minOccurs="0" />
+      <xs:element name="uiIcon" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: BaseContent.BadTex</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="HasAreaOfEffect" type="BooleanType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: &gt; (double) this.EffectRadius &gt; 1.401298464324817E-45</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IsPsycast" type="BooleanType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: &gt; typeof (Psycast).IsAssignableFrom(this.abilityClass)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:all>
+
+    <xs:attributeGroup ref="DefAttributeGroup" />
+  </xs:complexType>
+</xs:schema>

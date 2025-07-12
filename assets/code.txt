@@ -1,0 +1,343 @@
+// Decompiled with JetBrains decompiler
+// Type: RimWorld.AbilityDef
+// Assembly: Assembly-CSharp, Version=1.6.9323.2541, Culture=neutral, PublicKeyToken=null
+// MVID: FCFAB19A-F5D1-4A60-8A65-EBD77F29482F
+// Assembly location: C:\Program Files (x86)\Steam\steamapps\common\RimWorld\RimWorldWin64_Data\Managed\Assembly-CSharp.dll
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using Verse;
+
+#nullable disable
+namespace RimWorld;
+
+public class AbilityDef : Def
+{
+  public System.Type abilityClass = typeof (Ability);
+  public System.Type gizmoClass = typeof (Command_Ability);
+  public List<AbilityCompProperties> comps = new List<AbilityCompProperties>();
+  public AbilityCategoryDef category;
+  public int displayOrder;
+  public List<StatModifier> statBases;
+  public VerbProperties verbProperties;
+  public KeyBindingDef hotKey;
+  public JobDef jobDef;
+  public ThingDef warmupMote;
+  public EffecterDef warmupEffecter;
+  public FleckDef emittedFleck;
+  public int emissionInterval;
+  public string warmupMoteSocialSymbol;
+  public SoundDef warmupStartSound;
+  public SoundDef warmupSound;
+  public SoundDef warmupPreEndSound;
+  public float warmupPreEndSoundSeconds;
+  public Vector3 moteDrawOffset;
+  public float moteOffsetAmountTowardsTarget;
+  public bool canUseAoeToGetTargets = true;
+  public bool useAverageTargetPositionForWarmupEffecter;
+  public bool targetRequired = true;
+  public bool targetWorldCell;
+  public bool showGizmoOnWorldView;
+  public bool aiCanUse;
+  public bool ai_SearchAOEForTargets;
+  public bool ai_IsOffensive = true;
+  public bool ai_IsIncendiary = true;
+  public bool groupAbility;
+  public int level;
+  public IntRange cooldownTicksRange;
+  public bool cooldownPerCharge;
+  public bool hasExternallyHandledCooldown;
+  public int charges = -1;
+  public AbilityGroupDef groupDef;
+  public bool overrideGroupCooldown;
+  public List<MemeDef> requiredMemes;
+  public bool sendLetterOnCooldownComplete;
+  public bool sendMessageOnCooldownComplete;
+  public bool displayGizmoWhileUndrafted;
+  public bool disableGizmoWhileUndrafted = true;
+  public bool writeCombatLog;
+  public bool stunTargetWhileCasting;
+  public bool showPsycastEffects = true;
+  public bool showCastingProgressBar;
+  public float detectionChanceOverride = -1f;
+  public float uiOrder;
+  public bool waitForJobEnd;
+  public bool showWhenDrafted = true;
+  public bool showOnCharacterCard = true;
+  public bool hostile = true;
+  public bool casterMustBeCapableOfViolence = true;
+  [MustTranslate]
+  public string confirmationDialogText;
+  [NoTranslate]
+  public string iconPath;
+  public Texture2D uiIcon = BaseContent.BadTex;
+  private string cachedTooltip;
+  private Pawn cachedTooltipPawn;
+  private List<string> cachedTargets;
+  private int requiredPsyfocusBandCached = -1;
+  private bool? anyCompOverridesPsyfocusCost;
+  private FloatRange psyfocusCostRange = new FloatRange(-1f, -1f);
+  private string psyfocusCostPercent;
+  private string psyfocusCostPercentMax;
+  private Texture2D warmupMoteSocialSymbolCached;
+
+  public float EntropyGain
+  {
+    get => this.statBases.GetStatValueFromList(StatDefOf.Ability_EntropyGain, 0.0f);
+  }
+
+  public float PsyfocusCost
+  {
+    get => this.statBases.GetStatValueFromList(StatDefOf.Ability_PsyfocusCost, 0.0f);
+  }
+
+  public float EffectRadius
+  {
+    get => this.statBases.GetStatValueFromList(StatDefOf.Ability_EffectRadius, 0.0f);
+  }
+
+  public bool HasAreaOfEffect => (double) this.EffectRadius > 1.401298464324817E-45;
+
+  public float DetectionChance
+  {
+    get
+    {
+      return (double) this.detectionChanceOverride < 0.0 ? this.GetStatValueAbstract(StatDefOf.Ability_DetectChancePerEntropy) : this.detectionChanceOverride;
+    }
+  }
+
+  public bool IsPsycast => typeof (Psycast).IsAssignableFrom(this.abilityClass);
+
+  public string PsyfocusCostPercent
+  {
+    get
+    {
+      if (this.psyfocusCostPercent.NullOrEmpty())
+        this.psyfocusCostPercent = this.PsyfocusCost.ToStringPercent();
+      return this.psyfocusCostPercent;
+    }
+  }
+
+  public string PsyfocusCostPercentMax
+  {
+    get
+    {
+      if (this.psyfocusCostPercentMax.NullOrEmpty())
+        this.psyfocusCostPercentMax = this.PsyfocusCostRange.max.ToStringPercent();
+      return this.psyfocusCostPercentMax;
+    }
+  }
+
+  public int RequiredPsyfocusBand
+  {
+    get
+    {
+      if (this.requiredPsyfocusBandCached == -1)
+      {
+        this.requiredPsyfocusBandCached = Pawn_PsychicEntropyTracker.MaxAbilityLevelPerPsyfocusBand.Count - 1;
+        for (int index = 0; index < Pawn_PsychicEntropyTracker.MaxAbilityLevelPerPsyfocusBand.Count; ++index)
+        {
+          if (this.level <= Pawn_PsychicEntropyTracker.MaxAbilityLevelPerPsyfocusBand[index])
+          {
+            this.requiredPsyfocusBandCached = index;
+            break;
+          }
+        }
+      }
+      return this.requiredPsyfocusBandCached;
+    }
+  }
+
+  public bool AnyCompOverridesPsyfocusCost
+  {
+    get
+    {
+      if (!this.anyCompOverridesPsyfocusCost.HasValue)
+      {
+        this.anyCompOverridesPsyfocusCost = new bool?(false);
+        if (this.comps != null)
+        {
+          foreach (AbilityCompProperties comp in this.comps)
+          {
+            if (comp.OverridesPsyfocusCost)
+            {
+              this.anyCompOverridesPsyfocusCost = new bool?(true);
+              break;
+            }
+          }
+        }
+      }
+      return this.anyCompOverridesPsyfocusCost.Value;
+    }
+  }
+
+  public FloatRange PsyfocusCostRange
+  {
+    get
+    {
+      if ((double) this.psyfocusCostRange.min < 0.0)
+      {
+        if (!this.AnyCompOverridesPsyfocusCost)
+        {
+          this.psyfocusCostRange = new FloatRange(this.PsyfocusCost, this.PsyfocusCost);
+        }
+        else
+        {
+          foreach (AbilityCompProperties comp in this.comps)
+          {
+            if (comp.OverridesPsyfocusCost)
+            {
+              this.psyfocusCostRange = comp.PsyfocusCostRange;
+              break;
+            }
+          }
+        }
+      }
+      return this.psyfocusCostRange;
+    }
+  }
+
+  public IEnumerable<string> StatSummary(Pawn forPawn = null)
+  {
+    string str1 = (string) null;
+    foreach (AbilityCompProperties comp in this.comps)
+    {
+      if (comp.OverridesPsyfocusCost)
+      {
+        str1 = comp.PsyfocusCostExplanation;
+        break;
+      }
+    }
+    if (str1 == null)
+    {
+      if ((double) this.PsyfocusCost > 1.401298464324817E-45)
+        yield return (string) ("AbilityPsyfocusCost".Translate() + ": " + this.PsyfocusCost.ToStringPercent());
+    }
+    else
+      yield return str1;
+    if ((double) this.EntropyGain > 1.401298464324817E-45)
+      yield return (string) ("AbilityEntropyGain".Translate() + ": ") + this.EntropyGain.ToString();
+    if ((double) this.verbProperties.warmupTime > 1.401298464324817E-45)
+      yield return (string) ((string) ("AbilityCastingTime".Translate() + ": ") + this.verbProperties.warmupTime.ToString() + "LetterSecond".Translate());
+    if (this.cooldownTicksRange.min == this.cooldownTicksRange.max && this.cooldownTicksRange.min > 0)
+      yield return (string) ("StatsReport_Cooldown".Translate() + ": " + this.cooldownTicksRange.min.ToStringTicksToPeriod(allowYears: false));
+    float numSeconds = this.EffectDuration(forPawn);
+    if ((double) numSeconds > 1.401298464324817E-45)
+    {
+      int ticks = numSeconds.SecondsToTicks();
+      yield return (string) ("AbilityDuration".Translate() + ": " + (ticks >= 2500 ? ticks.ToStringTicksToPeriod() : numSeconds.ToString() + (string) "LetterSecond".Translate()));
+    }
+    if (this.HasAreaOfEffect)
+      yield return (string) ("AbilityEffectRadius".Translate() + ": ") + Mathf.Ceil(this.EffectRadius).ToString();
+    if (this.comps != null)
+    {
+      for (int i = 0; i < this.comps.Count; ++i)
+      {
+        foreach (string str2 in this.comps[i].ExtraStatSummary())
+          yield return str2;
+      }
+    }
+  }
+
+  public float EffectDuration(Pawn forPawn = null)
+  {
+    return this.GetStatValueAbstract(StatDefOf.Ability_Duration, forPawn);
+  }
+
+  public override void PostLoad()
+  {
+    if (string.IsNullOrEmpty(this.iconPath))
+      return;
+    LongEventHandler.ExecuteWhenFinished((Action) (() => this.uiIcon = ContentFinder<Texture2D>.Get(this.iconPath)));
+  }
+
+  public string GetTooltip(Pawn pawn = null)
+  {
+    if (this.cachedTooltip == null || this.cachedTooltipPawn != pawn)
+    {
+      this.cachedTooltip = $"{this.LabelCap.Colorize(ColoredText.TipSectionTitleColor)}{(this.level > 0 ? (string) ("\n" + "Level".Translate().CapitalizeFirst() + " ") + this.level.ToString() : "")}\n\n{this.description}";
+      this.cachedTooltipPawn = pawn;
+      string lineList = this.StatSummary(pawn).ToLineList();
+      if (!lineList.NullOrEmpty())
+        this.cachedTooltip = $"{this.cachedTooltip}\n\n{lineList}";
+    }
+    if (pawn != null && ModsConfig.RoyaltyActive && this.IsPsycast && this.level > 0)
+    {
+      Faction first = Faction.GetMinTitleForImplantAllFactions(HediffDefOf.PsychicAmplifier).First;
+      if (first != null)
+      {
+        RoyalTitleDef minTitleForImplant = first.GetMinTitleForImplant(HediffDefOf.PsychicAmplifier, this.level);
+        RoyalTitleDef currentTitle = pawn.royalty.GetCurrentTitle(first);
+        if (minTitleForImplant != null && (currentTitle == null || currentTitle.seniority < minTitleForImplant.seniority) && (double) this.DetectionChance > 0.0)
+          return $"{this.cachedTooltip}\n\n{((string) "PsycastIsIllegal".Translate(pawn.Named("PAWN"), minTitleForImplant.GetLabelCapFor(pawn).Named("TITLE"))).Colorize(ColoredText.WarningColor)}";
+      }
+    }
+    return this.cachedTooltip;
+  }
+
+  public override IEnumerable<StatDrawEntry> SpecialDisplayStats(StatRequest req)
+  {
+    if (this.cachedTargets == null)
+    {
+      this.cachedTargets = new List<string>();
+      if (this.verbProperties.targetParams.canTargetPawns && this.verbProperties.targetParams.canTargetSelf)
+        this.cachedTargets.Add((string) "TargetSelf".Translate());
+      if (this.verbProperties.targetParams.canTargetLocations)
+        this.cachedTargets.Add((string) "TargetGround".Translate());
+      if (this.verbProperties.targetParams.canTargetPawns && this.verbProperties.targetParams.canTargetHumans)
+        this.cachedTargets.Add((string) "TargetHuman".Translate());
+      if (this.verbProperties.targetParams.canTargetPawns && this.verbProperties.targetParams.canTargetAnimals)
+        this.cachedTargets.Add((string) "TargetAnimal".Translate());
+    }
+    int num = this.comps.OfType<CompProperties_AbilityEffect>().Sum<CompProperties_AbilityEffect>((Func<CompProperties_AbilityEffect, int>) (e => e.goodwillImpact));
+    if (num != 0)
+      yield return new StatDrawEntry(StatCategoryDefOf.Ability, StatDefOf.Ability_GoodwillImpact, (float) num, req);
+    if (this.IsPsycast && this.level != 0)
+      yield return new StatDrawEntry(StatCategoryDefOf.Ability, StatDefOf.Ability_RequiredPsylink, (float) this.level, req);
+    yield return new StatDrawEntry(StatCategoryDefOf.Ability, StatDefOf.Ability_CastingTime, this.verbProperties.warmupTime, req);
+    if ((double) this.verbProperties.range > 0.0)
+      yield return new StatDrawEntry(StatCategoryDefOf.Ability, StatDefOf.Ability_Range, this.verbProperties.range, req);
+    yield return new StatDrawEntry(StatCategoryDefOf.Ability, (string) "Target".Translate(), this.cachedTargets.ToCommaList().CapitalizeFirst(), (string) "AbilityTargetDesc".Translate(), 1001);
+    yield return new StatDrawEntry(StatCategoryDefOf.Ability, (string) "AbilityRequiresLOS".Translate(), (string) (this.verbProperties.requireLineOfSight ? "Yes".Translate() : "No".Translate()), "", 1000);
+  }
+
+  public Texture2D WarmupMoteSocialSymbol
+  {
+    get
+    {
+      if (!this.warmupMoteSocialSymbol.NullOrEmpty() && (Object) this.warmupMoteSocialSymbolCached == (Object) null)
+        this.warmupMoteSocialSymbolCached = ContentFinder<Texture2D>.Get(this.warmupMoteSocialSymbol);
+      return this.warmupMoteSocialSymbolCached;
+    }
+  }
+
+  public override IEnumerable<string> ConfigErrors()
+  {
+    AbilityDef parentDef = this;
+    // ISSUE: reference to a compiler-generated method
+    foreach (string str in parentDef.\u003C\u003En__0())
+      yield return str;
+    if (parentDef.abilityClass == (System.Type) null)
+      yield return "abilityClass is null";
+    if (parentDef.verbProperties == null)
+      yield return "verbProperties are null";
+    if (parentDef.label.NullOrEmpty())
+      yield return "no label";
+    if (parentDef.statBases != null)
+    {
+      foreach (StatModifier statBase1 in parentDef.statBases)
+      {
+        StatModifier statBase = statBase1;
+        if (parentDef.statBases.Count<StatModifier>((Predicate<StatModifier>) (st => st.stat == statBase.stat)) > 1)
+          yield return $"defines the stat base {statBase.stat?.ToString()} more than once.";
+      }
+    }
+    for (int i = 0; i < parentDef.comps.Count; ++i)
+    {
+      foreach (string configError in parentDef.comps[i].ConfigErrors(parentDef))
+        yield return configError;
+    }
+  }
+}

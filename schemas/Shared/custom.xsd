@@ -7,6 +7,14 @@
     </xs:restriction>
   </xs:simpleType>
 
+  <xs:complexType name="DefNameWithRequireType">
+    <xs:simpleContent>
+      <xs:extension base="DefNameType">
+        <xs:attribute name="MayRequire" type="DependenciesType" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
   <!-- EmptyStringType -->
   <xs:simpleType name="EmptyStringType">
     <xs:restriction base="xs:string">
@@ -147,7 +155,7 @@
             ability.</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="Ability_PsyfocusCost" type="xs:integer">
+      <xs:element name="Ability_PsyfocusCost" type="xs:float">
         <xs:annotation>
           <xs:documentation>How much psyfocus must be spent to perform this ability.</xs:documentation>
         </xs:annotation>
@@ -163,7 +171,7 @@
           <xs:documentation>How long the effects of this ability last.</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="Ability_EffectRadius" type="xs:integer">
+      <xs:element name="Ability_EffectRadius" type="xs:float">
         <xs:annotation>
           <xs:documentation>The radius of the area of effect of this ability.</xs:documentation>
         </xs:annotation>

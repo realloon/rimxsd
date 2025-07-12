@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="./Defs/AbilityDef.xsd" />
+  <xs:include schemaLocation="./Defs/AbilityCategoryDef.xsd" />
   <xs:include schemaLocation="./Defs/ThingDef.xsd" />
   <xs:include schemaLocation="./Defs/ThingCategoryDef.xsd" />
   <xs:include schemaLocation="./Defs/RecipeDef.xsd" />
@@ -11,6 +13,8 @@
   <xs:element name="Defs">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="AbilityDef" type="AbilityDefType" />
+        <xs:element name="AbilityCategoryDef" type="AbilityCategoryDefType" />
         <xs:element name="ThingDef" type="ThingDefType" />
         <xs:element name="ThingCategoryDef" type="ThingCategoryDefType" />
         <xs:element name="RecipeDef" type="RecipeDefType" />

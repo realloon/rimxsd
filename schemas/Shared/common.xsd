@@ -509,11 +509,7 @@
         </xs:annotation>
       </xs:element>
       <xs:element name="nonInterruptingSelfCast" type="BooleanType" minOccurs="0" />
-      <xs:element name="targetParams" type="TargetingParametersType" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>Default: new TargetingParameters()</xs:documentation>
-        </xs:annotation>
-      </xs:element>
+      <xs:element name="targetParams" type="TargetingParametersType" minOccurs="0" />
       <xs:element name="requireLineOfSight" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
@@ -553,11 +549,20 @@
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
+      <xs:element name="useableInVacuum" type="BooleanType" minOccurs="0" />
       <xs:element name="mouseTargetingText" type="xs:string" minOccurs="0" />
       <xs:element name="warmupTime" type="xs:float" minOccurs="0" />
       <xs:element name="defaultCooldownTime" type="xs:float" minOccurs="0" />
       <xs:element name="commandIcon" type="xs:string" minOccurs="0" />
-      <xs:element name="soundCast" type="DefNameType" minOccurs="0" />
+      <xs:element name="soundCast" minOccurs="0">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="NullableDefNameType">
+              <xs:attribute name="Inherit" type="BooleanType" />
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
       <xs:element name="soundCastTail" type="DefNameType" minOccurs="0" />
       <xs:element name="soundAiming" type="DefNameType" minOccurs="0" />
       <xs:element name="muzzleFlashScale" type="xs:float" minOccurs="0" />
@@ -571,6 +576,7 @@
       <xs:element name="warmupEffecter" type="DefNameType" minOccurs="0" />
       <xs:element name="drawHighlightWithLineOfSight" type="BooleanType" minOccurs="0" />
       <xs:element name="aimingLineMote" type="DefNameType" minOccurs="0" />
+      <xs:element name="aimingLineMoteFixedLength" type="xs:float" minOccurs="0" />
       <xs:element name="aimingChargeMote" type="DefNameType" minOccurs="0" />
       <xs:element name="aimingChargeMoteOffset" type="xs:float" minOccurs="0" />
       <xs:element name="aimingTargetMote" type="DefNameType" minOccurs="0" />
@@ -741,6 +747,8 @@
         </xs:annotation>
       </xs:element>
       <xs:element name="canTargetPlants" type="BooleanType" />
+      <xs:element name="canTargetSubhumans" type="BooleanType" />
+      <xs:element name="canTargetEntities" type="BooleanType" />
       <xs:element name="canTargetMutants" type="BooleanType">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
@@ -2866,6 +2874,7 @@
       <xs:element name="filth" type="xs:string" minOccurs="0" />
       <xs:element name="filthCount" type="xs:string" minOccurs="0" />
       <xs:element name="numExtraHitCells" type="xs:integer" minOccurs="0" />
+      <xs:element name="explosionSpawnsSingleFilth" type="xs:boolean" minOccurs="0" />
       <xs:element name="bulletChanceToStartFire" type="xs:float" minOccurs="0" />
       <xs:element name="bulletFireSizeRange" type="xs:string" minOccurs="0">
         <xs:annotation>
@@ -5021,4 +5030,7 @@
     </xs:all>
     <xs:attribute name="Class" type="DefNameType" />
   </xs:complexType> -->
+
+  <!-- AbilityCompPropertiesType -->
+
 </xs:schema>

@@ -286,15 +286,11 @@
       </xs:element>
       <xs:element name="receivesSignals" type="BooleanType" minOccurs="0" />
       <xs:element name="comps" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>Default: CompProperties[]</xs:documentation>
-        </xs:annotation>
         <xs:complexType>
           <xs:sequence maxOccurs="unbounded">
             <xs:element name="li" type="CompPropertiesType" minOccurs="0" maxOccurs="unbounded"></xs:element>
           </xs:sequence>
           <xs:attribute name="Inherit" type="BooleanType" />
-
         </xs:complexType>
       </xs:element>
       <xs:element name="virtualDefs" minOccurs="0">
