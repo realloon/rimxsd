@@ -1,4 +1,4 @@
-import type { FieldIR, ClassIR, EnumIR, IR } from '../types'
+import type { FieldIR, ClassIR, EnumIR, IR } from '../../types'
 
 // #region helper
 function preprocessCode(code: string): string {

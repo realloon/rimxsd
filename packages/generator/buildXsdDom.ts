@@ -1,4 +1,4 @@
-import type { ClassIR, EnumIR, IR } from '../types'
+import type { ClassIR, EnumIR, IR } from '../../types'
 import { typeMapper } from './typeMapper'
 
 const XSD_NS = 'http://www.w3.org/2001/XMLSchema'

@@ -1,9 +1,11 @@
 {
   "name": "rimxsd",
   "scripts": {
-    "dev": "bun run index.html"
+    "dev": "bun run index.html",
+    "bundle": "bun run ./packages/bundler/main.ts ./schemas/define.xsd ./schemas/define.bundled.xsd"
   },
   "dependencies": {
-    "@types/bun": "^1.2.18"
+    "@types/bun": "^1.2.18",
+    "fast-xml-parser": "^5.2.5"
   }
 }
