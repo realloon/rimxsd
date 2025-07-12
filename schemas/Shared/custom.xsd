@@ -3,10 +3,11 @@
   <!-- DefNameType -->
   <xs:simpleType name="DefNameType">
     <xs:restriction base="xs:string">
-      <xs:pattern value="[A-Z][A-Za-z0-9_]*" />
+      <xs:pattern value="[A-Z][A-Za-z0-9_\.]*" />
     </xs:restriction>
   </xs:simpleType>
 
+  <!-- DefNameWithRequireType -->
   <xs:complexType name="DefNameWithRequireType">
     <xs:simpleContent>
       <xs:extension base="DefNameType">
@@ -420,6 +421,30 @@
               <xs:attribute name="MayRequire" type="DependenciesType" />
             </xs:extension>
           </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- modExtensionsType -->
+  <xs:complexType name="modExtensionsType">
+    <xs:annotation>
+      <xs:documentation>Mod-specific data. Not used by core game code.</xs:documentation>
+    </xs:annotation>
+
+    <xs:sequence minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="li">
+        <xs:complexType>
+          <xs:annotation>
+            <xs:documentation>XML definition for RimWorld's DefModExtension type.</xs:documentation>
+          </xs:annotation>
+
+          <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:any processContents="lax" />
+          </xs:sequence>
+
+          <xs:attribute name="Class" type="DefNameType" />
+          <xs:attribute name="MayRequire" type="DependenciesType" />
         </xs:complexType>
       </xs:element>
     </xs:sequence>

@@ -33,16 +33,7 @@
         </xs:annotation>
       </xs:element>
       <xs:element name="ignoreIllegalLabelCharacterConfigError" type="BooleanType" minOccurs="0" />
-      <xs:element name="modExtensions" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>Mod-specific data. Not used by core game code.</xs:documentation>
-        </xs:annotation>
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element name="li" type="DefModExtensionType" minOccurs="0" maxOccurs="unbounded" />
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
+      <xs:element name="modExtensions" type="modExtensionsType" minOccurs="0" />
       <xs:element name="shortHash" type="xs:unsignedShort" minOccurs="0" />
       <xs:element name="index" type="xs:unsignedShort" minOccurs="0">
         <xs:annotation>
