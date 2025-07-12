@@ -2,4 +2,7 @@
 /bun.lock
 /dist
 /playground
+
 code.tmpl.txt
+
+.DS_Store
