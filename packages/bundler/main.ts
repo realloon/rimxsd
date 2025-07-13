@@ -90,10 +90,7 @@ export class XsdBundler {
           )
           continue
         }
-        const includedFilePath = resolve(
-          dirname(absolutePath),
-          includeLocation
-        )
+        const includedFilePath = resolve(dirname(absolutePath), includeLocation)
 
         await this.processFile(includedFilePath)
       } else if (child[':@']) {
@@ -127,10 +124,7 @@ async function main() {
     if (error instanceof Error) {
       console.error(`\n🔥 Bundling failed: ${error.message}`)
     } else {
-      console.error(
-        '\n🔥 An unknown error occurred during bundling.',
-        error
-      )
+      console.error('\n🔥 An unknown error occurred during bundling.', error)
     }
     process.exit(1)
   }

@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "erasableSyntaxOnly": true,
+    "paths": {
+      "generator/*": ["./packages/generator/*"],
+      "bundler/*": ["./packages/bundler/*"]
+    }
+  }
+}
