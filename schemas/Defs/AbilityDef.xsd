@@ -45,26 +45,12 @@
       <xs:element name="modContentPack" minOccurs="0" />
       <xs:element name="fileName" type="xs:string" minOccurs="0" />
       <xs:element name="generated" type="BooleanType" minOccurs="0" />
-      <xs:element name="debugRandomId" type="xs:unsignedShort" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>Default: (ushort) Rand.RangeInclusive(0, (int) ushort.MaxValue)</xs:documentation>
-        </xs:annotation>
-      </xs:element>
+      <xs:element name="debugRandomId" type="xs:unsignedShort" minOccurs="0" />
       <!-- #endregion -->
 
       <xs:element name="abilityClass" type="DefNameType" minOccurs="0" />
-      <xs:element name="gizmoClass" type="DefNameType" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>Default: typeof (Command_Ability)</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="comps" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence minOccurs="0" maxOccurs="unbounded">
-            <xs:element name="li" type="CompPropertiesType" />
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
+      <xs:element name="gizmoClass" type="DefNameType" minOccurs="0" />
+      <xs:element name="comps" type="compsType" minOccurs="0" />
       <xs:element name="category" type="DefNameWithRequireType" minOccurs="0" />
       <xs:element name="displayOrder" type="xs:integer" minOccurs="0" />
       <xs:element name="statBases" type="StatModifierListType" minOccurs="0" />

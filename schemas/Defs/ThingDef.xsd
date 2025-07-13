@@ -9,6 +9,7 @@
     <xs:annotation>
       <xs:documentation>XML definition for RimWorld's ThingDef type.</xs:documentation>
     </xs:annotation>
+
     <xs:all>
       <!-- #region Inherit DefType -->
       <xs:element name="defName" type="DefNameType" minOccurs="0">
@@ -44,11 +45,7 @@
       <xs:element name="modContentPack" minOccurs="0" />
       <xs:element name="fileName" type="xs:string" minOccurs="0" />
       <xs:element name="generated" type="BooleanType" minOccurs="0" />
-      <xs:element name="debugRandomId" type="xs:unsignedShort" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>Default: (ushort) Rand.RangeInclusive(0, (int) ushort.MaxValue)</xs:documentation>
-        </xs:annotation>
-      </xs:element>
+      <xs:element name="debugRandomId" type="xs:unsignedShort" minOccurs="0" />
       <!-- #endregion -->
 
       <!-- #region Inherit BuildableDefType -->
@@ -112,19 +109,12 @@
           </xs:simpleContent>
         </xs:complexType>
       </xs:element>
-      <xs:element name="buildingPrerequisites" minOccurs="0">
-        <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
-          </xs:choice>
-        </xs:complexType>
-      </xs:element>
+      <xs:element name="buildingPrerequisites" type="StringListType" minOccurs="0" />
       <xs:element name="researchPrerequisites" minOccurs="0">
         <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:element name="li" type="DefNameType" minOccurs="0"
-              maxOccurs="unbounded" />
-          </xs:choice>
+          <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="li" type="DefNameType" />
+          </xs:sequence>
           <xs:attribute name="Inherit" type="BooleanType" />
         </xs:complexType>
       </xs:element>
@@ -154,13 +144,7 @@
       </xs:element>
       <xs:element name="ideoBuilding" type="BooleanType" minOccurs="0" />
       <xs:element name="specialDisplayRadius" type="xs:float" minOccurs="0" />
-      <xs:element name="placeWorkers" minOccurs="0">
-        <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
-          </xs:choice>
-        </xs:complexType>
-      </xs:element>
+      <xs:element name="placeWorkers" type="StringListType" minOccurs="0" />
       <xs:element name="designationCategory" minOccurs="0">
         <xs:complexType>
           <xs:simpleContent>
@@ -276,22 +260,12 @@
         </xs:annotation>
       </xs:element>
       <xs:element name="receivesSignals" type="BooleanType" minOccurs="0" />
-      <xs:element name="comps" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence maxOccurs="unbounded">
-            <xs:element name="li" type="CompPropertiesType" minOccurs="0" maxOccurs="unbounded"></xs:element>
-          </xs:sequence>
-          <xs:attribute name="Inherit" type="BooleanType" />
-        </xs:complexType>
-      </xs:element>
+      <xs:element name="comps" type="compsType" minOccurs="0" />
       <xs:element name="virtualDefs" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>Default: ThingDef[]</xs:documentation>
-        </xs:annotation>
         <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
-          </xs:choice>
+          <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="li" type="xs:string" />
+          </xs:sequence>
         </xs:complexType>
       </xs:element>
       <xs:element name="virtualDefParent" type="xs:string" minOccurs="0" />
@@ -325,10 +299,9 @@
       <xs:element name="randomizeRotationOnSpawn" type="BooleanType" minOccurs="0" />
       <xs:element name="damageMultipliers" minOccurs="0">
         <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:element name="li" type="DamageMultiplierType" minOccurs="0"
-              maxOccurs="unbounded" />
-          </xs:choice>
+          <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="li" type="DamageMultiplierType" />
+          </xs:sequence>
         </xs:complexType>
       </xs:element>
       <xs:element name="isTechHediff" type="BooleanType" minOccurs="0" />
@@ -346,13 +319,7 @@
       <xs:element name="leaveResourcesWhenKilled" type="BooleanType" minOccurs="0" />
       <xs:element name="slagDef" type="xs:string" minOccurs="0" />
       <xs:element name="isFrameInt" type="BooleanType" minOccurs="0" />
-      <xs:element name="multipleInteractionCellOffsets" minOccurs="0">
-        <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
-          </xs:choice>
-        </xs:complexType>
-      </xs:element>
+      <xs:element name="multipleInteractionCellOffsets" type="StringListType" minOccurs="0" />
       <xs:element name="interactionCellOffset" type="xs:string" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: IntVec3.Zero</xs:documentation>
@@ -401,13 +368,7 @@
         </xs:annotation>
       </xs:element>
       <xs:element name="canOverlapZones" type="BooleanType" minOccurs="0" />
-      <xs:element name="thingSetMakerTags" minOccurs="0">
-        <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
-          </xs:choice>
-        </xs:complexType>
-      </xs:element>
+      <xs:element name="thingSetMakerTags" type="StringListType" minOccurs="0" />
       <xs:element name="alwaysFlee" type="BooleanType" minOccurs="0" />
       <xs:element name="recipes" type="DefNameListType" minOccurs="0" />
       <xs:element name="messageOnDeteriorateInStorage" type="BooleanType" minOccurs="0">
@@ -610,13 +571,7 @@
           <xs:documentation>Default: Tradeability.All</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="tradeTags" minOccurs="0">
-        <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
-          </xs:choice>
-        </xs:complexType>
-      </xs:element>
+      <xs:element name="tradeTags" type="StringListType" minOccurs="0" />
       <xs:element name="tradeNeverStack" type="BooleanType" minOccurs="0" />
       <xs:element name="tradeNeverGenerateStacked" type="BooleanType" minOccurs="0" />
       <xs:element name="healthAffectsPrice" type="BooleanType" minOccurs="0">
@@ -654,27 +609,15 @@
       <xs:element name="techLevel" type="TechLevelType" minOccurs="0" />
       <xs:element name="weaponClasses" minOccurs="0">
         <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
-          </xs:choice>
-          <xs:attribute name="Inherit" type="BooleanType" />
+          <xs:complexContent>
+            <xs:extension base="StringListType">
+              <xs:attribute name="Inherit" type="BooleanType" />
+            </xs:extension>
+          </xs:complexContent>
         </xs:complexType>
       </xs:element>
-      <xs:element name="weaponTags" minOccurs="0">
-        <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
-          </xs:choice>
-          <xs:attribute name="Inherit" type="BooleanType" />
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="techHediffsTags" minOccurs="0">
-        <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
-          </xs:choice>
-        </xs:complexType>
-      </xs:element>
+      <xs:element name="weaponTags" type="StringListType" minOccurs="0" />
+      <xs:element name="techHediffsTags" type="StringListType" minOccurs="0"/>
       <xs:element name="violentTechHediff" type="BooleanType" minOccurs="0" />
       <xs:element name="destroyOnDrop" type="BooleanType" minOccurs="0" />
       <xs:element name="equippedStatOffsets" type="GeneralAnyListType" minOccurs="0" />

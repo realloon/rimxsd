@@ -45,11 +45,7 @@
       <xs:element name="modContentPack" minOccurs="0" />
       <xs:element name="fileName" type="xs:string" minOccurs="0" />
       <xs:element name="generated" type="BooleanType" minOccurs="0" />
-      <xs:element name="debugRandomId" type="xs:unsignedShort" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>Default: (ushort) Rand.RangeInclusive(0, (int) ushort.MaxValue)</xs:documentation>
-        </xs:annotation>
-      </xs:element>
+      <xs:element name="debugRandomId" type="xs:unsignedShort" minOccurs="0" />
       <!-- #endregion -->
 
       <xs:element name="race" type="DefNameType" minOccurs="0" />
@@ -349,13 +345,7 @@
           <xs:documentation>Default: FloatRange.Zero</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="weaponTags" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
+      <xs:element name="weaponTags" type="StringListType" minOccurs="0" />
       <xs:element name="weaponStuffOverride" type="DefNameType" minOccurs="0" />
       <xs:element name="weaponStyleDef" type="DefNameType" minOccurs="0" />
       <xs:element name="apparelMoney" type="FloatRangeType" minOccurs="0">
@@ -370,20 +360,8 @@
           </xs:sequence>
         </xs:complexType>
       </xs:element>
-      <xs:element name="apparelTags" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="apparelDisallowTags" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
+      <xs:element name="apparelTags" type="StringListType" minOccurs="0" />
+      <xs:element name="apparelDisallowTags" type="StringListType" minOccurs="0" />
       <xs:element name="apparelAllowHeadgearChance" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 1f</xs:documentation>
@@ -412,20 +390,9 @@
           <xs:documentation>Default: FloatRange.Zero</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="techHediffsTags" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
-          </xs:sequence>
-        </xs:complexType>
+      <xs:element name="techHediffsTags" type="StringListType" minOccurs="0">
       </xs:element>
-      <xs:element name="techHediffsDisallowTags" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
+      <xs:element name="techHediffsDisallowTags" type="StringListType" minOccurs="0" />
       <xs:element name="techHediffsChance" minOccurs="0">
         <xs:complexType>
           <xs:simpleContent>

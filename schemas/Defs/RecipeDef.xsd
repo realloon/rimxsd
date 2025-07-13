@@ -45,11 +45,7 @@
       <xs:element name="modContentPack" minOccurs="0" />
       <xs:element name="fileName" type="xs:string" minOccurs="0" />
       <xs:element name="generated" type="BooleanType" minOccurs="0" />
-      <xs:element name="debugRandomId" type="xs:unsignedShort" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>Default: (ushort) Rand.RangeInclusive(0, (int) ushort.MaxValue)</xs:documentation>
-        </xs:annotation>
-      </xs:element>
+      <xs:element name="debugRandomId" type="xs:unsignedShort" minOccurs="0" />
       <!-- #endregion -->
 
       <xs:element name="workerClass" type="DefNameType" minOccurs="0">
@@ -237,13 +233,7 @@
           </xs:choice>
         </xs:complexType>
       </xs:element>
-      <xs:element name="factionPrerequisiteTags" minOccurs="0">
-        <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
-          </xs:choice>
-        </xs:complexType>
-      </xs:element>
+      <xs:element name="factionPrerequisiteTags" type="StringListType" minOccurs="0"/>
       <xs:element name="fromIdeoBuildingPreceptOnly" type="BooleanType" minOccurs="0" />
       <xs:element name="conceptLearned" type="DefNameType" minOccurs="0" />
       <xs:element name="dontShowIfAnyIngredientMissing" type="BooleanType" minOccurs="0" />

@@ -43,11 +43,7 @@
       <xs:element name="modContentPack" minOccurs="0" />
       <xs:element name="fileName" type="xs:string" minOccurs="0" />
       <xs:element name="generated" type="BooleanType" minOccurs="0" />
-      <xs:element name="debugRandomId" type="xs:unsignedShort" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>Default: (ushort) Rand.RangeInclusive(0, (int) ushort.MaxValue)</xs:documentation>
-        </xs:annotation>
-      </xs:element>
+      <xs:element name="debugRandomId" type="xs:unsignedShort" minOccurs="0" />
       <!-- #endregion -->
 
       <xs:element name="cooldownTicks" type="xs:integer" minOccurs="0" />

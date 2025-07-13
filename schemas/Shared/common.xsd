@@ -3,19 +3,6 @@
   <xs:include schemaLocation="./custom.xsd" />
   <xs:include schemaLocation="./enum.xsd" />
 
-  <!-- CompPropertiesType -->
-  <xs:complexType name="CompPropertiesType">
-    <xs:annotation>
-      <xs:documentation>XML definition for RimWorld's CompProperties type.</xs:documentation>
-    </xs:annotation>
-    <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element name="compClass" type="xs:string" />
-      <xs:any processContents="lax" />
-    </xs:choice>
-    <xs:attribute name="Class" type="DefNameType" />
-    <xs:attribute name="MayRequire" type="DependenciesType" />
-  </xs:complexType>
-
   <!-- DamageMultiplierType -->
   <xs:complexType name="DamageMultiplierType">
     <xs:annotation>
@@ -93,13 +80,7 @@
           <xs:union memberTypes="DefNameType EmptyStringType" />
         </xs:simpleType>
       </xs:element>
-      <xs:element name="memePrerequisitesAny">
-        <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
-          </xs:choice>
-        </xs:complexType>
-      </xs:element>
+      <xs:element name="memePrerequisitesAny" type="StringListType" />
       <xs:element name="researchPrerequisites">
         <xs:complexType>
           <xs:choice maxOccurs="unbounded">
@@ -108,13 +89,7 @@
           </xs:choice>
         </xs:complexType>
       </xs:element>
-      <xs:element name="factionPrerequisiteTags">
-        <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
-          </xs:choice>
-        </xs:complexType>
-      </xs:element>
+      <xs:element name="factionPrerequisiteTags" type="StringListType" />
       <xs:element name="mechanitorOnlyRecipe" type="BooleanType" />
       <xs:element name="fromIdeoBuildingPreceptOnly" type="BooleanType" />
       <xs:element name="displayPriority" type="xs:integer">
@@ -371,13 +346,7 @@
       <xs:element name="rectS" type="xs:string" />
       <xs:element name="rectW" type="xs:string" />
       <xs:element name="rect" type="xs:string" />
-      <xs:element name="scratches">
-        <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
-          </xs:choice>
-        </xs:complexType>
-      </xs:element>
+      <xs:element name="scratches" type="StringListType" />
       <xs:element name="cornerTL" type="xs:string" />
       <xs:element name="cornerTR" type="xs:string" />
       <xs:element name="cornerBL" type="xs:string" />
@@ -386,13 +355,7 @@
       <xs:element name="edgeRight" type="xs:string" />
       <xs:element name="edgeTop" type="xs:string" />
       <xs:element name="edgeBot" type="xs:string" />
-      <xs:element name="scratchMats">
-        <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
-          </xs:choice>
-        </xs:complexType>
-      </xs:element>
+      <xs:element name="scratchMats" type="StringListType" />
       <xs:element name="cornerTLMat" type="xs:string" />
       <xs:element name="cornerTRMat" type="xs:string" />
       <xs:element name="cornerBLMat" type="xs:string" />
@@ -876,16 +839,7 @@
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="capacities">
-        <xs:annotation>
-          <xs:documentation>Default: new List&lt;ToolCapacityDef&gt;()</xs:documentation>
-        </xs:annotation>
-        <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
-          </xs:choice>
-        </xs:complexType>
-      </xs:element>
+      <xs:element name="capacities" type="StringListType" />
       <xs:element name="power" type="xs:float" />
       <xs:element name="armorPenetration" type="xs:float">
         <xs:annotation>
@@ -1160,16 +1114,7 @@
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="buildingTags" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>Default: new List&lt;string&gt;()</xs:documentation>
-        </xs:annotation>
-        <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
-          </xs:choice>
-        </xs:complexType>
-      </xs:element>
+      <xs:element name="buildingTags" type="StringListType" minOccurs="0" />
       <xs:element name="isInert" type="BooleanType" minOccurs="0" />
       <xs:element name="isTargetable" type="BooleanType" minOccurs="0">
         <xs:annotation>
@@ -1178,13 +1123,7 @@
       </xs:element>
       <xs:element name="deconstructible" type="BooleanType" minOccurs="0" />
       <xs:element name="alwaysDeconstructible" type="BooleanType" minOccurs="0" />
-      <xs:element name="leavingsBlacklist" minOccurs="0">
-        <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
-          </xs:choice>
-        </xs:complexType>
-      </xs:element>
+      <xs:element name="leavingsBlacklist" type="StringListType" minOccurs="0" />
       <xs:element name="claimable" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
@@ -1506,16 +1445,7 @@
           <xs:documentation>Default: 0.1f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="formingMechPerRotationOffset" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>Default: new List&lt;Vector3&gt;()</xs:documentation>
-        </xs:annotation>
-        <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
-          </xs:choice>
-        </xs:complexType>
-      </xs:element>
+      <xs:element name="formingMechPerRotationOffset" type="StringListType" minOccurs="0" />
       <xs:element name="maxFormedMechDrawSize" type="xs:string" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: new Vector2(1.5f, 1.5f)</xs:documentation>
@@ -1750,16 +1680,7 @@
           <xs:documentation>Default: 100</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="mechEnabledWorkTypes" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>Default: new List&lt;WorkTypeDef&gt;()</xs:documentation>
-        </xs:annotation>
-        <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
-          </xs:choice>
-        </xs:complexType>
-      </xs:element>
+      <xs:element name="mechEnabledWorkTypes" type="StringListType" minOccurs="0" />
       <xs:element name="mechFixedSkillLevel" type="xs:integer" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 10</xs:documentation>
@@ -1802,20 +1723,8 @@
           <xs:documentation>Default: 12f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="untrainableTags" minOccurs="0">
-        <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
-          </xs:choice>
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="trainableTags" minOccurs="0">
-        <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
-          </xs:choice>
-        </xs:complexType>
-      </xs:element>
+      <xs:element name="untrainableTags" type="StringListType" minOccurs="0" />
+      <xs:element name="trainableTags" type="StringListType" minOccurs="0" />
       <xs:element name="trainability" type="xs:string" minOccurs="0" />
       <xs:element name="nameGenerator" minOccurs="0">
         <xs:complexType>
@@ -1897,13 +1806,7 @@
       <xs:element name="corpseHiddenWhileUndiscovered" type="BooleanType" minOccurs="0" />
       <xs:element name="leatherDef" type="xs:string" minOccurs="0" />
       <xs:element name="specialShadowData" type="ShadowDataType" minOccurs="0" />
-      <xs:element name="headPosPerRotation" minOccurs="0">
-        <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
-          </xs:choice>
-        </xs:complexType>
-      </xs:element>
+      <xs:element name="headPosPerRotation" type="StringListType" minOccurs="0" />
       <xs:element name="soundCallIntervalRange" type="xs:string" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: new IntRange(2000, 4000)</xs:documentation>
@@ -2175,13 +2078,7 @@
           <xs:documentation>Default: ""</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="wornGraphicPaths">
-        <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
-          </xs:choice>
-        </xs:complexType>
-      </xs:element>
+      <xs:element name="wornGraphicPaths" type="StringListType" />
       <xs:element name="wornGraphicData" type="WornGraphicDataType" />
       <xs:element name="useWornGraphicMask" type="BooleanType" />
       <xs:element name="renderSkipFlags">
@@ -2235,20 +2132,8 @@
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="ideoDesireAllowedFactionCategoryTags">
-        <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
-          </xs:choice>
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="ideoDesireDisallowedFactionCategoryTags">
-        <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
-          </xs:choice>
-        </xs:complexType>
-      </xs:element>
+      <xs:element name="ideoDesireAllowedFactionCategoryTags" type="StringListType" />
+      <xs:element name="ideoDesireDisallowedFactionCategoryTags" />
       <xs:element name="wearPerDay" type="xs:float">
         <xs:annotation>
           <xs:documentation>Default: 0.4f</xs:documentation>
@@ -2333,21 +2218,9 @@
         </xs:complexType>
       </xs:element>
       <xs:element name="texPath" type="xs:string" />
-      <xs:element name="texPaths">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
+      <xs:element name="texPaths" type="StringListType" />
       <xs:element name="texPathFemale" type="xs:string" />
-      <xs:element name="texPathsFemale">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
+      <xs:element name="texPathsFemale" type="StringListType" />
       <xs:element name="bodyTypeGraphicPaths">
         <xs:complexType>
           <xs:sequence>
@@ -2393,13 +2266,7 @@
       <xs:element name="anchorTag" type="xs:string" />
       <xs:element name="side" type="PawnRenderNodeProperties.SideType" />
       <xs:element name="narrowCrownHorizontalOffset" type="xs:float" />
-      <xs:element name="visibleFacing">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
+      <xs:element name="visibleFacing" type="StringListType" />
       <xs:element name="flipGraphic" type="BooleanType" />
       <xs:element name="rotateIndependently" type="BooleanType" />
       <xs:element name="debugLabel" type="xs:string" />
@@ -2558,16 +2425,7 @@
           <xs:documentation>Default: 1f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="sowTags" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>Default: new List&lt;string&gt;()</xs:documentation>
-        </xs:annotation>
-        <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
-          </xs:choice>
-        </xs:complexType>
-      </xs:element>
+      <xs:element name="sowTags" type="StringListType" minOccurs="0" />
       <xs:element name="sowWork" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 10f</xs:documentation>
