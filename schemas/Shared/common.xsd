@@ -8,14 +8,14 @@
     <xs:annotation>
       <xs:documentation>XML definition for RimWorld's DamageMultiplier type.</xs:documentation>
     </xs:annotation>
-    <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element name="damageDef" type="DefNameType" />
-      <xs:element name="multiplier" type="xs:float">
+    <xs:all>
+      <xs:element name="damageDef" type="DefNameType" minOccurs="0" />
+      <xs:element name="multiplier" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 1f</xs:documentation>
         </xs:annotation>
       </xs:element>
-    </xs:choice>
+    </xs:all>
   </xs:complexType>
 
   <!-- RecipeMakerPropertiesType -->
@@ -23,48 +23,48 @@
     <xs:annotation>
       <xs:documentation>XML definition for RimWorld's RecipeMakerProperties type.</xs:documentation>
     </xs:annotation>
-    <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element name="label" type="xs:string" />
-      <xs:element name="productCount" type="xs:integer">
+    <xs:all>
+      <xs:element name="label" type="xs:string" minOccurs="0" />
+      <xs:element name="productCount" type="xs:integer" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 1</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="targetCountAdjustment" type="xs:integer">
+      <xs:element name="targetCountAdjustment" type="xs:integer" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 1</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="bulkRecipeCount" type="xs:integer">
+      <xs:element name="bulkRecipeCount" type="xs:integer" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: -1</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="useIngredientsForColor" type="BooleanType">
+      <xs:element name="useIngredientsForColor" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="workAmount" type="xs:integer">
+      <xs:element name="workAmount" type="xs:integer" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: -1</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="workSpeedStat" type="xs:string" />
-      <xs:element name="efficiencyStat" type="xs:string" />
-      <xs:element name="unfinishedThingDef" type="xs:string" />
-      <xs:element name="defaultIngredientFilter" type="ThingFilterType" />
-      <xs:element name="skillRequirements" type="SkillListType" />
-      <xs:element name="workSkill" type="xs:string" />
-      <xs:element name="workSkillLearnPerTick" type="xs:float">
+      <xs:element name="workSpeedStat" type="xs:string" minOccurs="0" />
+      <xs:element name="efficiencyStat" type="xs:string" minOccurs="0" />
+      <xs:element name="unfinishedThingDef" type="xs:string" minOccurs="0" />
+      <xs:element name="defaultIngredientFilter" type="ThingFilterType" minOccurs="0" />
+      <xs:element name="skillRequirements" type="SkillListType" minOccurs="0" />
+      <xs:element name="workSkill" type="xs:string" minOccurs="0" />
+      <xs:element name="workSkillLearnPerTick" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 1f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="requiredGiverWorkType" type="xs:string" />
-      <xs:element name="effectWorking" type="xs:string" />
-      <xs:element name="soundWorking" type="xs:string" />
-      <xs:element name="recipeUsers">
+      <xs:element name="requiredGiverWorkType" type="xs:string" minOccurs="0" />
+      <xs:element name="effectWorking" type="xs:string" minOccurs="0" />
+      <xs:element name="soundWorking" type="xs:string" minOccurs="0" />
+      <xs:element name="recipeUsers" minOccurs="0">
         <xs:complexType>
           <xs:sequence minOccurs="0" maxOccurs="unbounded">
             <xs:element name="li" type="DefNameType" />
@@ -72,7 +72,7 @@
           <xs:attribute name="Inherit" type="BooleanType" />
         </xs:complexType>
       </xs:element>
-      <xs:element name="researchPrerequisite">
+      <xs:element name="researchPrerequisite" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Note: Allowed value are "" or a self-closing tag.</xs:documentation>
         </xs:annotation>
@@ -80,8 +80,8 @@
           <xs:union memberTypes="DefNameType EmptyStringType" />
         </xs:simpleType>
       </xs:element>
-      <xs:element name="memePrerequisitesAny" type="StringListType" />
-      <xs:element name="researchPrerequisites">
+      <xs:element name="memePrerequisitesAny" type="StringListType" minOccurs="0" />
+      <xs:element name="researchPrerequisites" minOccurs="0">
         <xs:complexType>
           <xs:choice maxOccurs="unbounded">
             <xs:element name="li" type="DefNameType" minOccurs="0"
@@ -89,15 +89,15 @@
           </xs:choice>
         </xs:complexType>
       </xs:element>
-      <xs:element name="factionPrerequisiteTags" type="StringListType" />
-      <xs:element name="mechanitorOnlyRecipe" type="BooleanType" />
-      <xs:element name="fromIdeoBuildingPreceptOnly" type="BooleanType" />
-      <xs:element name="displayPriority" type="xs:integer">
+      <xs:element name="factionPrerequisiteTags" type="StringListType" minOccurs="0" />
+      <xs:element name="mechanitorOnlyRecipe" type="BooleanType" minOccurs="0" />
+      <xs:element name="fromIdeoBuildingPreceptOnly" type="BooleanType" minOccurs="0" />
+      <xs:element name="displayPriority" type="xs:integer" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 99999</xs:documentation>
         </xs:annotation>
       </xs:element>
-    </xs:choice>
+    </xs:all>
   </xs:complexType>
 
   <!-- ThingFilterType -->
@@ -290,10 +290,10 @@
     <xs:annotation>
       <xs:documentation>XML definition for RimWorld's AttachPoint type.</xs:documentation>
     </xs:annotation>
-    <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element name="offset" type="xs:string" />
-      <xs:element name="type" type="xs:string" />
-    </xs:choice>
+    <xs:all>
+      <xs:element name="offset" type="xs:string" minOccurs="0" />
+      <xs:element name="type" type="xs:string" minOccurs="0" />
+    </xs:all>
   </xs:complexType>
 
   <!-- ShadowDataType -->
@@ -301,33 +301,33 @@
     <xs:annotation>
       <xs:documentation>XML definition for RimWorld's ShadowData type.</xs:documentation>
     </xs:annotation>
-    <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element name="volume" type="xs:string">
+    <xs:all>
+      <xs:element name="volume" type="xs:string" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: Vector3.one</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="offset" type="xs:string">
+      <xs:element name="offset" type="xs:string" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: Vector3.zero</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="BaseX" type="xs:float">
+      <xs:element name="BaseX" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: this.volume.x</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="BaseY" type="xs:float">
+      <xs:element name="BaseY" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: this.volume.y</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="BaseZ" type="xs:float">
+      <xs:element name="BaseZ" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: this.volume.z</xs:documentation>
         </xs:annotation>
       </xs:element>
-    </xs:choice>
+    </xs:all>
   </xs:complexType>
 
   <!-- DamageGraphicDataType -->
@@ -335,63 +335,62 @@
     <xs:annotation>
       <xs:documentation>XML definition for RimWorld's DamageGraphicData type.</xs:documentation>
     </xs:annotation>
-    <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element name="enabled" type="BooleanType">
+    <xs:all>
+      <xs:element name="enabled" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="rectN" type="xs:string" />
-      <xs:element name="rectE" type="xs:string" />
-      <xs:element name="rectS" type="xs:string" />
-      <xs:element name="rectW" type="xs:string" />
-      <xs:element name="rect" type="xs:string" />
-      <xs:element name="scratches" type="StringListType" />
-      <xs:element name="cornerTL" type="xs:string" />
-      <xs:element name="cornerTR" type="xs:string" />
-      <xs:element name="cornerBL" type="xs:string" />
-      <xs:element name="cornerBR" type="xs:string" />
-      <xs:element name="edgeLeft" type="xs:string" />
-      <xs:element name="edgeRight" type="xs:string" />
-      <xs:element name="edgeTop" type="xs:string" />
-      <xs:element name="edgeBot" type="xs:string" />
-      <xs:element name="scratchMats" type="StringListType" />
-      <xs:element name="cornerTLMat" type="xs:string" />
-      <xs:element name="cornerTRMat" type="xs:string" />
-      <xs:element name="cornerBLMat" type="xs:string" />
-      <xs:element name="cornerBRMat" type="xs:string" />
-      <xs:element name="edgeLeftMat" type="xs:string" />
-      <xs:element name="edgeRightMat" type="xs:string" />
-      <xs:element name="edgeTopMat" type="xs:string" />
-      <xs:element name="edgeBotMat" type="xs:string" />
-    </xs:choice>
+      <xs:element name="rectN" type="xs:string" minOccurs="0" />
+      <xs:element name="rectE" type="xs:string" minOccurs="0" />
+      <xs:element name="rectS" type="xs:string" minOccurs="0" />
+      <xs:element name="rectW" type="xs:string" minOccurs="0" />
+      <xs:element name="rect" type="xs:string" minOccurs="0" />
+      <xs:element name="scratches" type="StringListType" minOccurs="0" />
+      <xs:element name="cornerTL" type="xs:string" minOccurs="0" />
+      <xs:element name="cornerTR" type="xs:string" minOccurs="0" />
+      <xs:element name="cornerBL" type="xs:string" minOccurs="0" />
+      <xs:element name="cornerBR" type="xs:string" minOccurs="0" />
+      <xs:element name="edgeLeft" type="xs:string" minOccurs="0" />
+      <xs:element name="edgeRight" type="xs:string" minOccurs="0" />
+      <xs:element name="edgeTop" type="xs:string" minOccurs="0" />
+      <xs:element name="edgeBot" type="xs:string" minOccurs="0" />
+      <xs:element name="scratchMats" type="StringListType" minOccurs="0" />
+      <xs:element name="cornerTLMat" type="xs:string" minOccurs="0" />
+      <xs:element name="cornerTRMat" type="xs:string" minOccurs="0" />
+      <xs:element name="cornerBLMat" type="xs:string" minOccurs="0" />
+      <xs:element name="cornerBRMat" type="xs:string" minOccurs="0" />
+      <xs:element name="edgeLeftMat" type="xs:string" minOccurs="0" />
+      <xs:element name="edgeRightMat" type="xs:string" minOccurs="0" />
+      <xs:element name="edgeTopMat" type="xs:string" minOccurs="0" />
+      <xs:element name="edgeBotMat" type="xs:string" minOccurs="0" />
+    </xs:all>
   </xs:complexType>
-
 
   <!-- AsymmetricLinkDataType -->
   <xs:complexType name="AsymmetricLinkDataType">
     <xs:annotation>
       <xs:documentation>XML definition for RimWorld's AsymmetricLinkData type.</xs:documentation>
     </xs:annotation>
-    <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element name="linkFlags">
+    <xs:all>
+      <xs:element name="linkFlags" minOccurs="0">
         <xs:complexType>
           <xs:sequence minOccurs="0" maxOccurs="unbounded">
             <xs:element name="li" type="LinkFlagsType"></xs:element>
           </xs:sequence>
         </xs:complexType>
       </xs:element>
-      <xs:element name="linkToDoors" type="BooleanType" />
-      <xs:element name="drawDoorBorderEast" type="AsymmetricLinkData.BorderDataType" />
-      <xs:element name="drawDoorBorderWest" type="AsymmetricLinkData.BorderDataType" />
-      <xs:element name="color" type="xs:string">
+      <xs:element name="linkToDoors" type="BooleanType" minOccurs="0" />
+      <xs:element name="drawDoorBorderEast" type="AsymmetricLinkData.BorderDataType" minOccurs="0" />
+      <xs:element name="drawDoorBorderWest" type="AsymmetricLinkData.BorderDataType" minOccurs="0" />
+      <xs:element name="color" type="xs:string" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: Color.black</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="size" type="xs:string" />
-      <xs:element name="offset" type="xs:string" />
-    </xs:choice>
+      <xs:element name="size" type="xs:string" minOccurs="0" />
+      <xs:element name="offset" type="xs:string" minOccurs="0" />
+    </xs:all>
   </xs:complexType>
 
   <!-- AsymmetricLinkData.BorderDataType -->
@@ -399,15 +398,15 @@
     <xs:annotation>
       <xs:documentation>XML definition for RimWorld's BorderData type.</xs:documentation>
     </xs:annotation>
-    <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element name="color" type="xs:string">
+    <xs:all minOccurs="0">
+      <xs:element name="color" type="xs:string" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: Color.black</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="size" type="xs:string" />
-      <xs:element name="offset" type="xs:string" />
-    </xs:choice>
+      <xs:element name="size" type="xs:string" minOccurs="0" />
+      <xs:element name="offset" type="xs:string" minOccurs="0" />
+    </xs:all>
   </xs:complexType>
 
   <!-- VerbPropertiesType -->
@@ -679,40 +678,40 @@
     <xs:annotation>
       <xs:documentation>XML definition for RimWorld's TargetingParameters type.</xs:documentation>
     </xs:annotation>
-    <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element name="canTargetLocations" type="BooleanType" />
-      <xs:element name="canTargetSelf" type="BooleanType" />
-      <xs:element name="canTargetPawns" type="BooleanType">
+    <xs:all>
+      <xs:element name="canTargetLocations" type="BooleanType" minOccurs="0" />
+      <xs:element name="canTargetSelf" type="BooleanType" minOccurs="0" />
+      <xs:element name="canTargetPawns" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="canTargetFires" type="BooleanType" />
-      <xs:element name="canTargetBuildings" type="BooleanType">
+      <xs:element name="canTargetFires" type="BooleanType" minOccurs="0" />
+      <xs:element name="canTargetBuildings" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="canTargetItems" type="BooleanType" />
-      <xs:element name="canTargetAnimals" type="BooleanType">
+      <xs:element name="canTargetItems" type="BooleanType" minOccurs="0" />
+      <xs:element name="canTargetAnimals" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="canTargetHumans" type="BooleanType">
+      <xs:element name="canTargetHumans" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="canTargetMechs" type="BooleanType">
+      <xs:element name="canTargetMechs" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="canTargetPlants" type="BooleanType" />
-      <xs:element name="canTargetSubhumans" type="BooleanType" />
-      <xs:element name="canTargetEntities" type="BooleanType" />
-      <xs:element name="canTargetMutants" type="BooleanType">
+      <xs:element name="canTargetPlants" type="BooleanType" minOccurs="0" />
+      <xs:element name="canTargetSubhumans" type="BooleanType" minOccurs="0" />
+      <xs:element name="canTargetEntities" type="BooleanType" minOccurs="0" />
+      <xs:element name="canTargetMutants" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
@@ -725,42 +724,42 @@
         </xs:complexType>
       </xs:element> -->
       <!-- <xs:element name="validator" type="Predicate<TargetInfo>" /> -->
-      <xs:element name="onlyTargetFlammables" type="BooleanType" />
+      <xs:element name="onlyTargetFlammables" type="BooleanType" minOccurs="0" />
       <!-- <xs:element name="targetSpecificThing" type="ThingType" /> -->
-      <xs:element name="mustBeSelectable" type="BooleanType" />
-      <xs:element name="neverTargetDoors" type="BooleanType" />
-      <xs:element name="neverTargetIncapacitated" type="BooleanType" />
-      <xs:element name="neverTargetHostileFaction" type="BooleanType" />
-      <xs:element name="onlyTargetSameIdeo" type="BooleanType" />
-      <xs:element name="onlyTargetThingsAffectingRegions" type="BooleanType" />
-      <xs:element name="onlyTargetDamagedThings" type="BooleanType" />
-      <xs:element name="mapObjectTargetsMustBeAutoAttackable" type="BooleanType">
+      <xs:element name="mustBeSelectable" type="BooleanType" minOccurs="0" />
+      <xs:element name="neverTargetDoors" type="BooleanType" minOccurs="0" />
+      <xs:element name="neverTargetIncapacitated" type="BooleanType" minOccurs="0" />
+      <xs:element name="neverTargetHostileFaction" type="BooleanType" minOccurs="0" />
+      <xs:element name="onlyTargetSameIdeo" type="BooleanType" minOccurs="0" />
+      <xs:element name="onlyTargetThingsAffectingRegions" type="BooleanType" minOccurs="0" />
+      <xs:element name="onlyTargetDamagedThings" type="BooleanType" minOccurs="0" />
+      <xs:element name="mapObjectTargetsMustBeAutoAttackable" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="onlyTargetIncapacitatedPawns" type="BooleanType" />
-      <xs:element name="onlyTargetColonistsOrPrisoners" type="BooleanType" />
-      <xs:element name="onlyTargetColonistsOrPrisonersOrSlaves" type="BooleanType" />
+      <xs:element name="onlyTargetIncapacitatedPawns" type="BooleanType" minOccurs="0" />
+      <xs:element name="onlyTargetColonistsOrPrisoners" type="BooleanType" minOccurs="0" />
+      <xs:element name="onlyTargetColonistsOrPrisonersOrSlaves" type="BooleanType" minOccurs="0" />
       <xs:element name="onlyTargetColonistsOrPrisonersOrSlavesAllowMinorMentalBreaks"
-        type="BooleanType" />
-      <xs:element name="onlyTargetControlledPawns" type="BooleanType" />
-      <xs:element name="onlyTargetColonists" type="BooleanType" />
-      <xs:element name="onlyTargetPrisonersOfColony" type="BooleanType" />
-      <xs:element name="onlyTargetPsychicSensitive" type="BooleanType" />
-      <xs:element name="onlyTargetAnimaTrees" type="BooleanType" />
-      <xs:element name="canTargetBloodfeeders" type="BooleanType">
+        type="BooleanType" minOccurs="0" />
+      <xs:element name="onlyTargetControlledPawns" type="BooleanType" minOccurs="0" />
+      <xs:element name="onlyTargetColonists" type="BooleanType" minOccurs="0" />
+      <xs:element name="onlyTargetPrisonersOfColony" type="BooleanType" minOccurs="0" />
+      <xs:element name="onlyTargetPsychicSensitive" type="BooleanType" minOccurs="0" />
+      <xs:element name="onlyTargetAnimaTrees" type="BooleanType" minOccurs="0" />
+      <xs:element name="canTargetBloodfeeders" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="onlyRepairableMechs" type="BooleanType" />
-      <xs:element name="thingCategory" type="ThingCategoryType" />
-      <xs:element name="onlyTargetDoors" type="BooleanType" />
-      <xs:element name="canTargetCorpses" type="BooleanType" />
-      <xs:element name="onlyTargetCorpses" type="BooleanType" />
-      <xs:element name="mapBoundsContractedBy" type="xs:integer" />
-    </xs:choice>
+      <xs:element name="onlyRepairableMechs" type="BooleanType" minOccurs="0" />
+      <xs:element name="thingCategory" type="ThingCategoryType" minOccurs="0" />
+      <xs:element name="onlyTargetDoors" type="BooleanType" minOccurs="0" />
+      <xs:element name="canTargetCorpses" type="BooleanType" minOccurs="0" />
+      <xs:element name="onlyTargetCorpses" type="BooleanType" minOccurs="0" />
+      <xs:element name="mapBoundsContractedBy" type="xs:integer" minOccurs="0" />
+    </xs:all>
   </xs:complexType>
 
   <!-- SimpleCurveType -->
@@ -792,15 +791,15 @@
     <xs:annotation>
       <xs:documentation>XML definition for RimWorld's SurpriseAttackProps type.</xs:documentation>
     </xs:annotation>
-    <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element name="extraMeleeDamages">
+    <xs:all>
+      <xs:element name="extraMeleeDamages" minOccurs="0">
         <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:element name="li" type="ExtraDamageType" minOccurs="0" maxOccurs="unbounded" />
-          </xs:choice>
+          <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="li" type="ExtraDamageType" />
+          </xs:sequence>
         </xs:complexType>
       </xs:element>
-    </xs:choice>
+    </xs:all>
   </xs:complexType>
 
   <!-- ExtraDamageType -->
@@ -808,20 +807,20 @@
     <xs:annotation>
       <xs:documentation>XML definition for RimWorld's ExtraDamage type.</xs:documentation>
     </xs:annotation>
-    <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element name="def" type="DefNameType" />
-      <xs:element name="amount" type="xs:float" />
-      <xs:element name="armorPenetration" type="xs:float">
+    <xs:all>
+      <xs:element name="def" type="DefNameType" minOccurs="0" />
+      <xs:element name="amount" type="xs:float" minOccurs="0" />
+      <xs:element name="armorPenetration" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: -1f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="chance" type="xs:float">
+      <xs:element name="chance" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 1f</xs:documentation>
         </xs:annotation>
       </xs:element>
-    </xs:choice>
+    </xs:all>
   </xs:complexType>
 
   <!-- ToolType -->
@@ -829,44 +828,44 @@
     <xs:annotation>
       <xs:documentation>XML definition for RimWorld's Tool type.</xs:documentation>
     </xs:annotation>
-    <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element name="id" type="xs:string" />
-      <xs:element name="label" type="xs:string" />
-      <xs:element name="labelNoLocation" type="xs:string" />
-      <xs:element name="untranslatedLabel" type="xs:string" />
-      <xs:element name="labelUsedInLogging" type="BooleanType">
+    <xs:all>
+      <xs:element name="id" type="xs:string" minOccurs="0" />
+      <xs:element name="label" type="xs:string" minOccurs="0" />
+      <xs:element name="labelNoLocation" type="xs:string" minOccurs="0" />
+      <xs:element name="untranslatedLabel" type="xs:string" minOccurs="0" />
+      <xs:element name="labelUsedInLogging" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="capacities" type="StringListType" />
-      <xs:element name="power" type="xs:float" />
-      <xs:element name="armorPenetration" type="xs:float">
+      <xs:element name="capacities" type="StringListType" minOccurs="0" />
+      <xs:element name="power" type="xs:float" minOccurs="0" />
+      <xs:element name="armorPenetration" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: -1f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="cooldownTime" type="xs:float" />
-      <xs:element name="surpriseAttack" type="SurpriseAttackPropsType" />
-      <xs:element name="hediff" type="DefNameType" />
-      <xs:element name="chanceFactor" type="xs:float">
+      <xs:element name="cooldownTime" type="xs:float" minOccurs="0" />
+      <xs:element name="surpriseAttack" type="SurpriseAttackPropsType" minOccurs="0" />
+      <xs:element name="hediff" type="DefNameType" minOccurs="0" />
+      <xs:element name="chanceFactor" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 1f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="alwaysTreatAsWeapon" type="BooleanType" />
-      <xs:element name="extraMeleeDamages">
+      <xs:element name="alwaysTreatAsWeapon" type="BooleanType" minOccurs="0" />
+      <xs:element name="extraMeleeDamages" minOccurs="0">
         <xs:complexType>
           <xs:choice maxOccurs="unbounded">
             <xs:element name="li" type="ExtraDamageType" minOccurs="0" maxOccurs="unbounded" />
           </xs:choice>
         </xs:complexType>
       </xs:element>
-      <xs:element name="soundMeleeHit" type="DefNameType" />
-      <xs:element name="soundMeleeMiss" type="DefNameType" />
-      <xs:element name="linkedBodyPartsGroup" type="xs:string" />
-      <xs:element name="ensureLinkedBodyPartsGroupAlwaysUsable" type="BooleanType" />
-    </xs:choice>
+      <xs:element name="soundMeleeHit" type="DefNameType" minOccurs="0" />
+      <xs:element name="soundMeleeMiss" type="DefNameType" minOccurs="0" />
+      <xs:element name="linkedBodyPartsGroup" type="xs:string" minOccurs="0" />
+      <xs:element name="ensureLinkedBodyPartsGroupAlwaysUsable" type="BooleanType" minOccurs="0" />
+    </xs:all>
   </xs:complexType>
 
   <!-- IngestiblePropertiesType -->
@@ -874,15 +873,15 @@
     <xs:annotation>
       <xs:documentation>XML definition for RimWorld's IngestibleProperties type.</xs:documentation>
     </xs:annotation>
-    <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element name="parent" type="xs:string" />
-      <xs:element name="maxNumToIngestAtOnce" type="xs:integer" />
-      <xs:element name="defaultNumToIngestAtOnce" type="xs:integer">
+    <xs:all>
+      <xs:element name="parent" type="xs:string" minOccurs="0" />
+      <xs:element name="maxNumToIngestAtOnce" type="xs:integer" minOccurs="0" />
+      <xs:element name="defaultNumToIngestAtOnce" type="xs:integer" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 20</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="outcomeDoers">
+      <xs:element name="outcomeDoers" minOccurs="0">
         <xs:complexType>
           <xs:choice maxOccurs="unbounded">
             <xs:any>
@@ -891,75 +890,75 @@
           </xs:choice>
         </xs:complexType>
       </xs:element>
-      <xs:element name="baseIngestTicks" type="xs:integer">
+      <xs:element name="baseIngestTicks" type="xs:integer" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 500</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="chairSearchRadius" type="xs:float">
+      <xs:element name="chairSearchRadius" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 32f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="useEatingSpeedStat" type="BooleanType">
+      <xs:element name="useEatingSpeedStat" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="babiesCanIngest" type="BooleanType" />
-      <xs:element name="humanlikeOnly" type="BooleanType" />
-      <xs:element name="tasteThought" type="NullableDefNameType" />
-      <xs:element name="specialThoughtDirect" type="DefNameType" />
-      <xs:element name="specialThoughtAsIngredient" type="DefNameType" />
-      <xs:element name="ateEvent" type="xs:string" />
-      <xs:element name="ingestEffect" type="DefNameType" />
-      <xs:element name="ingestEffectEat" type="DefNameType" />
-      <xs:element name="ingestSound" type="DefNameType" />
-      <xs:element name="ingestCommandString" type="xs:string" />
-      <xs:element name="ingestReportString" type="xs:string" />
-      <xs:element name="ingestReportStringEat" type="xs:string" />
-      <xs:element name="ingestHoldOffsetStanding" type="HoldOffsetSetType" />
-      <xs:element name="ingestHoldUsesTable" type="BooleanType">
+      <xs:element name="babiesCanIngest" type="BooleanType" minOccurs="0" />
+      <xs:element name="humanlikeOnly" type="BooleanType" minOccurs="0" />
+      <xs:element name="tasteThought" type="NullableDefNameType" minOccurs="0" />
+      <xs:element name="specialThoughtDirect" type="DefNameType" minOccurs="0" />
+      <xs:element name="specialThoughtAsIngredient" type="DefNameType" minOccurs="0" />
+      <xs:element name="ateEvent" type="xs:string" minOccurs="0" />
+      <xs:element name="ingestEffect" type="DefNameType" minOccurs="0" />
+      <xs:element name="ingestEffectEat" type="DefNameType" minOccurs="0" />
+      <xs:element name="ingestSound" type="DefNameType" minOccurs="0" />
+      <xs:element name="ingestCommandString" type="xs:string" minOccurs="0" />
+      <xs:element name="ingestReportString" type="xs:string" minOccurs="0" />
+      <xs:element name="ingestReportStringEat" type="xs:string" minOccurs="0" />
+      <xs:element name="ingestHoldOffsetStanding" type="HoldOffsetSetType" minOccurs="0" />
+      <xs:element name="ingestHoldUsesTable" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="tableDesired" type="BooleanType">
+      <xs:element name="tableDesired" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="showIngestFloatOption" type="BooleanType">
+      <xs:element name="showIngestFloatOption" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="foodType" type="xs:string" />
-      <xs:element name="joy" type="xs:float" />
-      <xs:element name="joyKind" type="xs:string" />
-      <xs:element name="sourceDef" type="xs:string" />
-      <xs:element name="preferability" type="FoodPreferabilityType" />
-      <xs:element name="nurseable" type="BooleanType" />
-      <xs:element name="optimalityOffsetHumanlikes" type="xs:float" />
-      <xs:element name="optimalityOffsetFeedingAnimals" type="xs:float" />
-      <xs:element name="drugCategory" type="DrugCategoryType" />
-      <xs:element name="canAutoSelectAsFoodForCaravan" type="BooleanType">
+      <xs:element name="foodType" type="xs:string" minOccurs="0" />
+      <xs:element name="joy" type="xs:float" minOccurs="0" />
+      <xs:element name="joyKind" type="xs:string" minOccurs="0" />
+      <xs:element name="sourceDef" type="xs:string" minOccurs="0" />
+      <xs:element name="preferability" type="FoodPreferabilityType" minOccurs="0" />
+      <xs:element name="nurseable" type="BooleanType" minOccurs="0" />
+      <xs:element name="optimalityOffsetHumanlikes" type="xs:float" minOccurs="0" />
+      <xs:element name="optimalityOffsetFeedingAnimals" type="xs:float" minOccurs="0" />
+      <xs:element name="drugCategory" type="DrugCategoryType" minOccurs="0" />
+      <xs:element name="canAutoSelectAsFoodForCaravan" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="lowPriorityCaravanFood" type="BooleanType" />
-      <xs:element name="JoyKind" type="xs:string">
+      <xs:element name="lowPriorityCaravanFood" type="BooleanType" minOccurs="0" />
+      <xs:element name="JoyKind" type="xs:string" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: this.joyKind ?? JoyKindDefOf.Gluttonous</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="HumanEdible" type="BooleanType">
+      <xs:element name="HumanEdible" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: (FoodTypeFlags.OmnivoreHuman &amp; this.foodType) != 0</xs:documentation>
         </xs:annotation>
       </xs:element>
-    </xs:choice>
+    </xs:all>
   </xs:complexType>
 
   <!-- HoldOffsetSetType -->
@@ -967,12 +966,12 @@
     <xs:annotation>
       <xs:documentation>XML definition for RimWorld's HoldOffsetSet type.</xs:documentation>
     </xs:annotation>
-    <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element name="northDefault" type="HoldOffsetType" />
-      <xs:element name="east" type="HoldOffsetType" />
-      <xs:element name="south" type="HoldOffsetType" />
-      <xs:element name="west" type="HoldOffsetType" />
-    </xs:choice>
+    <xs:all>
+      <xs:element name="northDefault" type="HoldOffsetType" minOccurs="0" />
+      <xs:element name="east" type="HoldOffsetType" minOccurs="0" />
+      <xs:element name="south" type="HoldOffsetType" minOccurs="0" />
+      <xs:element name="west" type="HoldOffsetType" minOccurs="0" />
+    </xs:all>
   </xs:complexType>
 
   <!-- HoldOffsetType -->
@@ -980,15 +979,15 @@
     <xs:annotation>
       <xs:documentation>XML definition for RimWorld's HoldOffset type.</xs:documentation>
     </xs:annotation>
-    <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element name="offset" type="xs:string">
+    <xs:all>
+      <xs:element name="offset" type="xs:string" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: new Vector3(-1000f, -1000f, -1000f)</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="flip" type="BooleanType" />
-      <xs:element name="behind" type="BooleanType" />
-    </xs:choice>
+      <xs:element name="flip" type="BooleanType" minOccurs="0" />
+      <xs:element name="behind" type="BooleanType" minOccurs="0" />
+    </xs:all>
   </xs:complexType>
 
   <!-- GraphicType -->
@@ -996,21 +995,21 @@
     <xs:annotation>
       <xs:documentation>XML definition for RimWorld's Graphic type.</xs:documentation>
     </xs:annotation>
-    <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element name="data" type="GraphicDataType" />
-      <xs:element name="path" type="xs:string" />
-      <xs:element name="maskPath" type="xs:string" />
-      <xs:element name="color" type="xs:string">
+    <xs:all>
+      <xs:element name="data" type="GraphicDataType" minOccurs="0" />
+      <xs:element name="path" type="xs:string" minOccurs="0" />
+      <xs:element name="maskPath" type="xs:string" minOccurs="0" />
+      <xs:element name="color" type="xs:string" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: Color.white</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="colorTwo" type="xs:string">
+      <xs:element name="colorTwo" type="xs:string" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: Color.white</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="drawSize" type="xs:string">
+      <xs:element name="drawSize" type="xs:string" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: Vector2.one</xs:documentation>
         </xs:annotation>
@@ -1025,9 +1024,9 @@
           <xs:documentation>Default: this.colorTwo</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="material" type="xs:string" />
-      <xs:element name="vertexColor" type="xs:string" />
-    </xs:choice>
+      <xs:element name="material" type="xs:string" minOccurs="0" />
+      <xs:element name="vertexColor" type="xs:string" minOccurs="0" />
+    </xs:all>
   </xs:complexType>
 
   <!-- IngredientPropertiesType -->
@@ -1045,19 +1044,19 @@
     <xs:annotation>
       <xs:documentation>XML definition for RimWorld's RitualFocusProperties type.</xs:documentation>
     </xs:annotation>
-    <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element name="spectateDistance" type="xs:string">
+    <xs:all>
+      <xs:element name="spectateDistance" type="xs:string" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: new IntRange(2, 2)</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="allowedSpectateSides" type="SpectateRectSideType">
+      <xs:element name="allowedSpectateSides" type="SpectateRectSideType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: SpectateRectSide.Horizontal</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="consumable" type="BooleanType" />
-    </xs:choice>
+      <xs:element name="consumable" type="BooleanType" minOccurs="0" />
+    </xs:all>
   </xs:complexType>
 
   <!-- FilthPropertiesType -->
@@ -1505,28 +1504,28 @@
     <xs:annotation>
       <xs:documentation>XML definition for RimWorld's MoteForRotationData type.</xs:documentation>
     </xs:annotation>
-    <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element name="north" type="xs:string" />
-      <xs:element name="south" type="xs:string" />
-      <xs:element name="east" type="xs:string" />
-      <xs:element name="west" type="xs:string" />
-    </xs:choice>
+    <xs:all>
+      <xs:element name="north" type="xs:string" minOccurs="0" />
+      <xs:element name="south" type="xs:string" minOccurs="0" />
+      <xs:element name="east" type="xs:string" minOccurs="0" />
+      <xs:element name="west" type="xs:string" minOccurs="0" />
+    </xs:all>
   </xs:complexType>
 
 
   <!-- FillableBarRequestWithRotationType -->
   <xs:complexType name="FillableBarRequestWithRotationType">
-    <xs:choice maxOccurs="unbounded">
-      <xs:element name="north" type="GenDraw.FillableBarRequest" />
-    </xs:choice>
+    <xs:all>
+      <xs:element name="north" type="GenDraw.FillableBarRequest" minOccurs="0" />
+    </xs:all>
   </xs:complexType>
 
   <!-- GenDraw.FillableBarRequest -->
   <xs:complexType name="GenDraw.FillableBarRequest">
-    <xs:choice maxOccurs="unbounded">
-      <xs:element name="preRotationOffset" type="xs:string" />
-      <xs:element name="size" type="xs:string" />
-    </xs:choice>
+    <xs:all>
+      <xs:element name="preRotationOffset" type="xs:string" minOccurs="0" />
+      <xs:element name="size" type="xs:string" minOccurs="0" />
+    </xs:all>
   </xs:complexType>
 
   <!-- StorageSettingsType -->
@@ -1937,9 +1936,9 @@
     <xs:annotation>
       <xs:documentation>XML definition for RimWorld's DeathActionWorker type.</xs:documentation>
     </xs:annotation>
-    <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element name="props" type="DeathActionPropertiesType" />
-    </xs:choice>
+    <xs:all>
+      <xs:element name="props" type="DeathActionPropertiesType" minOccurs="0" />
+    </xs:all>
   </xs:complexType>
 
   <!-- DeathActionPropertiesType -->
@@ -1947,13 +1946,13 @@
     <xs:annotation>
       <xs:documentation>XML definition for RimWorld's DeathActionProperties type.</xs:documentation>
     </xs:annotation>
-    <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element name="workerClass" type="xs:string">
+    <xs:all>
+      <xs:element name="workerClass" type="xs:string" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: typeof (DeathActionWorker_Simple)</xs:documentation>
         </xs:annotation>
       </xs:element>
-    </xs:choice>
+    </xs:all>
   </xs:complexType>
 
   <!-- DetritusLeavingTypeType -->
@@ -1961,11 +1960,11 @@
     <xs:annotation>
       <xs:documentation>XML definition for RimWorld's DetritusLeavingType type.</xs:documentation>
     </xs:annotation>
-    <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element name="def" type="xs:string" />
-      <xs:element name="texOverrideIndex" type="xs:integer" />
-      <xs:element name="spawnChance" type="xs:float" />
-    </xs:choice>
+    <xs:all>
+      <xs:element name="def" type="xs:string" minOccurs="0" />
+      <xs:element name="texOverrideIndex" type="xs:integer" minOccurs="0" />
+      <xs:element name="spawnChance" type="xs:float" minOccurs="0" />
+    </xs:all>
   </xs:complexType>
 
   <!-- MotePropertiesType -->
@@ -1973,58 +1972,58 @@
     <xs:annotation>
       <xs:documentation>XML definition for RimWorld's MoteProperties type.</xs:documentation>
     </xs:annotation>
-    <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element name="realTime" type="BooleanType" />
-      <xs:element name="fadeInTime" type="xs:float" />
-      <xs:element name="solidTime" type="xs:float">
+    <xs:all>
+      <xs:element name="realTime" type="BooleanType" minOccurs="0" />
+      <xs:element name="fadeInTime" type="xs:float" minOccurs="0" />
+      <xs:element name="solidTime" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 1f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="fadeOutTime" type="xs:float" />
-      <xs:element name="acceleration" type="xs:string">
+      <xs:element name="fadeOutTime" type="xs:float" minOccurs="0" />
+      <xs:element name="acceleration" type="xs:string" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: Vector3.zero</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="speedPerTime" type="xs:float" />
-      <xs:element name="growthRate" type="xs:float" />
-      <xs:element name="collide" type="BooleanType" />
-      <xs:element name="archHeight" type="xs:float" />
-      <xs:element name="archDuration" type="xs:float" />
-      <xs:element name="archStartOffset" type="xs:float" />
-      <xs:element name="landSound" type="DefNameType" />
-      <xs:element name="unattachedDrawOffset" type="xs:string">
+      <xs:element name="speedPerTime" type="xs:float" minOccurs="0" />
+      <xs:element name="growthRate" type="xs:float" minOccurs="0" />
+      <xs:element name="collide" type="BooleanType" minOccurs="0" />
+      <xs:element name="archHeight" type="xs:float" minOccurs="0" />
+      <xs:element name="archDuration" type="xs:float" minOccurs="0" />
+      <xs:element name="archStartOffset" type="xs:float" minOccurs="0" />
+      <xs:element name="landSound" type="DefNameType" minOccurs="0" />
+      <xs:element name="unattachedDrawOffset" type="xs:string" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: Vector3.zero</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="attachedDrawOffset" type="xs:string" />
-      <xs:element name="needsMaintenance" type="BooleanType" />
-      <xs:element name="rotateTowardsTarget" type="BooleanType" />
-      <xs:element name="rotateTowardsMoveDirection" type="BooleanType" />
-      <xs:element name="scaleToConnectTargets" type="BooleanType" />
-      <xs:element name="attachedToHead" type="BooleanType" />
-      <xs:element name="fadeOutUnmaintained" type="BooleanType" />
-      <xs:element name="updateOffsetToMatchTargetRotation" type="BooleanType" />
-      <xs:element name="yFightingOffsetScalar01" type="xs:float">
+      <xs:element name="attachedDrawOffset" type="xs:string" minOccurs="0" />
+      <xs:element name="needsMaintenance" type="BooleanType" minOccurs="0" />
+      <xs:element name="rotateTowardsTarget" type="BooleanType" minOccurs="0" />
+      <xs:element name="rotateTowardsMoveDirection" type="BooleanType" minOccurs="0" />
+      <xs:element name="scaleToConnectTargets" type="BooleanType" minOccurs="0" />
+      <xs:element name="attachedToHead" type="BooleanType" minOccurs="0" />
+      <xs:element name="fadeOutUnmaintained" type="BooleanType" minOccurs="0" />
+      <xs:element name="updateOffsetToMatchTargetRotation" type="BooleanType" minOccurs="0" />
+      <xs:element name="yFightingOffsetScalar01" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 1f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="scalers">
+      <xs:element name="scalers" minOccurs="0">
         <xs:complexType>
           <xs:choice maxOccurs="unbounded">
             <xs:element name="li" type="CurvedScalerType" minOccurs="0" maxOccurs="unbounded" />
           </xs:choice>
         </xs:complexType>
       </xs:element>
-      <xs:element name="Lifespan" type="xs:float">
+      <xs:element name="Lifespan" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: this.fadeInTime + this.solidTime + this.fadeOutTime</xs:documentation>
         </xs:annotation>
       </xs:element>
-    </xs:choice>
+    </xs:all>
   </xs:complexType>
 
 
@@ -2033,16 +2032,16 @@
     <xs:annotation>
       <xs:documentation>XML definition for RimWorld's CurvedScaler type.</xs:documentation>
     </xs:annotation>
-    <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element name="curve" type="SimpleCurveType" />
-      <xs:element name="axisMask" type="xs:string">
+    <xs:all>
+      <xs:element name="curve" type="SimpleCurveType" minOccurs="0" />
+      <xs:element name="axisMask" type="xs:string" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: Vector3.one</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="scaleAmt" type="xs:string" />
-      <xs:element name="scaleTime" type="xs:string" />
-    </xs:choice>
+      <xs:element name="scaleAmt" type="xs:string" minOccurs="0" />
+      <xs:element name="scaleTime" type="xs:string" minOccurs="0" />
+    </xs:all>
   </xs:complexType>
 
   <!-- ApparelPropertiesType -->
@@ -2050,8 +2049,8 @@
     <xs:annotation>
       <xs:documentation>XML definition for RimWorld's ApparelProperties type.</xs:documentation>
     </xs:annotation>
-    <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element name="bodyPartGroups">
+    <xs:all>
+      <xs:element name="bodyPartGroups" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: BodyPartGroupDef[]</xs:documentation>
         </xs:annotation>
@@ -2062,7 +2061,7 @@
           </xs:choice>
         </xs:complexType>
       </xs:element>
-      <xs:element name="layers">
+      <xs:element name="layers" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: new List&lt;ApparelLayerDef&gt;()</xs:documentation>
         </xs:annotation>
@@ -2073,15 +2072,15 @@
           </xs:choice>
         </xs:complexType>
       </xs:element>
-      <xs:element name="wornGraphicPath" type="xs:string">
+      <xs:element name="wornGraphicPath" type="xs:string" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: ""</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="wornGraphicPaths" type="StringListType" />
-      <xs:element name="wornGraphicData" type="WornGraphicDataType" />
-      <xs:element name="useWornGraphicMask" type="BooleanType" />
-      <xs:element name="renderSkipFlags">
+      <xs:element name="wornGraphicPaths" type="StringListType" minOccurs="0" />
+      <xs:element name="wornGraphicData" type="WornGraphicDataType" minOccurs="0" />
+      <xs:element name="useWornGraphicMask" type="BooleanType" minOccurs="0" />
+      <xs:element name="renderSkipFlags" minOccurs="0">
         <xs:complexType>
           <xs:choice maxOccurs="unbounded">
             <xs:element name="li" type="DefNameType" minOccurs="0"
@@ -2089,9 +2088,9 @@
           </xs:choice>
         </xs:complexType>
       </xs:element>
-      <xs:element name="drawData" type="DrawDataType" />
-      <xs:element name="parentTagDef" type="DefNameType" />
-      <xs:element name="forceEyesVisibleForRotations">
+      <xs:element name="drawData" type="DrawDataType" minOccurs="0" />
+      <xs:element name="parentTagDef" type="DefNameType" minOccurs="0" />
+      <xs:element name="forceEyesVisibleForRotations" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: new List&lt;int&gt;()</xs:documentation>
         </xs:annotation>
@@ -2101,8 +2100,8 @@
           </xs:choice>
         </xs:complexType>
       </xs:element>
-      <xs:element name="shellRenderedBehindHead" type="BooleanType" />
-      <xs:element name="tags">
+      <xs:element name="shellRenderedBehindHead" type="BooleanType" minOccurs="0" />
+      <xs:element name="tags" minOccurs="0">
         <xs:complexType>
           <xs:sequence minOccurs="0" maxOccurs="unbounded">
             <xs:element name="li" />
@@ -2110,81 +2109,82 @@
           <xs:attribute name="Inherit" type="BooleanType" />
         </xs:complexType>
       </xs:element>
-      <xs:element name="defaultOutfitTags">
+      <xs:element name="defaultOutfitTags" minOccurs="0">
         <xs:complexType>
           <xs:sequence minOccurs="0" maxOccurs="unbounded">
             <xs:element name="li" type="xs:string" />
           </xs:sequence>
         </xs:complexType>
       </xs:element>
-      <xs:element name="canBeGeneratedToSatisfyWarmth" type="BooleanType">
+      <xs:element name="canBeGeneratedToSatisfyWarmth" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="canBeGeneratedToSatisfyToxicEnvironmentResistance" type="BooleanType">
+      <xs:element name="canBeGeneratedToSatisfyToxicEnvironmentResistance" type="BooleanType"
+        minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="canBeDesiredForIdeo" type="BooleanType">
+      <xs:element name="canBeDesiredForIdeo" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="ideoDesireAllowedFactionCategoryTags" type="StringListType" />
-      <xs:element name="ideoDesireDisallowedFactionCategoryTags" />
-      <xs:element name="wearPerDay" type="xs:float">
+      <xs:element name="ideoDesireAllowedFactionCategoryTags" type="StringListType" minOccurs="0" />
+      <xs:element name="ideoDesireDisallowedFactionCategoryTags" minOccurs="0" />
+      <xs:element name="wearPerDay" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: 0.4f</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="careIfWornByCorpse" type="BooleanType">
+      <xs:element name="careIfWornByCorpse" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="careIfDamaged" type="BooleanType">
+      <xs:element name="careIfDamaged" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="ignoredByNonViolent" type="BooleanType" />
-      <xs:element name="ai_pickUpOpportunistically" type="BooleanType" />
-      <xs:element name="blocksAddedPartWoundGraphics" type="BooleanType" />
-      <xs:element name="blocksVision" type="BooleanType" />
-      <xs:element name="immuneToToxGasExposure" type="BooleanType" />
-      <xs:element name="slaveApparel" type="BooleanType" />
-      <xs:element name="mechanitorApparel" type="BooleanType" />
-      <xs:element name="legsNakedUnlessCoveredBySomethingElse" type="BooleanType" />
-      <xs:element name="useDeflectMetalEffect" type="BooleanType" />
-      <xs:element name="countsAsClothingForNudity" type="BooleanType">
+      <xs:element name="ignoredByNonViolent" type="BooleanType" minOccurs="0" />
+      <xs:element name="ai_pickUpOpportunistically" type="BooleanType" minOccurs="0" />
+      <xs:element name="blocksAddedPartWoundGraphics" type="BooleanType" minOccurs="0" />
+      <xs:element name="blocksVision" type="BooleanType" minOccurs="0" />
+      <xs:element name="immuneToToxGasExposure" type="BooleanType" minOccurs="0" />
+      <xs:element name="slaveApparel" type="BooleanType" minOccurs="0" />
+      <xs:element name="mechanitorApparel" type="BooleanType" minOccurs="0" />
+      <xs:element name="legsNakedUnlessCoveredBySomethingElse" type="BooleanType" minOccurs="0" />
+      <xs:element name="useDeflectMetalEffect" type="BooleanType" minOccurs="0" />
+      <xs:element name="countsAsClothingForNudity" type="BooleanType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: true</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="anyTechLevelCanUseForWarmth" type="BooleanType" />
-      <xs:element name="gender" type="GenderType" />
-      <xs:element name="scoreOffset" type="xs:float" />
-      <xs:element name="developmentalStageFilter" type="DevelopmentalStageType">
+      <xs:element name="anyTechLevelCanUseForWarmth" type="BooleanType" minOccurs="0" />
+      <xs:element name="gender" type="GenderType" minOccurs="0" />
+      <xs:element name="scoreOffset" type="xs:float" minOccurs="0" />
+      <xs:element name="developmentalStageFilter" type="DevelopmentalStageType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Default: Adult</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="soundWear" type="DefNameType" />
-      <xs:element name="soundRemove" type="DefNameType" />
-      <xs:element name="RenderNodeProperties">
+      <xs:element name="soundWear" type="DefNameType" minOccurs="0" />
+      <xs:element name="soundRemove" type="DefNameType" minOccurs="0" />
+      <xs:element name="RenderNodeProperties" minOccurs="0">
         <xs:complexType>
-          <xs:choice maxOccurs="unbounded">
-            <xs:element name="li" type="PawnRenderNodePropertiesType" minOccurs="0"
-              maxOccurs="unbounded" />
-          </xs:choice>
+          <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="li" type="PawnRenderNodePropertiesType" />
+          </xs:sequence>
         </xs:complexType>
       </xs:element>
-    </xs:choice>
+    </xs:all>
   </xs:complexType>
 
   <!-- PawnRenderNodePropertiesType -->
+   <!-- TODO: tired -->
   <xs:complexType name="PawnRenderNodePropertiesType">
     <xs:annotation>
       <xs:documentation>XML definition for RimWorld's PawnRenderNodeProperties type.</xs:documentation>
