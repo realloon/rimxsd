@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "esModuleInterop": true,
     "erasableSyntaxOnly": true,
     "paths": {
       "generator/*": ["./packages/generator/*"],

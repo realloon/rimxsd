@@ -1,0 +1,602 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="../Shared/common.xsd" />
+  <xs:include schemaLocation="../Shared/custom.xsd" />
+  <xs:include schemaLocation="../Shared/attributes.xsd" />
+
+  <!-- HediffDefType -->
+  <xs:complexType name="HediffDefType">
+    <xs:annotation>
+      <xs:documentation>XML definition for RimWorld's HediffDef type.</xs:documentation>
+    </xs:annotation>
+
+    <xs:all>
+      <!-- #region Inherit DefType -->
+      <xs:element name="defName" type="DefNameType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The name of this Def. It is used as an identifier by the game code.
+            Default: "UnnamedDef"</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="label" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The name of this Def. It is used as an identifier by the game code.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="description" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A human-readable description given when the Def is inspected by players.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="descriptionHyperlinks" minOccurs="0" />
+      <xs:element name="ignoreConfigErrors" type="BooleanType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Disables config error checking. Intended for mod use. (Be careful!)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ignoreIllegalLabelCharacterConfigError" type="BooleanType"
+        minOccurs="0" />
+      <xs:element name="modExtensions" type="modExtensionsType" minOccurs="0" />
+      <xs:element name="shortHash" type="xs:unsignedShort" minOccurs="0" />
+      <xs:element name="index" type="xs:unsignedShort" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: ushort.MaxValue</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="modContentPack" minOccurs="0" />
+      <xs:element name="fileName" type="xs:string" minOccurs="0" />
+      <xs:element name="generated" type="BooleanType" minOccurs="0" />
+      <xs:element name="debugRandomId" type="xs:unsignedShort" minOccurs="0" />
+      <!-- #endregion -->
+
+      <xs:element name="hediffClass" type="DefNameType" minOccurs="0" />
+      <xs:element name="comps" type="compsType" minOccurs="0" />
+      <xs:element name="descriptionShort" type="xs:string" minOccurs="0" />
+      <xs:element name="debugLabelExtra" type="xs:string" minOccurs="0" />
+      <xs:element name="initialSeverity" type="xs:float" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: 0.5f</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="lethalSeverity" type="xs:float" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: -1f</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="stages" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="li" type="HediffStageType" />
+          </xs:sequence>
+          <xs:attribute name="Inherit" type="BooleanType" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="tendable" type="BooleanType" minOccurs="0" />
+      <xs:element name="isBad" type="BooleanType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="spawnThingOnRemoved" type="xs:string" minOccurs="0" />
+      <xs:element name="chanceToCauseNoPain" type="xs:float" minOccurs="0" />
+      <xs:element name="canApplyDodChanceForCapacityChanges" type="BooleanType" minOccurs="0" />
+      <xs:element name="makesSickThought" type="BooleanType" minOccurs="0" />
+      <xs:element name="makesAlert" type="BooleanType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="causesNeed" type="DefNameType" minOccurs="0" />
+      <xs:element name="disablesNeeds" type="DefNameListType" minOccurs="0" />
+      <xs:element name="minSeverity" type="xs:float" minOccurs="0" />
+      <xs:element name="maxSeverity" type="xs:float" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: float.MaxValue</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="scenarioCanAdd" type="BooleanType" minOccurs="0" />
+      <xs:element name="hediffGivers" type="HediffGiverListType" minOccurs="0" />
+      <xs:element name="cureAllAtOnceIfCuredByItem" type="BooleanType" minOccurs="0" />
+      <xs:element name="taleOnVisible" type="DefNameType" minOccurs="0" />
+      <xs:element name="recordDownedTale" type="BooleanType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="everCurableByItem" type="BooleanType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="tags" minOccurs="0">
+        <xs:complexType>
+          <xs:choice maxOccurs="unbounded">
+            <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="priceImpact" type="BooleanType" minOccurs="0" />
+      <xs:element name="priceOffset" type="xs:float" minOccurs="0" />
+      <xs:element name="chronic" type="BooleanType" minOccurs="0" />
+      <xs:element name="keepOnBodyPartRestoration" type="BooleanType" minOccurs="0" />
+      <xs:element name="countsAsAddedPartOrImplant" type="BooleanType" minOccurs="0" />
+      <xs:element name="blocksSocialInteraction" type="BooleanType" minOccurs="0" />
+      <xs:element name="blocksSleeping" type="BooleanType" minOccurs="0" />
+      <xs:element name="overrideTooltip" type="xs:string" minOccurs="0" />
+      <xs:element name="extraTooltip" type="xs:string" minOccurs="0" />
+      <xs:element name="inspectString" type="xs:string" minOccurs="0" />
+      <xs:element name="levelIsQuantity" type="BooleanType" minOccurs="0" />
+      <xs:element name="removeOnDeathrestStart" type="BooleanType" minOccurs="0" />
+      <xs:element name="preventsCrawling" type="BooleanType" minOccurs="0" />
+      <xs:element name="preventsPregnancy" type="BooleanType" minOccurs="0" />
+      <xs:element name="preventsLungRot" type="BooleanType" minOccurs="0" />
+      <xs:element name="pregnant" type="BooleanType" minOccurs="0" />
+      <xs:element name="allowMothballIfLowPriorityWorldPawn" type="BooleanType" minOccurs="0" />
+      <xs:element name="removeWithTags" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="li" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="onlyLifeThreateningTo" type="DefNameListType" minOccurs="0" />
+      <xs:element name="canAffectBionicOrImplant" type="BooleanType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="alwaysShowSeverity" type="BooleanType" minOccurs="0" />
+      <xs:element name="showGizmosOnCorpse" type="BooleanType" minOccurs="0" />
+      <xs:element name="defaultInstallPart" type="DefNameType" minOccurs="0" />
+      <xs:element name="possiblePathways" type="HediffInfectionPathwayListType" minOccurs="0" />
+      <xs:element name="givesInfectionPathways" type="DefNameListType" minOccurs="0" />
+      <xs:element name="duplicationAllowed" type="BooleanType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="preventsDeath" type="BooleanType" minOccurs="0" />
+      <xs:element name="allowedMeditationFocusTypes" type="DefNameListType" minOccurs="0" />
+      <xs:element name="abilities" type="DefNameListType" minOccurs="0" />
+      <xs:element name="isInfection" type="BooleanType" minOccurs="0" />
+      <xs:element name="forceRemoveOnResurrection" type="BooleanType" minOccurs="0" />
+      <xs:element name="organicAddedBodypart" type="BooleanType" minOccurs="0" />
+      <xs:element name="deprioritizeHealing" type="BooleanType" minOccurs="0" />
+      <xs:element name="clearsEgo" type="BooleanType" minOccurs="0" />
+      <xs:element name="aptitudes" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="li">
+              <xs:complexType>
+                <xs:all>
+                  <xs:element name="skill" type="DefNameType" minOccurs="0" />
+                  <xs:element name="level" type="xs:integer" minOccurs="0" />
+                </xs:all>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="removeOnRedressChanceByDaysCurve" type="SimpleCurveType" minOccurs="0" />
+      <xs:element name="removeOnQuestLodgers" type="BooleanType" minOccurs="0" />
+      <xs:element name="removeOnRedressIfNotOfKind" type="DefNameListType" minOccurs="0" />
+      <xs:element name="displayWound" type="BooleanType" minOccurs="0" />
+      <xs:element name="defaultLabelColor" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: Color.white</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="renderNodeProperties" type="PawnRenderNodePropertiesListType" minOccurs="0" />
+      <xs:element name="skinColorOverride" type="xs:string" minOccurs="0" />
+      <xs:element name="skinColorTint" type="xs:string" minOccurs="0" />
+      <xs:element name="skinColorTintStrength" type="xs:float" minOccurs="0" />
+      <xs:element name="skinShader" type="DefNameType" minOccurs="0" />
+      <xs:element name="forceRenderTreeRecache" type="BooleanType" minOccurs="0" />
+      <xs:element name="injuryProps" type="InjuryPropsType" minOccurs="0" />
+      <xs:element name="addedPartProps" type="AddedBodyPartPropsType" minOccurs="0" />
+      <xs:element name="labelNoun" type="xs:string" minOccurs="0" />
+      <xs:element name="battleStateLabel" type="xs:string" minOccurs="0" />
+      <xs:element name="labelNounPretty" type="xs:string" minOccurs="0" />
+      <xs:element name="targetPrefix" type="xs:string" minOccurs="0" />
+      <xs:element name="IsAddiction" type="BooleanType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: typeof (Hediff_Addiction).IsAssignableFrom(this.hediffClass)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="reportString" type="xs:string" minOccurs="0" />
+    </xs:all>
+
+    <xs:attributeGroup ref="DefAttributeGroup" />
+  </xs:complexType>
+
+  <!-- HediffStageType -->
+  <xs:complexType name="HediffStageType">
+    <xs:annotation>
+      <xs:documentation>XML definition for RimWorld's HediffStage type.</xs:documentation>
+    </xs:annotation>
+    <xs:all>
+      <xs:element name="minSeverity" type="xs:float" minOccurs="0" />
+      <xs:element name="label" type="xs:string" minOccurs="0" />
+      <xs:element name="overrideLabel" type="xs:string" minOccurs="0" />
+      <xs:element name="untranslatedLabel" type="xs:string" minOccurs="0" />
+      <xs:element name="becomeVisible" type="xs:boolean" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="lifeThreatening" type="xs:boolean" minOccurs="0" />
+      <xs:element name="tale" type="DefNameType" minOccurs="0" />
+      <xs:element name="vomitMtbDays" type="xs:float" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: -1f</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="deathMtbDays" type="xs:float" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: -1f</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="mtbDeathDestroysBrain" type="xs:boolean" minOccurs="0" />
+      <xs:element name="painFactor" type="xs:float" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: 1f</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="painOffset" type="xs:float" minOccurs="0" />
+      <xs:element name="totalBleedFactor" type="xs:float" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: 1f</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="naturalHealingFactor" type="xs:float" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: -1f</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="regeneration" type="xs:float" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: -1f</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="showRegenerationStat" type="xs:boolean" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="forgetMemoryThoughtMtbDays" type="xs:float" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: -1f</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="pctConditionalThoughtsNullified" type="xs:float" minOccurs="0" />
+      <xs:element name="pctAllThoughtNullification" type="xs:float" minOccurs="0" />
+      <xs:element name="opinionOfOthersFactor" type="xs:float" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: 1f</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="fertilityFactor" type="xs:float" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: 1f</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="hungerRateFactor" type="xs:float" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: 1f</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="hungerRateFactorOffset" type="xs:float" minOccurs="0" />
+      <xs:element name="restFallFactor" type="xs:float" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: 1f</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="restFallFactorOffset" type="xs:float" minOccurs="0" />
+      <xs:element name="socialFightChanceFactor" type="xs:float" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: 1f</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="foodPoisoningChanceFactor" type="xs:float" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: 1f</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="mentalBreakMtbDays" type="xs:float" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: -1f</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="mentalBreakExplanation" type="xs:string" minOccurs="0" />
+      <xs:element name="blocksMentalBreaks" type="xs:boolean" minOccurs="0" />
+      <xs:element name="blocksInspirations" type="xs:boolean" minOccurs="0" />
+      <xs:element name="overrideMoodBase" type="xs:float" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: -1f</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="severityGainFactor" type="xs:float" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: 1f</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="allowedMentalBreakIntensities" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="li" type="MentalBreakIntensityType" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="makeImmuneTo" type="DefNameListType" minOccurs="0">
+      </xs:element>
+      <xs:element name="capMods" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="li" type="PawnCapacityModifierType" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="hediffGivers" type="HediffGiverListType" minOccurs="0" />
+      <xs:element name="mentalStateGivers" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="li" type="MentalStateGiverType" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <!-- TODO: List<StatModifier> -->
+      <xs:element name="statOffsets" minOccurs="0" />
+      <xs:element name="statFactors" minOccurs="0" />
+      <xs:element name="statOffsetsBySeverity" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="li" type="StatModifierBySeverityType" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="statFactorsBySeverity" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="li" type="StatModifierBySeverityType" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="damageFactors" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="li" type="DamageFactorType" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="enablesNeeds" type="DefNameListType" minOccurs="0" />
+      <xs:element name="disablesNeeds" type="DefNameListType" minOccurs="0" />
+      <xs:element name="multiplyStatChangesBySeverity" type="xs:boolean" minOccurs="0" />
+      <xs:element name="statOffsetEffectMultiplier" type="DefNameType" minOccurs="0" />
+      <xs:element name="statFactorEffectMultiplier" type="DefNameType" minOccurs="0" />
+      <xs:element name="capacityFactorEffectMultiplier" type="DefNameType" minOccurs="0" />
+      <!-- TODO: WorkTags [Flags] -->
+      <xs:element name="disabledWorkTags" type="xs:string" minOccurs="0" />
+      <xs:element name="overrideTooltip" type="xs:string" minOccurs="0" />
+      <xs:element name="extraTooltip" type="xs:string" minOccurs="0" />
+      <xs:element name="blocksSleeping" type="xs:boolean" minOccurs="0" />
+      <xs:element name="partEfficiencyOffset" type="xs:float" minOccurs="0" />
+      <xs:element name="partIgnoreMissingHP" type="xs:boolean" minOccurs="0" />
+      <xs:element name="destroyPart" type="xs:boolean" minOccurs="0" />
+      <xs:element name="AffectsSocialInteractions" type="xs:boolean" minOccurs="0" />
+    </xs:all>
+  </xs:complexType>
+
+  <!-- PawnCapacityModifierType -->
+  <xs:complexType name="PawnCapacityModifierType">
+    <xs:all>
+      <xs:element name="capacity" type="DefNameType" minOccurs="0" />
+      <xs:element name="offset" type="xs:float" minOccurs="0" />
+      <xs:element name="setMax" type="xs:float" minOccurs="0" />
+      <xs:element name="postFactor" type="xs:float" minOccurs="0" />
+      <xs:element name="statFactorMod" type="DefNameType" minOccurs="0" />
+      <xs:element name="setMaxCurveOverride" type="SimpleCurveType" minOccurs="0" />
+      <xs:element name="setMaxCurveEvaluateStat" type="DefNameType" minOccurs="0" />
+    </xs:all>
+  </xs:complexType>
+
+  <!-- MentalStateGiverType -->
+  <xs:complexType name="MentalStateGiverType">
+    <xs:all>
+      <xs:element name="mentalState" type="DefNameType" minOccurs="0" />
+      <xs:element name="mtbDays" type="xs:float" minOccurs="0" />
+    </xs:all>
+  </xs:complexType>
+
+
+  <!-- StatModifierBySeverityType -->
+  <xs:complexType name="StatModifierBySeverityType">
+    <xs:all>
+      <xs:element name="stat" type="DefNameType" minOccurs="0" />
+      <xs:element name="valueBySeverity" type="SimpleCurveType" minOccurs="0" />
+    </xs:all>
+  </xs:complexType>
+
+  <!-- DamageFactorType -->
+  <xs:complexType name="DamageFactorType">
+    <xs:all>
+      <xs:element name="damageDef" type="DefNameType" minOccurs="0" />
+      <xs:element name="factor" type="xs:float" minOccurs="0" />
+    </xs:all>
+  </xs:complexType>
+
+  <!-- AddedBodyPartPropsType -->
+  <xs:complexType name="AddedBodyPartPropsType">
+    <xs:all>
+      <xs:element name="partEfficiency" type="xs:float" minOccurs="0" />
+      <xs:element name="solid" type="xs:boolean" minOccurs="0" />
+      <xs:element name="isGoodWeapon" type="xs:boolean" minOccurs="0" />
+      <xs:element name="betterThanNatural" type="xs:boolean" minOccurs="0" />
+    </xs:all>
+  </xs:complexType>
+
+  <!-- InjuryPropsType -->
+  <xs:complexType name="InjuryPropsType">
+    <xs:all>
+      <xs:element name="painPerSeverity" type="xs:float" minOccurs="0" />
+      <xs:element name="averagePainPerSeverityPermanent" type="xs:float" minOccurs="0" />
+      <xs:element name="bleedRate" type="xs:float" minOccurs="0" />
+      <xs:element name="canMerge" type="xs:boolean" minOccurs="0" />
+      <xs:element name="destroyedLabel" type="xs:string" minOccurs="0" />
+      <xs:element name="destroyedOutLabel" type="xs:string" minOccurs="0" />
+      <xs:element name="useRemovedLabel" type="xs:boolean" minOccurs="0" />
+      <xs:element name="alwaysUseDestroyedLabel" type="xs:boolean" minOccurs="0" />
+    </xs:all>
+  </xs:complexType>
+
+  <!-- HediffInfectionPathwayListType -->
+  <xs:complexType name="HediffInfectionPathwayListType">
+    <xs:sequence minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="li">
+        <xs:complexType>
+          <xs:all>
+            <xs:element name="pathwayDef" type="DefNameType" minOccurs="0" />
+            <xs:element name="explanation" type="xs:string" minOccurs="0" />
+          </xs:all>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- PawnRenderNodePropertiesListType -->
+  <xs:complexType name="PawnRenderNodePropertiesListType">
+    <xs:sequence minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="li">
+        <xs:complexType>
+          <xs:all>
+            <xs:element name="workerClass" type="DefNameType" minOccurs="0" />
+            <!-- <xs:element name="subworkerClasses">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="li" type="System.TypeType" minOccurs="0" maxOccurs="unbounded" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element> -->
+            <xs:element name="nodeClass" type="DefNameType" minOccurs="0" />
+            <xs:element name="tagDef" type="DefNameType" minOccurs="0" />
+            <xs:element name="parentTagDef" type="DefNameType" minOccurs="0" />
+            <xs:element name="children" minOccurs="0">
+              <xs:complexType>
+                <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                  <xs:element name="li" type="PawnRenderNodePropertiesType" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="texPath" type="xs:string" minOccurs="0" />
+            <xs:element name="texPaths" minOccurs="0">
+              <xs:complexType>
+                <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                  <xs:element name="li" type="xs:string" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="texPathFemale" type="xs:string" minOccurs="0" />
+            <xs:element name="texPathsFemale" minOccurs="0">
+              <xs:complexType>
+                <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                  <xs:element name="li" type="xs:string" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="bodyTypeGraphicPaths" minOccurs="0">
+              <xs:complexType>
+                <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                  <xs:element name="li" type="BodyTypeGraphicDataType" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="texSeed" type="xs:integer" minOccurs="0" />
+            <xs:element name="useGraphic" type="xs:boolean" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation>Default: true</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="skipFlag" type="DefNameType" minOccurs="0" />
+            <xs:element name="rotDrawMode" type="RotDrawModeType" minOccurs="0" />
+            <xs:element name="pawnType" type="PawnRenderNodeProperties.RenderNodePawnTypeType"
+              minOccurs="0" />
+            <xs:element name="linkedBodyPartsGroup" type="DefNameType" minOccurs="0" />
+            <xs:element name="colorRGBPostFactor" type="xs:float" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation>Default: 1f</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="useRottenColor" type="xs:boolean" minOccurs="0" />
+            <xs:element name="useSkinShader" type="xs:boolean" minOccurs="0" />
+            <xs:element name="shaderTypeDef" type="DefNameType" minOccurs="0" />
+            <xs:element name="colorType" type="PawnRenderNodeProperties.AttachmentColorTypeType"
+              minOccurs="0" />
+            <xs:element name="baseLayer" type="xs:float" minOccurs="0" />
+            <xs:element name="drawData" type="DrawDataType" minOccurs="0" />
+            <xs:element name="oppositeFacingLayerWhenFlipped" type="xs:boolean" minOccurs="0" />
+            <xs:element name="drawSize" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation>Default: Vector2.one</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="anchorTag" type="xs:string" minOccurs="0" />
+            <xs:element name="side" type="PawnRenderNodeProperties.SideType" minOccurs="0" />
+            <xs:element name="narrowCrownHorizontalOffset" type="xs:float" minOccurs="0" />
+            <xs:element name="visibleFacing" minOccurs="0">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="flipGraphic" type="xs:boolean" minOccurs="0" />
+            <xs:element name="rotateIndependently" type="xs:boolean" minOccurs="0" />
+            <xs:element name="debugLabel" type="xs:string" minOccurs="0" />
+            <xs:element name="overlayLayer" type="PawnOverlayDrawer.OverlayLayerType" minOccurs="0" />
+            <!-- <xs:element name="Worker" type="PawnRenderNodeWorkerType" /> -->
+          </xs:all>
+          <xs:attribute name="Class" type="DefNameType" />
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- HediffGiverListType -->
+  <xs:complexType name="HediffGiverListType">
+    <xs:sequence minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="li">
+        <xs:complexType>
+          <xs:all>
+            <xs:element name="hediff" type="DefNameType" minOccurs="0" />
+            <xs:element name="partsToAffect" type="DefNameListType" minOccurs="0" />
+            <xs:element name="canAffectAnyLivePart" type="xs:boolean" minOccurs="0" />
+            <xs:element name="allowOnLodgers" type="xs:boolean" minOccurs="0" />
+            <xs:element name="allowOnQuestRewardPawns" type="xs:boolean" minOccurs="0" />
+            <xs:element name="allowOnQuestReservedPawns" type="xs:boolean" minOccurs="0" />
+            <xs:element name="allowOnBeggars" type="xs:boolean" minOccurs="0" />
+            <xs:element name="countToAffect" type="xs:integer" minOccurs="0" />
+            <xs:element name="mtbDays" type="xs:float" />
+          </xs:all>
+          <xs:attribute name="Class" type="DefNameType" />
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- MentalBreakIntensityType -->
+  <xs:simpleType name="MentalBreakIntensityType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="Minor" />
+      <xs:enumeration value="Major" />
+      <xs:enumeration value="Extreme" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- PawnOverlayDrawer.OverlayLayerType -->
+  <xs:simpleType name="PawnOverlayDrawer.OverlayLayerType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Body" />
+      <xs:enumeration value="Head" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

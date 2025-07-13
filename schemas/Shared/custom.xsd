@@ -456,8 +456,8 @@
       <xs:element name="li">
         <xs:complexType>
           <xs:sequence minOccurs="0" maxOccurs="unbounded">
-            <xs:element name="compClass" type="xs:string" />
-            <xs:any processContents="lax" />
+            <xs:element name="compClass" type="xs:string" minOccurs="0" />
+            <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
           </xs:sequence>
           <xs:attribute name="Class" type="DefNameType" />
           <xs:attribute name="MayRequire" type="DependenciesType" />

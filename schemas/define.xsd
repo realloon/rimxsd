@@ -9,6 +9,7 @@
   <xs:include schemaLocation="./Defs/GameConditionDef.xsd" />
   <xs:include schemaLocation="./Defs/PawnKindDef.xsd" />
   <xs:include schemaLocation="./Defs/SurgeryOutcomeEffectDef.xsd" />
+  <xs:include schemaLocation="./Defs/HediffDef.xsd" />
 
   <!-- Root -->
   <xs:element name="Defs">
@@ -23,6 +24,7 @@
         <xs:element name="SurgeryOutcomeEffectDef" type="SurgeryOutcomeEffectDefType" />
         <xs:element name="GameConditionDef" type="GameConditionDefType" />
         <xs:element name="PawnKindDef" type="PawnKindDefType" />
+        <xs:element name="HediffDef" type="HediffDefType" />
       </xs:choice>
     </xs:complexType>
   </xs:element>
