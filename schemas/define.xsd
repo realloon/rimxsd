@@ -11,6 +11,7 @@
   <xs:include schemaLocation="./Defs/SurgeryOutcomeEffectDef.xsd" />
   <xs:include schemaLocation="./Defs/HediffDef.xsd" />
   <xs:include schemaLocation="./Defs/FleckDef.xsd" />
+  <xs:include schemaLocation="./Defs/SoundDef.xsd" />
 
   <!-- Root -->
   <xs:element name="Defs">
@@ -27,6 +28,7 @@
         <xs:element name="PawnKindDef" type="PawnKindDefType" />
         <xs:element name="HediffDef" type="HediffDefType" />
         <xs:element name="FleckDef" type="FleckDefType" />
+        <xs:element name="SoundDef" type="SoundDefType" />
       </xs:choice>
     </xs:complexType>
   </xs:element>

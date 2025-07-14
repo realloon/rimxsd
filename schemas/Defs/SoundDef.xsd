@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="../Shared/common.xsd" />
+  <xs:include schemaLocation="../Shared/enum.xsd" />
+  <xs:include schemaLocation="../Shared/custom.xsd" />
+  <xs:include schemaLocation="../Shared/attributes.xsd" />
+
+  <xs:complexType name="SoundDefType">
+    <xs:annotation>
+      <xs:documentation>XML definition for RimWorld's SoundDef type.</xs:documentation>
+    </xs:annotation>
+
+
+    <xs:all>
+      <!-- #region Inherit DefType -->
+      <xs:element name="defName" type="DefNameType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The name of this Def. It is used as an identifier by the game code.
+            Default: "UnnamedDef"</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="label" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The name of this Def. It is used as an identifier by the game code.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="description" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A human-readable description given when the Def is inspected by players.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="descriptionHyperlinks" minOccurs="0" />
+      <xs:element name="ignoreConfigErrors" type="BooleanType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Disables config error checking. Intended for mod use. (Be careful!)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ignoreIllegalLabelCharacterConfigError" type="BooleanType"
+        minOccurs="0" />
+      <xs:element name="modExtensions" type="modExtensionsType" minOccurs="0" />
+      <xs:element name="shortHash" type="xs:unsignedShort" minOccurs="0" />
+      <xs:element name="index" type="xs:unsignedShort" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: ushort.MaxValue</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="modContentPack" minOccurs="0" />
+      <xs:element name="fileName" type="xs:string" minOccurs="0" />
+      <xs:element name="generated" type="BooleanType" minOccurs="0" />
+      <xs:element name="debugRandomId" type="xs:unsignedShort" minOccurs="0" />
+      <!-- #endregion -->
+
+      <xs:element name="sustain" type="xs:boolean" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If checked, this sound is a sustainer.\n\nSustainers are used for sounds
+            with a defined beginning and end (as opposed to OneShots, which just fire at a given
+            instant).\n\nThis value must match what the game expects from the SubSoundDef with this
+            name.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="context" type="SoundContextType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>When the sound is allowed to play: only when the map view is active,
+            only when the world view is active, or always (map + world + main menu).</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="eventNames" type="StringListType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Event names for this sound.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="maxVoices" type="xs:integer" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>For one-shots, this is the number of individual sounds from this Def
+            than can be playing at a time.\n\n For sustainers, this is the number of sustainers that
+            can be running with this sound (each of which can have sub-sounds). Sustainers can fade
+            in and out as you move the camera or objects move, to keep the nearest ones
+            audible.\n\nThis setting may not work for on-camera sounds. Default: 4</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="maxSimultaneous" type="xs:integer" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The number of instances of this sound that can play at almost exactly
+            the same moment. Handles cases like six gunners all firing their identical guns at the
+            same time because a target came into view of all of them at the same time. Ordinarily
+            this would make a painfully loud sound, but you can reduce it with this. Default: 3</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="priorityMode" type="VoicePriorityModeType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If the system has to not play some instances of this sound because of
+            maxVoices, this determines which ones are ignored.\n\nYou should use PrioritizeNewest
+            for things like gunshots, so older still-playing samples are overridden by newer, more
+            important ones.\n\nSustained sounds should usually prioritize nearest, so if a new fire
+            starts burning nearby it can override a more distant one.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="slot" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The special sound slot this sound takes. If a sound with this slot is
+            playing, new sounds in this slot will not play.\n\nOnly works for on-camera sounds.
+            Default: ""</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="sustainStartSound" type="SoundDefType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The name of the SoundDef that will be played when this sustainer starts.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="sustainStopSound" type="SoundDefType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The name of the SoundDef that will be played when this sustainer ends.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="sustainFadeoutTime" type="xs:float" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>After a sustainer is ended, the sound will fade out over this many
+            real-time seconds.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="sustainFadeoutStartSound" type="SoundDefType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The name of the SoundDef that will be played when this sustainer starts
+            to fade out.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="subSounds" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>All the sounds that will play when this set is triggered.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="li" type="SubSoundDefType" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="isUndefined" type="xs:boolean" minOccurs="0" />
+      <!-- <xs:element name="testSustainer" type="SustainerType" minOccurs="0" /> -->
+      <xs:element name="MaxSimultaneousSamples" type="xs:integer" minOccurs="0" />
+    </xs:all>
+
+    <xs:attributeGroup ref="DefAttributeGroup" />
+  </xs:complexType>
+
+  <!-- SoundContextType -->
+  <xs:simpleType name="SoundContextType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Any" />
+      <xs:enumeration value="MapOnly" />
+      <xs:enumeration value="WorldOnly" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- VoicePriorityModeType -->
+  <xs:simpleType name="VoicePriorityModeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="PrioritizeNewest" />
+      <xs:enumeration value="PrioritizeExisting" />
+      <xs:enumeration value="PrioritizeNearest" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- SustainerType -->
+  <xs:complexType name="SustainerTypeSustainerType">
+    <xs:all>
+      <xs:element name="def" type="DefNameType" minOccurs="0" />
+      <xs:element name="info" minOccurs="0">
+        <xs:complexType>
+          <xs:all>
+            <!-- Dictionary<string, float> -->
+            <xs:element name="parameters" minOccurs="0" />
+            <xs:element name="volumeFactor" type="xs:float" minOccurs="0" />
+            <xs:element name="pitchFactor" type="xs:float" minOccurs="0" />
+            <xs:element name="testPlay" type="xs:boolean" minOccurs="0" />
+            <xs:element name="forcedPlayOnCamera" type="xs:boolean" minOccurs="0" />
+          </xs:all>
+        </xs:complexType>
+      </xs:element>
+      <!-- <xs:element name="worldRootObject" type="GameObjectType" minOccurs="0" /> -->
+      <xs:element name="lastMaintainTick" type="xs:integer" minOccurs="0" />
+      <xs:element name="lastMaintainFrame" type="xs:integer" minOccurs="0" />
+      <xs:element name="endRealTime" type="xs:float" minOccurs="0" />
+      <!-- <xs:element name="subSustainers" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="li" type="SubSustainerType" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element> -->
+      <!-- <xs:element name="externalParams" type="SoundParamsType" minOccurs="0" /> -->
+      <!-- <xs:element name="scopeFader" type="SustainerScopeFaderType" minOccurs="0" /> -->
+    </xs:all>
+  </xs:complexType>
+
+  <!-- SubSoundDefType -->
+  <xs:complexType name="SubSoundDefType">
+    <xs:all>
+      <xs:element name="name" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A name to help you identify the sound. Default: "UnnamedSubSoundDef"</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="onCamera" type="xs:boolean" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Whether this sound plays on the camera or in the world.\n\nThis must
+            match what the game expects from the sound Def with this name.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="muteWhenPaused" type="xs:boolean" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Whether to mute this subSound while the game is paused (either by the
+            pausing in play or by opening a menu)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="tempoAffectedByGameSpeed" type="xs:boolean" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Whether this subSound's tempo should be affected by the current tick
+            rate.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="grains" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The sound grains used for this sample. The game will choose one of these
+            randomly when the sound plays. Sustainers choose one for each sample as it begins.
+            Default: new List&lt;AudioGrain&gt;()</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="li">
+              <xs:complexType>
+                <xs:all>
+                  <xs:element name="clipPath" type="xs:string" minOccurs="0" />
+                  <xs:element name="clipFolderPath" type="xs:string" minOccurs="0" />
+                </xs:all>
+                <xs:attribute name="Class" type="DefNameType" />
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="volumeRange" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>This sound will play at a random volume inside this range.\n\nSustainers
+            will choose a different random volume for each sample. Default: new FloatRange(50f, 50f)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="pitchRange" type="FloatRangeType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>This sound will play at a random pitch inside this range.\n\nSustainers
+            will choose a different random pitch for each sample. Default: FloatRange.One</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="distRange" type="FloatRangeType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>This sound will play max volume when it is under minDistance from the
+            camera.\n\nIt will fade out linearly until the camera distance reaches its max. Default:
+            new FloatRange(25f, 70f)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="repeatMode" type="RepeatSelectModeType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>When the sound chooses the next grain, you may use this setting to have
+            it avoid repeating the last grain, or avoid repeating any of the grains in the last X
+            played, X being half the total number of grains defined. Default:
+            RepeatSelectMode.NeverLastHalf</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="paramMappings" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Mappings between game parameters (like fire size or wind speed) and
+            properties of the sound. Default: new List&lt;SoundParameterMapping&gt;()</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="li" type="SoundParameterMappingType" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="filters" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The filters to be applied to this sound. Default: new
+            List&lt;SoundFilter&gt;()</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <!-- TODO: SoundFilterType -->
+            <xs:element name="li" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="startDelayRange" type="FloatRangeType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A range of possible times between when this sound is triggered and when
+            it will actually start playing. Default: FloatRange.Zero</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="gameSpeedRange" type="IntRangeType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A range of game speeds this sound can be played on. Default: new
+            IntRange(0, 999)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="tag" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>One shots sharing the same tag are treated as the same sound when
+            determining importance.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="sustainLoop" type="xs:boolean" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If true, each sample in the sustainer will be looped and ended only
+            after sustainerLoopDurationRange. If not, the sounds will just play once and end after
+            their own length. Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="sustainLoopDurationRange" type="FloatRangeType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The range of durations that individual looped samples in the sustainer
+            will have. Each sample ends after a time randomly chosen in this range.\n\nOnly used if
+            the sustainer is looped. Default: new FloatRange(9999f, 9999f)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="sustainIntervalRange" type="FloatRangeType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The time between when one sample ends and the next starts.\n\nSet to
+            negative if you wish samples to overlap. Default: FloatRange.Zero</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="sustainIntervalFactorByAggregateSize" type="SimpleCurveType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The time between when one sample ends and the next starts.\n\nSet to
+            negative if you wish samples to overlap.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="sustainAttack" type="xs:float" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The fade-in time of each sample. The sample will start at 0 volume and
+            fade in over this number of seconds.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="sustainSkipFirstAttack" type="xs:boolean" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Skip the attack on the first sustainer sample. Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="sustainRelease" type="xs:float" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The fade-out time of each sample. At this number of seconds before the
+            sample ends, it will start fading out. Its volume will be zero at the moment it finishes
+            fading out.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="randomStartPoint" type="xs:boolean" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Whether to start the sample at a random point in the sound.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="canVacuumDampen" type="xs:boolean" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: true</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="parentDef" type="DefNameType" minOccurs="0" />
+    </xs:all>
+  </xs:complexType>
+
+  <!-- RepeatSelectModeType -->
+  <xs:simpleType name="RepeatSelectModeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Any" />
+      <xs:enumeration value="NeverTwice" />
+      <xs:enumeration value="NeverLastHalf" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- SoundParameterMappingType -->
+  <xs:complexType name="SoundParameterMappingType">
+    <xs:all>
+      <!-- <xs:element name="inParam" type="SoundParamSourceType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The independent parameter that the game will change to drive this
+            relationship.\n\nOn the graph, this is the X axis.</xs:documentation>
+        </xs:annotation>
+      </xs:element> -->
+      <!-- <xs:element name="outParam" type="SoundParamTargetType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The dependent parameter that will respond to changes to the
+            in-parameter.\n\nThis must match something the game can change about this sound.\n\nOn
+            the graph, this is the y-axis.</xs:documentation>
+        </xs:annotation>
+      </xs:element> -->
+      <xs:element name="paramUpdateMode" type="SoundParamUpdateModeType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Determines when sound parameters should be applies to
+            samples.\n\nConstant means the parameters are updated every frame and can change
+            continuously.\n\nOncePerSample means that the parameters are applied exactly once to
+            each sample that plays.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="curve" type="SimpleCurveType" minOccurs="0" />
+    </xs:all>
+  </xs:complexType>
+
+  <!-- SoundParamUpdateModeType -->
+  <xs:simpleType name="SoundParamUpdateModeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Constant" />
+      <xs:enumeration value="OncePerSample" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
