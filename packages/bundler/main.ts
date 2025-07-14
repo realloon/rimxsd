@@ -108,7 +108,7 @@ async function main() {
 
   if (args.length !== 2) {
     console.error(
-      '❌ Usage: ts-node src/bundler.ts <entry-file.xsd> <output-file.xsd>'
+      '❌ Usage: bun run ./packages/bundler/main.ts <entry-file.xsd> <output-file.xsd>'
     )
     process.exit(1)
   }
