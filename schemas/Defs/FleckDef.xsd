@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="../Shared/common.xsd" />
+  <xs:include schemaLocation="../Shared/enum.xsd" />
+  <xs:include schemaLocation="../Shared/custom.xsd" />
+  <xs:include schemaLocation="../Shared/attributes.xsd" />
+
+  <xs:complexType name="FleckDefType">
+    <xs:annotation>
+      <xs:documentation>XML definition for RimWorld's FleckDef type.</xs:documentation>
+    </xs:annotation>
+
+    <xs:all>
+      <!-- #region Inherit DefType -->
+      <xs:element name="defName" type="DefNameType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The name of this Def. It is used as an identifier by the game code.
+            Default: "UnnamedDef"</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="label" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The name of this Def. It is used as an identifier by the game code.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="description" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A human-readable description given when the Def is inspected by players.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="descriptionHyperlinks" minOccurs="0" />
+      <xs:element name="ignoreConfigErrors" type="BooleanType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Disables config error checking. Intended for mod use. (Be careful!)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ignoreIllegalLabelCharacterConfigError" type="BooleanType" minOccurs="0" />
+      <xs:element name="modExtensions" type="modExtensionsType" minOccurs="0" />
+      <xs:element name="shortHash" type="xs:unsignedShort" minOccurs="0" />
+      <xs:element name="index" type="xs:unsignedShort" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: ushort.MaxValue</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="modContentPack" minOccurs="0" />
+      <xs:element name="fileName" type="xs:string" minOccurs="0" />
+      <xs:element name="generated" type="BooleanType" minOccurs="0" />
+      <xs:element name="debugRandomId" type="xs:unsignedShort" minOccurs="0" />
+      <!-- #endregion -->
+
+      <xs:element name="fleckSystemClass" type="DefNameType" minOccurs="0" />
+      <xs:element name="altitudeLayer" type="AltitudeLayerType" minOccurs="0" />
+      <xs:element name="altitudeLayerIncOffset" type="xs:float" minOccurs="0" />
+      <xs:element name="drawGUIOverlay" type="xs:boolean" minOccurs="0" />
+      <xs:element name="graphicData" type="GraphicDataType" minOccurs="0" />
+      <xs:element name="randomGraphics" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="li" type="GraphicDataType" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="realTime" type="xs:boolean" minOccurs="0" />
+      <xs:element name="attachedToHead" type="xs:boolean" minOccurs="0" />
+      <xs:element name="useAttachLink" type="xs:boolean" minOccurs="0" />
+      <xs:element name="fadeInTime" type="xs:float" minOccurs="0" />
+      <xs:element name="solidTime" type="xs:float" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: 1f</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="fadeOutTime" type="xs:float" minOccurs="0" />
+      <xs:element name="acceleration" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: Vector3.zero</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="speedPerTime" type="FloatRangeType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: FloatRange.Zero</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="growthRate" type="xs:float" minOccurs="0" />
+      <xs:element name="scalers" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="li" type="CurvedScalerType" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="collide" type="xs:boolean" minOccurs="0" />
+      <xs:element name="landSound" type="SoundDefType" minOccurs="0" />
+      <xs:element name="unattachedDrawOffset" type="xs:string" minOccurs="0" />
+      <xs:element name="attachedDrawOffset" type="xs:string" minOccurs="0" />
+      <xs:element name="rotateTowardsMoveDirection" type="xs:boolean" minOccurs="0" />
+      <xs:element name="rotateTowardsMoveDirectionExtraAngle" type="xs:float" minOccurs="0" />
+      <xs:element name="drawOffscreen" type="xs:boolean" minOccurs="0" />
+      <xs:element name="archHeight" type="FloatRangeType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: FloatRange.Zero</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="archDuration" type="FloatRangeType" minOccurs="0" />
+      <xs:element name="archCurve" type="SimpleCurveType" minOccurs="0" />
+      <xs:element name="scalingAnchor" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Default: Vector3.one * 0.5f</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Lifetime" type="xs:float" minOccurs="0" />
+    </xs:all>
+
+    <xs:attributeGroup ref="DefAttributeGroup" />
+  </xs:complexType>
+</xs:schema>
